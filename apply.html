@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply | FERAL</title>
+  <meta name="description" content="Apply to work with FERAL. Full-service creator management for serious influencers ready to scale." />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-elevated: #0a0a0a;
+      --surface: #111111;
+      --text: #f5f5f5;
+      --text-muted: #a3a3a3;
+      --accent: #b8a9c9;
+      --accent-dim: rgba(184, 169, 201, 0.35);
+      --border-pearl: rgba(184, 169, 201, 0.12);
+      --font-heading: "DM Sans", system-ui, sans-serif;
+      --font-sans: "Inter", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .apply-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-pearl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .apply-header-logo { display: flex; align-items: center; gap: 0.5rem; }
+    .apply-header-logo img { width: 36px; height: 36px; }
+    .apply-header-back { font-size: 0.85rem; color: var(--text-muted); transition: color 0.2s; }
+    .apply-header-back:hover { color: var(--text); }
+
+    .apply-layout {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 68px;
+    }
+
+    /* Screenshot Wall */
+    .screenshot-wall {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    .scroll-columns {
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+    }
+
+    .scroll-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    .scroll-col img {
+      width: 100%;
+      border-radius: 8px;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .scroll-col img:hover { opacity: 1; }
+    .scroll-col-up { animation: scrollUp 80s linear infinite; }
+    .scroll-col-down { animation: scrollDown 80s linear infinite; }
+
+    @keyframes scrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+    @keyframes scrollDown {
+      0% { transform: translateY(-50%); }
+      100% { transform: translateY(0); }
+    }
+
+    .wall-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to right, transparent 0%, transparent 80%, rgba(0,0,0,0.95) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .wall-overlay-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .wall-overlay-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Form Panel */
+    .apply-panel {
+      width: 540px;
+      min-width: 540px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 3rem 6rem 2.5rem;
+      position: relative;
+      z-index: 3;
+    }
+
+    .apply-tagline {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin: 0 0 0.75rem;
+    }
+
+    .apply-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0 0 0.75rem;
+      background: linear-gradient(135deg, #f5f5f5 0%, #b8a9c9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .apply-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0 0 2rem;
+      line-height: 1.55;
+    }
+
+    /* Step Container */
+    .steps-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .form-step {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      opacity: 0;
+      transform: translateX(60px);
+    }
+
+    .form-step.active {
+      display: flex;
+      opacity: 1;
+      transform: translateX(0);
+      animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .form-step.slide-in-right {
+      animation: slideInRight 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .form-step.slide-in-left {
+      animation: slideInLeft 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(60px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-60px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .step-question {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem;
+      line-height: 1.4;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-field label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      background: var(--surface);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.95rem;
+      color: var(--text);
+      font-family: var(--font-sans);
+      transition: border-color 0.2s;
+      outline: none;
+      width: 100%;
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: rgba(163, 163, 163, 0.5);
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--accent);
+    }
+
+    .form-field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .form-field select option {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .form-row .form-field { flex: 1; }
+
+    /* Yes/No Toggle */
+    .toggle-group {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-family: var(--font-sans);
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .toggle-btn:hover {
+      border-color: var(--accent-dim);
+      color: var(--text);
+    }
+
+    .toggle-btn.selected {
+      background: rgba(184, 169, 201, 0.15);
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Navigation Buttons */
+    .step-nav {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .step-btn {
+      padding: 0.85rem 2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: var(--font-heading);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .step-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .step-btn-next {
+      color: #000;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e2d9dc 50%, #b8a9c9 100%);
+      flex: 1;
+    }
+
+    .step-btn-next:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(184, 169, 201, 0.25);
+    }
+
+    .step-btn-back {
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px solid var(--border-pearl) !important;
+      padding: 0.85rem 1.5rem;
+    }
+
+    .step-btn-back:hover {
+      color: var(--text);
+      border-color: var(--accent-dim) !important;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border-pearl);
+      padding: 0.75rem 2rem;
+    }
+
+    .progress-inner {
+      max-width: 540px;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: var(--surface);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #e8b4c4);
+      border-radius: 2px;
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      min-width: 120px;
+      text-align: right;
+    }
+
+    /* Success State */
+    .success-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+      padding: 2rem 0;
+    }
+
+    .success-state.visible {
+      display: flex;
+    }
+
+    .success-check {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(184, 169, 201, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-check svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--accent);
+    }
+
+    .success-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .success-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0;
+      max-width: 360px;
+    }
+
+    /* Mobile */
+    @media (max-width: 960px) {
+      .apply-layout { flex-direction: column; }
+
+      .screenshot-wall {
+        height: 40vh;
+        min-height: 280px;
+        flex: none;
+      }
+
+      .wall-overlay {
+        background: linear-gradient(to bottom, transparent 0%, transparent 55%, rgba(0,0,0,0.95) 100%);
+      }
+
+      .apply-panel {
+        width: 100%;
+        min-width: unset;
+        padding: 2rem 1.5rem 5rem;
+      }
+
+      .apply-title { font-size: 1.8rem; }
+      .form-row { flex-direction: column; gap: 1rem; }
+
+      .progress-inner {
+        max-width: 100%;
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .apply-panel { padding: 1.5rem 1rem 5rem; }
+      .apply-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="apply-header">
+    <a href="index.html" class="apply-header-logo">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" />
+    </a>
+    <a href="index.html" class="apply-header-back">Back to site</a>
+  </header>
+
+  <div class="apply-layout">
+    <div class="screenshot-wall">
+      <div class="scroll-columns" id="scroll-columns"></div>
+      <div class="wall-overlay"></div>
+      <div class="wall-overlay-top"></div>
+      <div class="wall-overlay-bottom"></div>
+    </div>
+
+    <div class="apply-panel">
+      <p class="apply-tagline">Apply to FERAL</p>
+      <h1 class="apply-title">Ready to scale?</h1>
+      <p class="apply-subtitle">We review every application personally. Tell us about yourself and where you want to go.</p>
+
+      <form id="apply-form" action="https://formsubmit.co/Kiefer@feralagency.net" method="POST">
+        <input type="hidden" name="_subject" value="New FERAL Application" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <div class="steps-container" id="steps-container">
+
+          <!-- Step 1: Name + Email -->
+          <div class="form-step active" data-step="0">
+            <p class="step-question">Let's start with the basics.</p>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="f-name">Name</label>
+                <input id="f-name" type="text" name="name" placeholder="Your name" required autocomplete="name" />
+              </div>
+              <div class="form-field">
+                <label for="f-email">Email</label>
+                <input id="f-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email" />
+              </div>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Phone + Instagram -->
+          <div class="form-step" data-step="1">
+            <p class="step-question">How can we reach you?</p>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="f-phone">Phone</label>
+                <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel" />
+              </div>
+              <div class="form-field">
+                <label for="f-instagram">Instagram</label>
+                <input id="f-instagram" type="text" name="instagram" placeholder="@yourhandle" required />
+              </div>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Country -->
+          <div class="form-step" data-step="2">
+            <p class="step-question">Where are you based?</p>
+            <div class="form-field">
+              <label for="f-country">Country of Residence</label>
+              <input id="f-country" type="text" name="country" placeholder="United States" required autocomplete="country-name" />
+            </div>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 4: Earnings -->
+          <div class="form-step" data-step="3">
+            <p class="step-question">What are you currently earning?</p>
+            <div class="form-field">
+              <label for="f-earnings">Current Monthly Earnings</label>
+              <select id="f-earnings" name="earnings" required>
+                <option value="" disabled selected>Select range</option>
+                <option value="0-1k">$0 - $1,000</option>
+                <option value="1k-5k">$1,000 - $5,000</option>
+                <option value="5k-10k">$5,000 - $10,000</option>
+                <option value="10k-25k">$10,000 - $25,000</option>
+                <option value="25k-50k">$25,000 - $50,000</option>
+                <option value="50k-100k">$50,000 - $100,000</option>
+                <option value="100k+">$100,000+</option>
+              </select>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 5: Current management -->
+          <div class="form-step" data-step="4">
+            <p class="step-question">Do you currently have management or representation?</p>
+            <div class="toggle-group">
+              <button type="button" class="toggle-btn" data-value="yes" onclick="selectManagement(this, true)">Yes</button>
+              <button type="button" class="toggle-btn" data-value="no" onclick="selectManagement(this, false)">No</button>
+            </div>
+            <input type="hidden" name="has_management" id="f-management" />
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
+              <button type="button" class="step-btn step-btn-next" id="mgmt-next" onclick="nextStep()" disabled>Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 5b: If yes - who + why switch (conditional) -->
+          <div class="form-step" data-step="5" data-conditional="management-yes">
+            <p class="step-question">Tell us about your current management.</p>
+            <div class="form-field">
+              <label for="f-current-mgmt">Who are they?</label>
+              <input id="f-current-mgmt" type="text" name="current_management" placeholder="Agency or manager name" />
+            </div>
+            <div class="form-field">
+              <label for="f-why-switch">Why do you want to switch to FERAL?</label>
+              <textarea id="f-why-switch" name="why_switch" placeholder="What's missing from your current setup?" rows="3"></textarea>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 6: Inspiration -->
+          <div class="form-step" data-step="6">
+            <p class="step-question">Who do you take inspiration from?</p>
+            <div class="form-field">
+              <label for="f-inspiration">Creators, brands, people</label>
+              <textarea id="f-inspiration" name="inspiration" placeholder="Other creators you admire, brands you love, people who motivate you." rows="3" required></textarea>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 7: Impact -->
+          <div class="form-step" data-step="7">
+            <p class="step-question">Why do you think you would make an impact at FERAL?</p>
+            <div class="form-field">
+              <label for="f-impact">Tell us</label>
+              <textarea id="f-impact" name="impact" placeholder="What drives you, what makes you different, and what you want to build." rows="4" required></textarea>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
+              <button type="submit" class="step-btn step-btn-next">Submit Application</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div class="success-state" id="success-state">
+          <div class="success-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h2 class="success-title">Application received.</h2>
+          <p class="success-text">We review every application personally. Expect to hear from us within 48 hours.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progress-bar">
+    <div class="progress-inner">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <span class="progress-text" id="progress-text">Question 1 of 8</span>
+    </div>
+  </div>
+
+  <script>
+    const screenshots = [
+      "results/screenshots/kiera/109-days.png",
+      "results/screenshots/kiera/latest-earnings.png",
+      "results/screenshots/kiera/month5-earnings.png",
+      "results/screenshots/kiera/6month-of-alltime.png",
+      "results/screenshots/kiera/6month-of-stats.png",
+      "results/screenshots/kiera/instagram-growth.png",
+      "results/screenshots/kiera/jan-instagram-views.png",
+      "results/screenshots/kiera/custom-1000-mar22.png",
+      "results/screenshots/kiera/custom-1000-mar9.png",
+      "results/screenshots/noelia/aug-reach.png",
+      "results/screenshots/noelia/jan-earnings.png",
+      "results/screenshots/noelia/jan-stats.png",
+      "results/screenshots/noelia/fans-growth.png",
+      "results/screenshots/noelia/fans-growth2.png",
+      "results/screenshots/noelia/instagram-341k.png",
+      "results/screenshots/noelia/insights-overview.png",
+      "results/screenshots/megan/best-week.png",
+      "results/screenshots/megan/single-day.png",
+      "results/screenshots/megan/5k-custom.png",
+      "results/screenshots/megan/customs.png",
+      "results/screenshots/megan/customs2.png",
+      "results/screenshots/megan/videocall-1200.png",
+      "results/screenshots/sofia/ranking.png",
+      "results/screenshots/sofia/ig-views.png",
+      "results/screenshots/sofia/spanish-revenue.png",
+      "results/screenshots/sofia/english-revenue.png",
+      "results/screenshots/sofia/instagram-analytics.png",
+      "results/screenshots/yasmin/2month-views.png",
+      "results/screenshots/yasmin/2month-reach.png",
+      "results/screenshots/yasmin/2month-followers.png",
+      "results/screenshots/yasmin/automation-revenue.png",
+      "results/screenshots/yasmin/custom-1000-jan17.png",
+      "results/screenshots/olivia/ig-views.png",
+      "results/screenshots/olivia/oct-revenue.png",
+      "results/screenshots/olivia/of-analytics.png",
+      "results/screenshots/olivia/follower-growth.png",
+      "results/screenshots/mia/2weeks-views.png",
+      "results/screenshots/mia/2weeks-reach.png",
+      "results/screenshots/mia/reel-views.png",
+      "results/screenshots/mia/viral-reel.png",
+      "results/screenshots/lorena/ig-views.png",
+      "results/screenshots/lorena/oct-revenue.png",
+      "results/screenshots/kiera/october-results.png",
+      "results/screenshots/kiera/month1-earnings.png",
+      "results/screenshots/kiera/dec-instagram.png",
+      "results/screenshots/kiera/60-days-proof.png",
+      "results/screenshots/megan/custom-1000-mar15.png",
+      "results/screenshots/megan/custom-2000-mar12.png",
+    ];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function buildColumns() {
+      const container = document.getElementById("scroll-columns");
+      const isMobile = window.innerWidth <= 960;
+      const numCols = isMobile ? 2 : 3;
+      const shuffled = shuffle([...screenshots]);
+      const cols = Array.from({ length: numCols }, () => []);
+      shuffled.forEach((src, i) => cols[i % numCols].push(src));
+
+      container.innerHTML = "";
+      cols.forEach((colImages, i) => {
+        const col = document.createElement("div");
+        col.className = `scroll-col ${i % 2 === 0 ? "scroll-col-up" : "scroll-col-down"}`;
+        [...colImages, ...colImages].forEach(src => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = "Creator results";
+          img.loading = "lazy";
+          col.appendChild(img);
+        });
+        container.appendChild(col);
+      });
+    }
+
+    buildColumns();
+
+    // Multi-step form logic
+    let currentStep = 0;
+    let hasManagement = null;
+
+    const allSteps = document.querySelectorAll(".form-step");
+    const progressFill = document.getElementById("progress-fill");
+    const progressText = document.getElementById("progress-text");
+
+    function getVisibleSteps() {
+      const steps = [];
+      allSteps.forEach(s => {
+        const cond = s.dataset.conditional;
+        if (cond === "management-yes" && !hasManagement) return;
+        steps.push(s);
+      });
+      return steps;
+    }
+
+    function getVisibleStepIndex(step) {
+      return getVisibleSteps().indexOf(step);
+    }
+
+    function updateProgress() {
+      const visible = getVisibleSteps();
+      const currentVisible = getVisibleStepIndex(allSteps[currentStep]);
+      const total = visible.length;
+      const pct = ((currentVisible + 1) / total) * 100;
+      progressFill.style.width = pct + "%";
+      progressText.textContent = `Question ${currentVisible + 1} of ${total}`;
+    }
+
+    function validateCurrentStep() {
+      const step = allSteps[currentStep];
+      const inputs = step.querySelectorAll("input[required], textarea[required], select[required]");
+      for (const inp of inputs) {
+        if (!inp.value.trim()) return false;
+        if (inp.type === "email" && !inp.value.includes("@")) return false;
+      }
+      if (currentStep === 4 && hasManagement === null) return false;
+      return true;
+    }
+
+    function goToStep(target) {
+      const prev = allSteps[currentStep];
+      const direction = target > currentStep ? 1 : -1;
+
+      prev.classList.remove("active", "slide-in-right", "slide-in-left");
+
+      currentStep = target;
+      const next = allSteps[currentStep];
+
+      next.classList.remove("slide-in-right", "slide-in-left");
+      next.classList.add("active", direction > 0 ? "slide-in-right" : "slide-in-left");
+
+      const firstInput = next.querySelector("input, textarea, select");
+      if (firstInput) setTimeout(() => firstInput.focus(), 100);
+
+      updateProgress();
+    }
+
+    function nextStep() {
+      if (!validateCurrentStep()) {
+        const step = allSteps[currentStep];
+        const inputs = step.querySelectorAll("input, textarea, select");
+        inputs.forEach(inp => {
+          if (inp.required && !inp.value.trim()) {
+            inp.style.borderColor = "#e07a7a";
+            setTimeout(() => inp.style.borderColor = "", 1500);
+          }
+        });
+        return;
+      }
+
+      let target = currentStep + 1;
+      while (target < allSteps.length) {
+        const cond = allSteps[target].dataset.conditional;
+        if (cond === "management-yes" && !hasManagement) {
+          target++;
+          continue;
+        }
+        break;
+      }
+
+      if (target < allSteps.length) {
+        goToStep(target);
+      }
+    }
+
+    function prevStep() {
+      let target = currentStep - 1;
+      while (target >= 0) {
+        const cond = allSteps[target].dataset.conditional;
+        if (cond === "management-yes" && !hasManagement) {
+          target--;
+          continue;
+        }
+        break;
+      }
+      if (target >= 0) {
+        goToStep(target);
+      }
+    }
+
+    function selectManagement(btn, value) {
+      hasManagement = value;
+      document.getElementById("f-management").value = value ? "yes" : "no";
+      btn.parentElement.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      document.getElementById("mgmt-next").disabled = false;
+      updateProgress();
+    }
+
+    // Handle enter key to advance
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+        e.preventDefault();
+        nextStep();
+      }
+    });
+
+    // Form submission
+    document.getElementById("apply-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      if (!validateCurrentStep()) return;
+
+      const form = this;
+      const data = new FormData(form);
+      const submitBtn = form.querySelector('[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      })
+      .then(res => {
+        if (res.ok) {
+          document.getElementById("steps-container").style.display = "none";
+          document.getElementById("success-state").classList.add("visible");
+          document.getElementById("progress-bar").style.display = "none";
+          document.querySelector(".apply-tagline").style.display = "none";
+          document.querySelector(".apply-title").textContent = "Thank you.";
+          document.querySelector(".apply-subtitle").style.display = "none";
+        } else {
+          throw new Error("Submit failed");
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Application";
+        alert("Something went wrong. Please try again.");
+      });
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
