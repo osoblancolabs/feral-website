@@ -983,7 +983,7 @@ a:hover {
   border: 1px solid var(--border-pearl);
   border-radius: 8px;
   margin: 0;
-  height: 320px;
+  min-height: 280px;
   display: flex;
   flex-direction: column;
   transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
@@ -1012,8 +1012,7 @@ a:hover {
 .testimonial-quote,
 .testimonial-quote-scroll {
   flex: 1;
-  min-height: 0;
-  height: 240px;
+  min-height: 200px;
   margin-bottom: 1rem;
 }
 
@@ -1048,9 +1047,22 @@ a:hover {
 }
 
 .testimonial footer {
+  display: block;
+  width: 100%;
   font-size: 0.9rem;
   color: var(--text-muted);
   flex-shrink: 0;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.testimonial-short {
+  min-height: auto;
+}
+
+.testimonial-short .testimonial-quote {
+  min-height: auto;
+  flex: none;
 }
 
 /* CTA / Contact */
