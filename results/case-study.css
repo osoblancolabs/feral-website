@@ -271,10 +271,12 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.01em;
 }
 .cs-ig-before-after {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto auto;
+  align-items: start;
+  column-gap: 2rem;
+  row-gap: 0.75rem;
   margin-top: 1.5rem;
   width: 100vw;
   max-width: 1400px;
@@ -282,33 +284,58 @@ a { color: inherit; text-decoration: none; }
   padding: 0 2rem;
   box-sizing: border-box;
 }
+.cs-ig-label {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-pearl);
+  line-height: 1.3;
+  min-height: 1.3em;
+}
+.cs-ig-label-spacer {
+  display: block;
+}
 .cs-ig-panel {
-  flex: 1;
   min-width: 0;
 }
 .cs-ig-panel img {
   width: 100%;
   height: auto;
 }
-.cs-ig-panel .cs-screenshot-subtitle {
-  text-align: center;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent-pearl);
-}
 .cs-ig-arrow {
-  flex-shrink: 0;
+  align-self: center;
   color: var(--accent-pearl);
   opacity: 0.7;
 }
 @media (max-width: 640px) {
   .cs-ig-before-after {
-    flex-direction: column;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    row-gap: 0.75rem;
+  }
+  .cs-ig-label-spacer {
+    display: none;
+  }
+  .cs-ig-label-before {
+    order: 1;
+  }
+  .cs-ig-panel:first-of-type {
+    order: 2;
   }
   .cs-ig-arrow {
+    order: 3;
+    justify-self: center;
     transform: rotate(90deg);
+    margin: 0.25rem 0;
+  }
+  .cs-ig-label-after {
+    order: 4;
+  }
+  .cs-ig-panel:last-of-type {
+    order: 5;
   }
 }
 .cs-screenshot-caption {
