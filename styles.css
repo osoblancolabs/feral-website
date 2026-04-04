@@ -696,8 +696,18 @@ a:hover {
   background: var(--bg-elevated);
 }
 
+.talent-apply-prompt {
+  margin: 1rem 0 0;
+  max-width: 560px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--text-muted);
+  text-align: left;
+}
+
 .talent-cta {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 /* About */
