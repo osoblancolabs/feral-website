@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Director — FERAL</title>
+  <meta name="description" content="FERAL is hiring a Creative Director to lead creative for the world's most distinctive creators." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-elevated: #0a0a0a;
+      --surface: #111111;
+      --text: #f5f5f5;
+      --text-muted: #a3a3a3;
+      --accent: #b8a9c9;
+      --accent-dim: rgba(184, 169, 201, 0.35);
+      --border-pearl: rgba(184, 169, 201, 0.12);
+      --pearl-pink: rgba(212, 184, 196, 0.5);
+      --pearl-lavender: rgba(184, 169, 201, 0.45);
+      --banner-text-gradient: linear-gradient(120deg, #7d6b9a 0%, #9d8fb5 22%, #b8a9c9 40%, #e8b4c4 60%, #e2d9dc 78%, #c9a0b0 92%, #9d8fb5 100%);
+      --stat-card-gradient: linear-gradient(135deg, rgba(125, 107, 154, 0.22) 0%, rgba(184, 169, 201, 0.18) 35%, rgba(232, 180, 196, 0.2) 65%, rgba(184, 169, 201, 0.18) 100%);
+      --btn-pearl: linear-gradient(135deg, rgba(184, 169, 201, 0.95) 0%, rgba(212, 184, 196, 0.9) 50%, rgba(200, 190, 210, 0.95) 100%);
+      --btn-hover-bg: #1a1520;
+      --btn-hover-text: #e8dcee;
+      --btn-hover-border: rgba(184, 169, 201, 0.4);
+      --font-heading: "DM Sans", system-ui, sans-serif;
+      --font-sans: "Inter", system-ui, sans-serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; transition: color 0.2s var(--ease-out); }
+    a:hover { color: var(--accent); }
+
+    /* Header */
+    .ct-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-pearl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ct-header-logo { display: flex; align-items: center; gap: 0.5rem; }
+    .ct-header-logo img { width: 36px; height: 36px; border-radius: 50%; }
+    .ct-header-tag {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    /* Page container */
+    .ct-page {
+      padding-top: 68px;
+    }
+    .ct-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .ct-container-wide {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero */
+    .ct-hero {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    .ct-eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin: 0 0 1rem;
+    }
+    .ct-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      background: linear-gradient(135deg, #f5f5f5 0%, #b8a9c9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ct-subtitle {
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* VSL embed — responsive 16:9 */
+    .ct-vsl {
+      max-width: 880px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-pearl);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 32px rgba(184, 169, 201, 0.08);
+      background: var(--bg-elevated);
+    }
+    .ct-vsl-ratio {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+    }
+    .ct-vsl-ratio iframe,
+    .ct-vsl-placeholder {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .ct-vsl-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(184, 169, 201, 0.08), transparent 60%),
+        var(--bg-elevated);
+    }
+    .ct-vsl-placeholder svg { width: 56px; height: 56px; opacity: 0.6; }
+
+    /* Section base */
+    .ct-section {
+      padding: 5rem 0;
+    }
+    .ct-section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.75rem;
+    }
+    .ct-section-intro {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 0 2.5rem;
+      line-height: 1.55;
+    }
+
+    /* Proof — result cards (ported from index.html) */
+    .ct-proof-caption {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .ct-proof-caption .ct-section-title { margin-bottom: 0.75rem; }
+    .ct-proof-caption .ct-section-intro { margin-left: auto; margin-right: auto; }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .result-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+      display: flex;
+      flex-direction: column;
+    }
+    .result-card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(184, 169, 201, 0.08);
+    }
+    .result-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .result-card-name h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .result-card-timeline {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+    .result-card-badge {
+      flex-shrink: 0;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.3rem 0.65rem;
+      border-radius: 4px;
+      background: var(--stat-card-gradient);
+      border: 1px solid var(--border-pearl);
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .result-card-headline {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      background: var(--banner-text-gradient);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.1rem;
+      line-height: 1.3;
+    }
+    .result-card-metrics {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+      padding: 0.85rem;
+      border-radius: 6px;
+      background: rgba(184, 169, 201, 0.04);
+      border: 1px solid rgba(184, 169, 201, 0.08);
+    }
+    .result-metric { flex: 1; text-align: center; }
+    .result-metric-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.2rem;
+    }
+    .result-metric-value {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .result-metric-before { color: var(--text-muted); }
+    .result-metric-after { color: var(--text); }
+    .result-metric-arrow {
+      width: 16px;
+      height: 1px;
+      background: var(--accent-dim);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .result-metric-arrow::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -3px;
+      width: 6px;
+      height: 6px;
+      border-right: 1px solid var(--accent);
+      border-top: 1px solid var(--accent);
+      transform: rotate(45deg);
+    }
+    .result-card-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .result-stat {
+      text-align: center;
+      padding: 0.65rem 0.4rem;
+      border-radius: 6px;
+      background: rgba(184, 169, 201, 0.03);
+    }
+    .result-stat-value {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .result-stat-label {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
+    .result-card-toggle {
+      margin-top: auto;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      align-self: flex-start;
+      padding-top: 0.25rem;
+      letter-spacing: 0.01em;
+    }
+    .result-card-toggle:hover { color: var(--text); }
+
+    /* Role + qualifications */
+    .ct-role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .ct-role-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .ct-role-block h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      letter-spacing: -0.01em;
+    }
+    .ct-role-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .ct-role-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.85rem;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .ct-role-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .ct-role-prose p {
+      color: var(--text-muted);
+      margin: 0 0 1rem;
+      font-size: 1.02rem;
+      line-height: 1.65;
+    }
+
+    /* Form */
+    .ct-form-shell {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-pearl);
+      border-radius: 12px;
+      padding: 2.5rem;
+    }
+    @media (max-width: 600px) {
+      .ct-form-shell { padding: 1.75rem 1.25rem; }
+    }
+    .ct-form-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0 0 0.5rem;
+    }
+    .ct-form-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0 0 2rem;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1.1rem;
+    }
+    .form-field label {
+      font-size: 0.76rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .form-field-required label::after {
+      content: ' *';
+      color: var(--accent);
+    }
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      background: var(--surface);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.95rem;
+      color: var(--text);
+      font-family: var(--font-sans);
+      transition: border-color 0.2s var(--ease-out);
+      outline: none;
+      width: 100%;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: rgba(163, 163, 163, 0.5);
+    }
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--accent);
+    }
+    .form-field input.error,
+    .form-field textarea.error,
+    .form-field select.error {
+      border-color: #e07a7a;
+    }
+    .form-field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+    .form-field select option { background: var(--surface); color: var(--text); }
+    .form-field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-help {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin: 0.15rem 0 0;
+    }
+    .form-error-msg {
+      font-size: 0.78rem;
+      color: #e07a7a;
+      margin: 0.15rem 0 0;
+      display: none;
+    }
+    .form-field.has-error .form-error-msg { display: block; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-row .form-field { margin-bottom: 1.1rem; }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+    }
+    .char-count {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 0.2rem;
+    }
+    .char-count.over { color: #e07a7a; }
+
+    /* Primary submit button — matches site .btn-primary */
+    .ct-btn {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      padding: 0.95rem 2rem;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 4px;
+      border: 1px solid var(--border-pearl);
+      cursor: pointer;
+      transition: transform 0.2s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.4s var(--ease-out), color 0.4s var(--ease-out);
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    .ct-btn-primary {
+      background: var(--btn-pearl);
+      color: #0a0a0a;
+      box-shadow: 0 0 20px rgba(184, 169, 201, 0.2);
+    }
+    .ct-btn-primary:hover {
+      background: var(--btn-hover-bg);
+      color: var(--btn-hover-text);
+      border-color: var(--btn-hover-border);
+      box-shadow: 0 0 32px rgba(184, 169, 201, 0.25);
+      transform: translateY(-2px);
+    }
+    .ct-btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .ct-form-submit {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    .form-status {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .form-status.error { color: #e07a7a; }
+
+    /* Success state */
+    .ct-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .ct-success.visible { display: flex; }
+    .ct-success-check {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(184, 169, 201, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .ct-success-check svg { width: 32px; height: 32px; stroke: var(--accent); }
+    .ct-success h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+    }
+    .ct-success p { color: var(--text-muted); max-width: 380px; margin: 0; }
+
+    /* Closing CTA */
+    .ct-close {
+      text-align: center;
+      padding: 5rem 0 7rem;
+    }
+    .ct-close .ct-section-title { margin-bottom: 1.5rem; }
+    .ct-close .ct-section-intro {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .ct-footer {
+      border-top: 1px solid var(--border-pearl);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .ct-footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Mobile spacing */
+    @media (max-width: 600px) {
+      .ct-section { padding: 4rem 0; }
+      .ct-hero { padding: 2.5rem 0 2rem; }
+      .ct-close { padding: 4rem 0 5rem; }
+      .ct-container, .ct-container-wide { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="ct-header">
+    <a href="index.html" class="ct-header-logo" aria-label="FERAL home">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" />
+    </a>
+    <span class="ct-header-tag">Now Hiring</span>
+  </header>
+
+  <main class="ct-page" id="main-content">
+
+    <!-- HERO ============================================================ -->
+    <section class="ct-hero">
+      <div class="ct-container">
+        <p class="ct-eyebrow">Now Hiring · Creative Director</p>
+        <h1 class="ct-title">Lead creative for the agency behind million-dollar creators.</h1>
+        <p class="ct-subtitle">FERAL manages over 100 creators driving 1.2B monthly views and $21M+ in revenue. We're looking for a Creative Director to own the work that gets us there.</p>
+        <!-- VSL ===================================
+             To embed: replace YOUTUBE_VIDEO_ID with the actual YouTube ID,
+             then delete the .ct-vsl-placeholder block.
+             ======================================== -->
+        <div class="ct-vsl">
+          <div class="ct-vsl-ratio">
+            <!--
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/YOUTUBE_VIDEO_ID?rel=0"
+              title="A message from FERAL"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            -->
+            <div class="ct-vsl-placeholder" role="img" aria-label="Video placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+              </svg>
+              <span>Video will appear here once the YouTube URL is added.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF =========================================================== -->
+    <section class="ct-section">
+      <div class="ct-container-wide">
+        <div class="ct-proof-caption">
+          <h2 class="ct-section-title">The work you'd be leading.</h2>
+          <p class="ct-section-intro">These are real results our team produced for creators we represent. As Creative Director, you'd own the creative engine that drives outcomes like these.</p>
+        </div>
+
+        <div class="results-grid">
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Kiera</h3>
+                <span class="result-card-timeline">6 months with FERAL</span>
+              </div>
+              <span class="result-card-badge">$0 to $1M</span>
+            </div>
+            <div class="result-card-headline">$79/mo to $1,000,017 in 6 months</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Before</span>
+                <span class="result-metric-value result-metric-before">$79/mo</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">After (6 mo)</span>
+                <span class="result-metric-value result-metric-after">$1,000,017</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">160K+</span><span class="result-stat-label">IG followers</span></div>
+              <div class="result-stat"><span class="result-stat-value">44M</span><span class="result-stat-label">monthly views</span></div>
+              <div class="result-stat"><span class="result-stat-value">15,280</span><span class="result-stat-label">subscribers</span></div>
+            </div>
+            <a href="results/kiera.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Noelia</h3>
+                <span class="result-card-timeline">12 months with FERAL</span>
+              </div>
+              <span class="result-card-badge">$291K month</span>
+            </div>
+            <div class="result-card-headline">$2K/mo to $291K/mo. 17K to 341K followers.</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Before</span>
+                <span class="result-metric-value result-metric-before">$2K/mo</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">After</span>
+                <span class="result-metric-value result-metric-after">$291K/mo</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">341K</span><span class="result-stat-label">IG followers</span></div>
+              <div class="result-stat"><span class="result-stat-value">38.5M</span><span class="result-stat-label">monthly views</span></div>
+              <div class="result-stat"><span class="result-stat-value">20x</span><span class="result-stat-label">follower growth</span></div>
+            </div>
+            <a href="results/noelia.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Sofia</h3>
+                <span class="result-card-timeline">31 months with FERAL</span>
+              </div>
+              <span class="result-card-badge">Top 0.07%</span>
+            </div>
+            <div class="result-card-headline">$0 to $976K across two accounts</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Start followers</span>
+                <span class="result-metric-value result-metric-before">3.1K</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">Peak monthly</span>
+                <span class="result-metric-value result-metric-after">$55K/mo</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">83K+</span><span class="result-stat-label">IG followers</span></div>
+              <div class="result-stat"><span class="result-stat-value">15.3M</span><span class="result-stat-label">monthly views</span></div>
+              <div class="result-stat"><span class="result-stat-value">$976K</span><span class="result-stat-label">total revenue</span></div>
+            </div>
+            <a href="results/sofia.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Yasmin</h3>
+                <span class="result-card-timeline">3 months with FERAL</span>
+              </div>
+              <span class="result-card-badge">100K in 3 mo</span>
+            </div>
+            <div class="result-card-headline">2K to 100K followers in 3 months</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Before (views)</span>
+                <span class="result-metric-value result-metric-before">40K/mo</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">After (views)</span>
+                <span class="result-metric-value result-metric-after">40M/mo</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">100K</span><span class="result-stat-label">in 3 months</span></div>
+              <div class="result-stat"><span class="result-stat-value">44K</span><span class="result-stat-label">in 2 weeks</span></div>
+              <div class="result-stat"><span class="result-stat-value">1000x</span><span class="result-stat-label">view increase</span></div>
+            </div>
+            <a href="results/yasmin.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Olivia</h3>
+                <span class="result-card-timeline">4 months with FERAL</span>
+              </div>
+              <span class="result-card-badge">101M views</span>
+            </div>
+            <div class="result-card-headline">$214K gross in first 2 months</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Before</span>
+                <span class="result-metric-value result-metric-before">~77K</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">After</span>
+                <span class="result-metric-value result-metric-after">195K</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">101M</span><span class="result-stat-label">IG views</span></div>
+              <div class="result-stat"><span class="result-stat-value">10</span><span class="result-stat-label">viral/week</span></div>
+              <div class="result-stat"><span class="result-stat-value">+118K</span><span class="result-stat-label">new followers</span></div>
+            </div>
+            <a href="results/olivia.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Mia</h3>
+                <span class="result-card-timeline">1 month turnaround</span>
+              </div>
+              <span class="result-card-badge">11M view reel</span>
+            </div>
+            <div class="result-card-headline">Losing 800 followers/mo to +37K in 30 days</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Before</span>
+                <span class="result-metric-value result-metric-before">−800/mo</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">After</span>
+                <span class="result-metric-value result-metric-after">+37K/mo</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">22,055%</span><span class="result-stat-label">reach</span></div>
+              <div class="result-stat"><span class="result-stat-value">11M</span><span class="result-stat-label">reel views</span></div>
+              <div class="result-stat"><span class="result-stat-value">$23.5K</span><span class="result-stat-label">in 1 week</span></div>
+            </div>
+            <a href="results/mia.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Lorena</h3>
+                <span class="result-card-timeline">26 months with FERAL</span>
+              </div>
+              <span class="result-card-badge">$101K month</span>
+            </div>
+            <div class="result-card-headline">$101K in a single month</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Monthly rev.</span>
+                <span class="result-metric-value result-metric-after">$101,669</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">IG reach</span>
+                <span class="result-metric-value result-metric-after">6.4M</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">13.4M</span><span class="result-stat-label">monthly views</span></div>
+              <div class="result-stat"><span class="result-stat-value">+125%</span><span class="result-stat-label">reach growth</span></div>
+              <div class="result-stat"><span class="result-stat-value">2</span><span class="result-stat-label">reels over 1M</span></div>
+            </div>
+            <a href="results/lorena.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+          <article class="result-card">
+            <div class="result-card-header">
+              <div class="result-card-name">
+                <h3>Megan</h3>
+                <span class="result-card-timeline">First month with FERAL</span>
+              </div>
+              <span class="result-card-badge">Agency record</span>
+            </div>
+            <div class="result-card-headline">$5,400 single custom. $10.9K in a day.</div>
+            <div class="result-card-metrics">
+              <div class="result-metric">
+                <span class="result-metric-label">Before</span>
+                <span class="result-metric-value result-metric-before">Burned</span>
+              </div>
+              <div class="result-metric-arrow" aria-hidden="true"></div>
+              <div class="result-metric">
+                <span class="result-metric-label">With FERAL</span>
+                <span class="result-metric-value result-metric-after">$10.9K/day</span>
+              </div>
+            </div>
+            <div class="result-card-stats">
+              <div class="result-stat"><span class="result-stat-value">+151%</span><span class="result-stat-label">revenue</span></div>
+              <div class="result-stat"><span class="result-stat-value">$5.1K</span><span class="result-stat-label">customs/2d</span></div>
+              <div class="result-stat"><span class="result-stat-value">+230%</span><span class="result-stat-label">messages</span></div>
+            </div>
+            <a href="results/megan.html" class="result-card-toggle">View full breakdown →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ROLE + QUALIFICATIONS =========================================== -->
+    <section class="ct-section">
+      <div class="ct-container">
+        <h2 class="ct-section-title">The role</h2>
+        <p class="ct-section-intro">A senior creative lead embedded with the team that's producing the work above. You'll set the creative direction, raise the bar, and make sure every creator we represent is putting out content that lands.</p>
+
+        <div class="ct-role-grid">
+          <div class="ct-role-block ct-role-prose">
+            <h3>What you'll own</h3>
+            <ul class="ct-role-list">
+              <li>Creative direction across every creator we represent.</li>
+              <li>Concepting, hook development, and content systems that drive views, growth, and revenue.</li>
+              <li>Briefs, references, and feedback loops with the content, strategy, and production teams.</li>
+              <li>The bar — both internally and externally — for what FERAL ships.</li>
+            </ul>
+          </div>
+          <div class="ct-role-block">
+            <h3>You're a fit if</h3>
+            <ul class="ct-role-list">
+              <li>You've driven measurable wins in creator, content, or social — and can prove it with numbers.</li>
+              <li>You think in hooks, formats, and systems, not vibes.</li>
+              <li>You have strong taste and can articulate why something works.</li>
+              <li>You move fast, give direct feedback, and don't need hand-holding.</li>
+              <li>You want to build something serious with a team that ships.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLICATION FORM ================================================ -->
+    <section class="ct-section" id="apply">
+      <div class="ct-container">
+        <div class="ct-form-shell">
+          <div id="ct-form-body">
+            <h2 class="ct-form-title">Apply</h2>
+            <p class="ct-form-sub">Fill this out fully. We read every application personally.</p>
+
+            <!--
+              FORM SUBMISSION → Google Sheet via Apps Script Web App.
+              Replace the action URL below with the deployment URL you get
+              after publishing the Apps Script (see creative-team-form-setup
+              instructions). The URL looks like:
+                https://script.google.com/macros/s/AKfycb.../exec
+            -->
+            <form id="ct-form" action="https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec" method="POST" novalidate>
+              <input type="hidden" name="form_subject" id="ct-subject" value="New Creative Director Application" />
+
+              <div class="form-row">
+                <div class="form-field form-field-required" data-field="full_name">
+                  <label for="f-name">Full name</label>
+                  <input id="f-name" type="text" name="full_name" placeholder="Jane Doe" required autocomplete="name" />
+                  <p class="form-error-msg">Please enter your full name.</p>
+                </div>
+                <div class="form-field form-field-required" data-field="email">
+                  <label for="f-email">Email</label>
+                  <input id="f-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email" />
+                  <p class="form-error-msg">Please enter a valid email address.</p>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field form-field-required" data-field="phone">
+                  <label for="f-phone">Phone</label>
+                  <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel" />
+                  <p class="form-error-msg">Please enter your phone number.</p>
+                </div>
+                <div class="form-field form-field-required" data-field="city_timezone">
+                  <label for="f-citytz">City + timezone</label>
+                  <input id="f-citytz" type="text" name="city_timezone" placeholder="Austin, TX (CT)" required />
+                  <p class="form-error-msg">Please enter your city and timezone.</p>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field form-field-required" data-field="instagram_handle">
+                  <label for="f-ig">Instagram handle</label>
+                  <input id="f-ig" type="text" name="instagram_handle" placeholder="@yourhandle" required />
+                  <p class="form-error-msg">Please enter your Instagram handle.</p>
+                </div>
+                <div class="form-field form-field-required" data-field="portfolio_url">
+                  <label for="f-portfolio">Portfolio link</label>
+                  <input id="f-portfolio" type="url" name="portfolio_url" placeholder="https://yourportfolio.com" required />
+                  <p class="form-error-msg">Please enter a valid URL (include https://).</p>
+                </div>
+              </div>
+
+              <div class="form-field form-field-required" data-field="loom_url">
+                <label for="f-loom">Loom intro video link</label>
+                <input id="f-loom" type="url" name="loom_url" placeholder="https://www.loom.com/share/..." required />
+                <p class="form-help">90 seconds max. Tell us who you are and why this role.</p>
+                <p class="form-error-msg">Please enter a valid URL (include https://).</p>
+              </div>
+
+              <div class="form-field form-field-required" data-field="experience_years">
+                <label for="f-exp">Years of experience in creator, content, or social</label>
+                <select id="f-exp" name="experience_years" required>
+                  <option value="" disabled selected>Select range</option>
+                  <option value="0-1">0 – 1 years</option>
+                  <option value="1-3">1 – 3 years</option>
+                  <option value="3-5">3 – 5 years</option>
+                  <option value="5+">5+ years</option>
+                </select>
+                <p class="form-error-msg">Please select your experience range.</p>
+              </div>
+
+              <div class="form-field form-field-required" data-field="best_win">
+                <label for="f-win">Best creator or content win you've driven — and the actual result</label>
+                <textarea id="f-win" name="best_win" rows="4" maxlength="500" placeholder="e.g. Took @handle from 50K → 280K followers in 5 months by reworking their hook strategy; revenue 3x'd." required></textarea>
+                <p class="form-help">Specifics beat adjectives. <span class="char-count" id="cc-win">0 / 500</span></p>
+                <p class="form-error-msg">Please share a specific win.</p>
+              </div>
+
+              <div class="form-field form-field-required" data-field="why_feral">
+                <label for="f-why">Why FERAL?</label>
+                <textarea id="f-why" name="why_feral" rows="4" maxlength="500" placeholder="What pulled you to this role specifically?" required></textarea>
+                <p class="form-help"><span class="char-count" id="cc-why">0 / 500</span></p>
+                <p class="form-error-msg">Please tell us why FERAL.</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field" data-field="start_date">
+                  <label for="f-start">Earliest start date <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400">(optional)</span></label>
+                  <input id="f-start" type="date" name="start_date" />
+                </div>
+                <div class="form-field" data-field="compensation">
+                  <label for="f-comp">Compensation expectations <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400">(optional)</span></label>
+                  <input id="f-comp" type="text" name="compensation" placeholder="e.g. $140k/year or $12k/month" />
+                </div>
+              </div>
+
+              <button type="submit" class="ct-btn ct-btn-primary ct-form-submit" id="ct-submit">Submit application</button>
+              <p class="form-status" id="ct-status" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <div class="ct-success" id="ct-success" aria-live="polite">
+            <div class="ct-success-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h2>Application received.</h2>
+            <p>We read every application personally. If there's a fit, you'll hear from us within a few days.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING CTA ===================================================== -->
+    <section class="ct-close">
+      <div class="ct-container">
+        <h2 class="ct-section-title">Think this is you?</h2>
+        <p class="ct-section-intro">If the work above looks like a team you'd want to lead — apply.</p>
+        <a href="#apply" class="ct-btn ct-btn-primary">Start your application</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ct-footer" role="contentinfo">
+    <p class="ct-footer-copy">© <span id="year"></span> FERAL. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('ct-form');
+    const submitBtn = document.getElementById('ct-submit');
+    const status = document.getElementById('ct-status');
+
+    // Char counters
+    function wireCount(inputId, counterId) {
+      const inp = document.getElementById(inputId);
+      const out = document.getElementById(counterId);
+      const max = parseInt(inp.getAttribute('maxlength'), 10);
+      const update = () => {
+        const len = inp.value.length;
+        out.textContent = len + ' / ' + max;
+        out.classList.toggle('over', len >= max);
+      };
+      inp.addEventListener('input', update);
+      update();
+    }
+    wireCount('f-win', 'cc-win');
+    wireCount('f-why', 'cc-why');
+
+    // Clear error state on input
+    form.querySelectorAll('input, textarea, select').forEach(el => {
+      el.addEventListener('input', () => {
+        const field = el.closest('.form-field');
+        if (field) field.classList.remove('has-error');
+        el.classList.remove('error');
+      });
+      el.addEventListener('change', () => {
+        const field = el.closest('.form-field');
+        if (field) field.classList.remove('has-error');
+        el.classList.remove('error');
+      });
+    });
+
+    function isValidEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+    function isValidUrl(v) {
+      try {
+        const u = new URL(v);
+        return u.protocol === 'http:' || u.protocol === 'https:';
+      } catch { return false; }
+    }
+
+    function validate() {
+      let firstInvalid = null;
+      let ok = true;
+
+      form.querySelectorAll('[required]').forEach(el => {
+        const field = el.closest('.form-field');
+        let valid = !!el.value.trim();
+        if (valid && el.type === 'email') valid = isValidEmail(el.value.trim());
+        if (valid && el.type === 'url')   valid = isValidUrl(el.value.trim());
+
+        if (!valid) {
+          ok = false;
+          field.classList.add('has-error');
+          el.classList.add('error');
+          if (!firstInvalid) firstInvalid = el;
+        }
+      });
+
+      if (firstInvalid) firstInvalid.focus();
+      return ok;
+    }
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      status.textContent = '';
+      status.classList.remove('error');
+
+      if (!validate()) {
+        status.textContent = 'Please fix the highlighted fields.';
+        status.classList.add('error');
+        return;
+      }
+
+      // Dynamic subject with applicant name
+      const name = document.getElementById('f-name').value.trim();
+      document.getElementById('ct-subject').value = 'New Creative Director Application — ' + name;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      // Google Apps Script Web App accepts simple POST with
+      // application/x-www-form-urlencoded — no CORS preflight, response opaque.
+      const data = new FormData(form);
+      const params = new URLSearchParams();
+      data.forEach((v, k) => params.append(k, v));
+
+      try {
+        await fetch(form.action, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: params
+        });
+        // Opaque response — we trust the POST landed. Apps Script appends the row.
+        document.getElementById('ct-form-body').style.display = 'none';
+        document.getElementById('ct-success').classList.add('visible');
+        document.getElementById('ct-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit application';
+        status.textContent = 'Something went wrong. Try again, or email kiefer@feralagency.net directly.';
+        status.classList.add('error');
+      }
+    });
+  </script>
+</body>
+</html>
