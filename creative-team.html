@@ -165,6 +165,45 @@
     }
     .ct-vsl-placeholder svg { width: 56px; height: 56px; opacity: 0.6; }
 
+    /* VSL CTA — Apply Now button with live countdown */
+    .ct-vsl-cta {
+      max-width: 880px;
+      margin: 1.75rem auto 0;
+      display: flex;
+      justify-content: center;
+    }
+    .ct-vsl-cta .ct-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      min-width: 320px;
+      justify-content: center;
+    }
+    .ct-vsl-cta .ct-cta-label {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+    .ct-vsl-cta .ct-cta-timer {
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.22rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(10, 10, 10, 0.18);
+      color: inherit;
+      letter-spacing: 0.05em;
+      font-variant-numeric: tabular-nums;
+      min-width: 3.6rem;
+      text-align: center;
+    }
+    .ct-vsl-cta .ct-btn:hover .ct-cta-timer {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .ct-vsl-cta .ct-btn.is-expired .ct-cta-timer { display: none; }
+
     /* Section base */
     .ct-section {
       padding: 5rem 0;
@@ -630,6 +669,12 @@
               referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
         </div>
+        <div class="ct-vsl-cta">
+          <a href="#apply" id="ct-vsl-apply" class="ct-btn ct-btn-primary" aria-label="Apply now">
+            <span class="ct-cta-label">Apply Now</span>
+            <span class="ct-cta-timer" id="ct-vsl-timer" aria-live="off">1:45</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -904,6 +949,26 @@
         status.classList.add('error');
       }
     });
+
+    // VSL Apply Now countdown — 1:45 down to 0:00, then label stays "Apply Now"
+    (function () {
+      const btn = document.getElementById('ct-vsl-apply');
+      const out = document.getElementById('ct-vsl-timer');
+      if (!btn || !out) return;
+      let remaining = 105; // 1 min 45 sec
+      const fmt = (s) => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+      out.textContent = fmt(remaining);
+      const tick = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+          out.textContent = '0:00';
+          btn.classList.add('is-expired');
+          clearInterval(tick);
+          return;
+        }
+        out.textContent = fmt(remaining);
+      }, 1000);
+    })();
   </script>
 </body>
 </html>
