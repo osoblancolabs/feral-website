@@ -294,6 +294,15 @@ a:hover {
   transition: opacity 5s var(--ease-out);
 }
 
+.hero-banner-middle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .hero-banner-logo {
   position: absolute;
   top: 50%;
@@ -305,6 +314,7 @@ a:hover {
   pointer-events: none;
   user-select: none;
   filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45));
+  z-index: 2;
 }
 
 @media (max-width: 768px) {
