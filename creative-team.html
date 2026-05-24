@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creative Director — FERAL</title>
+  <title>Creative Director | FERAL</title>
   <meta name="description" content="FERAL is hiring a Creative Director to lead creative for the world's most distinctive creators." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/themes/dark.css" />
   <style>
     :root {
       --bg: #000000;
@@ -641,6 +643,29 @@
       .ct-close { padding: 4rem 0 5rem; }
       .ct-container, .ct-container-wide { padding: 0 1rem; }
     }
+
+    /* Flatpickr — pearl accent match */
+    .flatpickr-input[readonly] { cursor: pointer; background: var(--surface); }
+    .flatpickr-calendar {
+      background: var(--bg-elevated) !important;
+      border: 1px solid var(--border-pearl) !important;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5) !important;
+      font-family: var(--font-sans) !important;
+    }
+    .flatpickr-day.selected,
+    .flatpickr-day.startRange,
+    .flatpickr-day.endRange,
+    .flatpickr-day.selected:hover {
+      background: var(--accent) !important;
+      border-color: var(--accent) !important;
+      color: #0a0a0a !important;
+    }
+    .flatpickr-day:hover { background: rgba(184, 169, 201, 0.15) !important; }
+    .flatpickr-day.today { border-color: var(--accent) !important; }
+    .flatpickr-months .flatpickr-month,
+    .flatpickr-current-month .flatpickr-monthDropdown-months,
+    .flatpickr-current-month input.cur-year { color: var(--text) !important; }
+    .flatpickr-weekdays, span.flatpickr-weekday { color: var(--text-muted) !important; }
   </style>
 </head>
 <body>
@@ -691,13 +716,13 @@
               <li>Creative direction across every creator we represent.</li>
               <li>Concepting, hook development, and content systems that drive views, growth, and revenue.</li>
               <li>Briefs, references, and feedback loops with the content, strategy, and production teams.</li>
-              <li>The bar — both internally and externally — for what FERAL ships.</li>
+              <li>The bar, both internally and externally, for what FERAL ships.</li>
             </ul>
           </div>
           <div class="ct-role-block">
             <h3>You're a fit if</h3>
             <ul class="ct-role-list">
-              <li>You've driven measurable wins in creator, content, or social — and can prove it with numbers.</li>
+              <li>You've driven measurable wins in creator, content, or social, and can prove it with numbers.</li>
               <li>You think in hooks, formats, and systems, not vibes.</li>
               <li>You have strong taste and can articulate why something works.</li>
               <li>You move fast, give direct feedback, and don't need hand-holding.</li>
@@ -745,10 +770,10 @@
                   <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel" />
                   <p class="form-error-msg">Please enter your phone number.</p>
                 </div>
-                <div class="form-field form-field-required" data-field="city_timezone">
-                  <label for="f-citytz">City + timezone</label>
-                  <input id="f-citytz" type="text" name="city_timezone" placeholder="Austin, TX (CT)" required />
-                  <p class="form-error-msg">Please enter your city and timezone.</p>
+                <div class="form-field form-field-required" data-field="location">
+                  <label for="f-location">Location</label>
+                  <input id="f-location" type="text" name="location" placeholder="Austin, TX" required />
+                  <p class="form-error-msg">Please enter your location.</p>
                 </div>
               </div>
 
@@ -758,9 +783,9 @@
                   <input id="f-ig" type="text" name="instagram_handle" placeholder="@yourhandle" required />
                   <p class="form-error-msg">Please enter your Instagram handle.</p>
                 </div>
-                <div class="form-field form-field-required" data-field="portfolio_url">
-                  <label for="f-portfolio">Portfolio link</label>
-                  <input id="f-portfolio" type="url" name="portfolio_url" placeholder="https://yourportfolio.com" required />
+                <div class="form-field" data-field="portfolio_url">
+                  <label for="f-portfolio">Portfolio link <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400">(optional)</span></label>
+                  <input id="f-portfolio" type="url" name="portfolio_url" placeholder="https://yourportfolio.com" />
                   <p class="form-error-msg">Please enter a valid URL (include https://).</p>
                 </div>
               </div>
@@ -776,16 +801,16 @@
                 <label for="f-exp">Years of experience in creator, content, or social</label>
                 <select id="f-exp" name="experience_years" required>
                   <option value="" disabled selected>Select range</option>
-                  <option value="0-1">0 – 1 years</option>
-                  <option value="1-3">1 – 3 years</option>
-                  <option value="3-5">3 – 5 years</option>
+                  <option value="0-1">0 to 1 years</option>
+                  <option value="1-3">1 to 3 years</option>
+                  <option value="3-5">3 to 5 years</option>
                   <option value="5+">5+ years</option>
                 </select>
                 <p class="form-error-msg">Please select your experience range.</p>
               </div>
 
               <div class="form-field form-field-required" data-field="best_win">
-                <label for="f-win">Best creator or content win you've driven — and the actual result</label>
+                <label for="f-win">Best creator or content win you've driven, and the actual result</label>
                 <textarea id="f-win" name="best_win" rows="4" maxlength="500" placeholder="e.g. Took @handle from 50K → 280K followers in 5 months by reworking their hook strategy; revenue 3x'd." required></textarea>
                 <p class="form-help">Specifics beat adjectives. <span class="char-count" id="cc-win">0 / 500</span></p>
                 <p class="form-error-msg">Please share a specific win.</p>
@@ -801,7 +826,7 @@
               <div class="form-row">
                 <div class="form-field" data-field="start_date">
                   <label for="f-start">Earliest start date <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400">(optional)</span></label>
-                  <input id="f-start" type="date" name="start_date" />
+                  <input id="f-start" type="text" name="start_date" placeholder="Select a date" autocomplete="off" readonly />
                 </div>
                 <div class="form-field" data-field="compensation">
                   <label for="f-comp">Compensation expectations <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400">(optional)</span></label>
@@ -829,7 +854,7 @@
     <section class="ct-close">
       <div class="ct-container">
         <h2 class="ct-section-title">Think this is you?</h2>
-        <p class="ct-section-intro">If the work above looks like a team you'd want to lead — apply.</p>
+        <p class="ct-section-intro">If the work above looks like a team you'd want to lead, apply.</p>
         <a href="#apply" class="ct-btn ct-btn-primary">Start your application</a>
       </div>
     </section>
@@ -839,8 +864,21 @@
     <p class="ct-footer-copy">© <span id="year"></span> FERAL. All rights reserved.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Date picker — flatpickr, dark themed
+    if (window.flatpickr) {
+      flatpickr('#f-start', {
+        dateFormat: 'Y-m-d',
+        altInput: true,
+        altFormat: 'F j, Y',
+        minDate: 'today',
+        disableMobile: false,
+        allowInput: false,
+      });
+    }
 
     const form = document.getElementById('ct-form');
     const submitBtn = document.getElementById('ct-submit');
@@ -921,7 +959,7 @@
 
       // Dynamic subject with applicant name
       const name = document.getElementById('f-name').value.trim();
-      document.getElementById('ct-subject').value = 'New Creative Director Application — ' + name;
+      document.getElementById('ct-subject').value = 'New Creative Director Application: ' + name;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
