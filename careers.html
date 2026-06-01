@@ -353,19 +353,20 @@
       .apply-title { font-size: 1.5rem; }
     }
   </style>
+  <link rel="stylesheet" href="lang-toggle.css" />
 </head>
 <body>
   <header class="apply-header">
     <a href="index.html" class="apply-header-logo">
       <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" />
     </a>
-    <a href="index.html" class="apply-header-back">Back to site</a>
+    <a href="index.html" class="apply-header-back"><span class="t-en">Back to site</span><span class="t-es">Volver al sitio</span></a>
   </header>
 
   <div class="careers-page">
-    <p class="apply-tagline">Join Our Team</p>
-    <h1 class="apply-title">Work at FERAL</h1>
-    <p class="apply-subtitle">We're always looking for driven, talented people who want to do meaningful work with world-class creators. Tell us about yourself.</p>
+    <p class="apply-tagline"><span class="t-en">Join Our Team</span><span class="t-es">Únete a nuestro equipo</span></p>
+    <h1 class="apply-title"><span class="t-en">Work at FERAL</span><span class="t-es">Trabaja en FERAL</span></h1>
+    <p class="apply-subtitle"><span class="t-en">We&#39;re always looking for driven, talented people who want to do meaningful work with world-class creators. Tell us about yourself.</span><span class="t-es">Siempre buscamos personas con drive y talento que quieran hacer trabajo con sentido junto a creadoras de nivel mundial. Cuéntanos sobre ti.</span></p>
 
     <form id="careers-form" action="https://formsubmit.co/Kiefer@feralagency.net" method="POST">
       <input type="hidden" name="_subject" value="New Team Application - FERAL Careers" />
@@ -376,112 +377,112 @@
 
         <!-- Step 1: Name + Email -->
         <div class="form-step active" data-step="0">
-          <p class="step-question">Let's start with the basics.</p>
+          <p class="step-question"><span class="t-en">Let&#39;s start with the basics.</span><span class="t-es">Empecemos por lo básico.</span></p>
           <div class="form-row">
             <div class="form-field">
-              <label for="f-name">Name</label>
+              <label for="f-name"><span class="t-en">Name</span><span class="t-es">Nombre</span></label>
               <input id="f-name" type="text" name="name" placeholder="Your name" required autocomplete="name" />
             </div>
             <div class="form-field">
-              <label for="f-email">Email</label>
+              <label for="f-email"><span class="t-en">Email</span><span class="t-es">Correo</span></label>
               <input id="f-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email" />
             </div>
           </div>
           <div class="step-nav">
-            <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
           </div>
         </div>
 
         <!-- Step 2: Phone + Location -->
         <div class="form-step" data-step="1">
-          <p class="step-question">Where are you located?</p>
+          <p class="step-question"><span class="t-en">Where are you located?</span><span class="t-es">¿Dónde estás ubicada?</span></p>
           <div class="form-row">
             <div class="form-field">
-              <label for="f-phone">Phone</label>
+              <label for="f-phone"><span class="t-en">Phone</span><span class="t-es">Teléfono</span></label>
               <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel" />
             </div>
             <div class="form-field">
-              <label for="f-country">Country of Residence</label>
+              <label for="f-country"><span class="t-en">Country of Residence</span><span class="t-es">País de residencia</span></label>
               <input id="f-country" type="text" name="country" placeholder="United States" required autocomplete="country-name" />
             </div>
           </div>
           <div class="step-nav">
-            <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-            <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
           </div>
         </div>
 
         <!-- Step 3: Role Interest -->
         <div class="form-step" data-step="2">
-          <p class="step-question">What role are you interested in?</p>
+          <p class="step-question"><span class="t-en">What role are you interested in?</span><span class="t-es">¿Qué rol te interesa?</span></p>
           <div class="form-field">
-            <label for="f-role">Department / Role</label>
+            <label for="f-role"><span class="t-en">Department / Role</span><span class="t-es">Departamento / Rol</span></label>
             <select id="f-role" name="role" required>
-              <option value="" disabled selected>Select a department</option>
-              <option value="creative-director">Creative Director (Social)</option>
-              <option value="account-manager">Account Manager</option>
-              <option value="editor">Editor (Video / Photo)</option>
-              <option value="of-creative-director">Content Designer</option>
-              <option value="chat-manager">Sales Chat Manager</option>
-              <option value="chat-agent">Sales Chat Agent</option>
-              <option value="qa-supervisor">QA Supervisor</option>
-              <option value="dev-ops">Dev Ops / Engineering</option>
-              <option value="other">Other</option>
+              <option value="" disabled selected data-en="Select a department" data-es="Selecciona un departamento">Select a department</option>
+              <option value="creative-director" data-en="Creative Director (Social)" data-es="Director Creativo (Social)">Creative Director (Social)</option>
+              <option value="account-manager" data-en="Account Manager" data-es="Account Manager">Account Manager</option>
+              <option value="editor" data-en="Editor (Video / Photo)" data-es="Editor (Video / Foto)">Editor (Video / Photo)</option>
+              <option value="of-creative-director" data-en="Content Designer" data-es="Diseñador de Contenido">Content Designer</option>
+              <option value="chat-manager" data-en="Sales Chat Manager" data-es="Manager de Chat de Ventas">Sales Chat Manager</option>
+              <option value="chat-agent" data-en="Sales Chat Agent" data-es="Agente de Chat de Ventas">Sales Chat Agent</option>
+              <option value="qa-supervisor" data-en="QA Supervisor" data-es="Supervisor de QA">QA Supervisor</option>
+              <option value="dev-ops" data-en="Dev Ops / Engineering" data-es="Dev Ops / Ingeniería">Dev Ops / Engineering</option>
+              <option value="other" data-en="Other" data-es="Otro">Other</option>
             </select>
           </div>
           <div class="step-nav">
-            <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-            <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
           </div>
         </div>
 
         <!-- Step 4: Experience -->
         <div class="form-step" data-step="3">
-          <p class="step-question">Tell us about your experience.</p>
+          <p class="step-question"><span class="t-en">Tell us about your experience.</span><span class="t-es">Cuéntanos sobre tu experiencia.</span></p>
           <div class="form-field">
-            <label for="f-experience">Relevant experience</label>
+            <label for="f-experience"><span class="t-en">Relevant experience</span><span class="t-es">Experiencia relevante</span></label>
             <textarea id="f-experience" name="experience" placeholder="What have you done before? What skills do you bring to the table?" rows="4" required></textarea>
           </div>
           <div class="step-nav">
-            <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-            <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
           </div>
         </div>
 
         <!-- Step 5: Availability -->
         <div class="form-step" data-step="4">
-          <p class="step-question">What is your availability?</p>
+          <p class="step-question"><span class="t-en">What is your availability?</span><span class="t-es">¿Cuál es tu disponibilidad?</span></p>
           <div class="form-row">
             <div class="form-field">
-              <label for="f-availability">Full-time or part-time?</label>
+              <label for="f-availability"><span class="t-en">Full-time or part-time?</span><span class="t-es">¿Tiempo completo o medio tiempo?</span></label>
               <select id="f-availability" name="availability" required>
-                <option value="" disabled selected>Select</option>
-                <option value="full-time">Full-time</option>
-                <option value="part-time">Part-time</option>
-                <option value="contract">Contract / Freelance</option>
+                <option value="" disabled selected data-en="Select" data-es="Selecciona">Select</option>
+                <option value="full-time" data-en="Full-time" data-es="Tiempo completo">Full-time</option>
+                <option value="part-time" data-en="Part-time" data-es="Medio tiempo">Part-time</option>
+                <option value="contract" data-en="Contract / Freelance" data-es="Contrato / Freelance">Contract / Freelance</option>
               </select>
             </div>
             <div class="form-field">
-              <label for="f-timezone">Your timezone</label>
+              <label for="f-timezone"><span class="t-en">Your timezone</span><span class="t-es">Tu zona horaria</span></label>
               <input id="f-timezone" type="text" name="timezone" placeholder="e.g. EST, PST, GMT+1" required />
             </div>
           </div>
           <div class="step-nav">
-            <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-            <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
           </div>
         </div>
 
         <!-- Step 6: Why FERAL -->
         <div class="form-step" data-step="5">
-          <p class="step-question">Why do you think you would be a great addition to our team?</p>
+          <p class="step-question"><span class="t-en">Why do you think you would be a great addition to our team?</span><span class="t-es">¿Por qué crees que serías una gran adición a nuestro equipo?</span></p>
           <div class="form-field">
-            <label for="f-why">Tell us</label>
+            <label for="f-why"><span class="t-en">Tell us</span><span class="t-es">Cuéntanos</span></label>
             <textarea id="f-why" name="why_feral" placeholder="What makes you a great fit? What excites you about working with creators at this level?" rows="4" required></textarea>
           </div>
           <div class="step-nav">
-            <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-            <button type="submit" class="step-btn step-btn-next">Submit Application</button>
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="submit" class="step-btn step-btn-next"><span class="t-en">Submit Application</span><span class="t-es">Enviar aplicación</span></button>
           </div>
         </div>
       </div>
@@ -491,8 +492,8 @@
         <div class="success-check">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         </div>
-        <h2 class="success-title">Application received.</h2>
-        <p class="success-text">We review every application personally. If there's a fit, we'll be in touch.</p>
+        <h2 class="success-title"><span class="t-en">Application received.</span><span class="t-es">Aplicación recibida.</span></h2>
+        <p class="success-text"><span class="t-en">We review every application personally. If there&#39;s a fit, we&#39;ll be in touch.</span><span class="t-es">Revisamos cada aplicación personalmente. Si encajas, te contactaremos.</span></p>
       </div>
     </form>
   </div>
@@ -603,5 +604,6 @@
 
     updateProgress();
   </script>
+  <script src="lang-toggle.js" defer></script>
 </body>
 </html>

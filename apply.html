@@ -497,13 +497,14 @@
       .apply-title { font-size: 1.5rem; }
     }
   </style>
+  <link rel="stylesheet" href="lang-toggle.css" />
 </head>
 <body>
   <header class="apply-header">
     <a href="index.html" class="apply-header-logo">
       <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" />
     </a>
-    <a href="index.html" class="apply-header-back">Back to site</a>
+    <a href="index.html" class="apply-header-back"><span class="t-en">Back to site</span><span class="t-es">Volver al sitio</span></a>
   </header>
 
   <div class="apply-layout">
@@ -515,9 +516,9 @@
     </div>
 
     <div class="apply-panel">
-      <p class="apply-tagline">Apply to FERAL</p>
-      <h1 class="apply-title">Ready to scale?</h1>
-      <p class="apply-subtitle">We review every application personally. Tell us about yourself and where you want to go.</p>
+      <p class="apply-tagline"><span class="t-en">Apply to FERAL</span><span class="t-es">Postula a FERAL</span></p>
+      <h1 class="apply-title"><span class="t-en">Ready to scale?</span><span class="t-es">¿Lista para escalar?</span></h1>
+      <p class="apply-subtitle"><span class="t-en">We review every application personally. Tell us about yourself and where you want to go.</span><span class="t-es">Revisamos cada aplicación personalmente. Cuéntanos sobre ti y a dónde quieres llegar.</span></p>
 
       <form id="apply-form" action="https://formsubmit.co/Kiefer@feralagency.net" method="POST">
         <input type="hidden" name="_subject" value="New FERAL Application" />
@@ -527,130 +528,130 @@
 
           <!-- Step 1: Name + Email -->
           <div class="form-step active" data-step="0">
-            <p class="step-question">Let's start with the basics.</p>
+            <p class="step-question"><span class="t-en">Let&#39;s start with the basics.</span><span class="t-es">Empecemos por lo básico.</span></p>
             <div class="form-row">
               <div class="form-field">
-                <label for="f-name">Name</label>
+                <label for="f-name"><span class="t-en">Name</span><span class="t-es">Nombre</span></label>
                 <input id="f-name" type="text" name="name" placeholder="Your name" required autocomplete="name" />
               </div>
               <div class="form-field">
-                <label for="f-email">Email</label>
+                <label for="f-email"><span class="t-en">Email</span><span class="t-es">Correo</span></label>
                 <input id="f-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email" />
               </div>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 2: Phone + Instagram -->
           <div class="form-step" data-step="1">
-            <p class="step-question">How can we reach you?</p>
+            <p class="step-question"><span class="t-en">How can we reach you?</span><span class="t-es">¿Cómo te contactamos?</span></p>
             <div class="form-row">
               <div class="form-field">
-                <label for="f-phone">Phone</label>
+                <label for="f-phone"><span class="t-en">Phone</span><span class="t-es">Teléfono</span></label>
                 <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel" />
               </div>
               <div class="form-field">
-                <label for="f-instagram">Instagram</label>
+                <label for="f-instagram"><span class="t-en">Instagram</span><span class="t-es">Instagram</span></label>
                 <input id="f-instagram" type="text" name="instagram" placeholder="@yourhandle" required />
               </div>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 3: Country -->
           <div class="form-step" data-step="2">
-            <p class="step-question">Where are you based?</p>
+            <p class="step-question"><span class="t-en">Where are you based?</span><span class="t-es">¿Dónde vives?</span></p>
             <div class="form-field">
-              <label for="f-country">Country of Residence</label>
+              <label for="f-country"><span class="t-en">Country of Residence</span><span class="t-es">País de residencia</span></label>
               <input id="f-country" type="text" name="country" placeholder="United States" required autocomplete="country-name" />
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 4: Earnings -->
           <div class="form-step" data-step="3">
-            <p class="step-question">What are you currently earning?</p>
+            <p class="step-question"><span class="t-en">What are you currently earning?</span><span class="t-es">¿Cuánto estás ganando actualmente?</span></p>
             <div class="form-field">
-              <label for="f-earnings">Current Monthly Earnings</label>
+              <label for="f-earnings"><span class="t-en">Current Monthly Earnings</span><span class="t-es">Ingresos mensuales actuales</span></label>
               <select id="f-earnings" name="earnings" required>
-                <option value="" disabled selected>Select range</option>
-                <option value="0-1k">$0 - $1,000</option>
-                <option value="1k-5k">$1,000 - $5,000</option>
-                <option value="5k-10k">$5,000 - $10,000</option>
-                <option value="10k-25k">$10,000 - $25,000</option>
-                <option value="25k-50k">$25,000 - $50,000</option>
-                <option value="50k-100k">$50,000 - $100,000</option>
-                <option value="100k+">$100,000+</option>
+                <option value="" disabled selected data-en="Select range" data-es="Selecciona un rango">Select range</option>
+                <option value="0-1k" data-en="$0 - $1,000" data-es="$0 - $1,000">$0 - $1,000</option>
+                <option value="1k-5k" data-en="$1,000 - $5,000" data-es="$1,000 - $5,000">$1,000 - $5,000</option>
+                <option value="5k-10k" data-en="$5,000 - $10,000" data-es="$5,000 - $10,000">$5,000 - $10,000</option>
+                <option value="10k-25k" data-en="$10,000 - $25,000" data-es="$10,000 - $25,000">$10,000 - $25,000</option>
+                <option value="25k-50k" data-en="$25,000 - $50,000" data-es="$25,000 - $50,000">$25,000 - $50,000</option>
+                <option value="50k-100k" data-en="$50,000 - $100,000" data-es="$50,000 - $100,000">$50,000 - $100,000</option>
+                <option value="100k+" data-en="$100,000+" data-es="$100,000+">$100,000+</option>
               </select>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 5: Current management -->
           <div class="form-step" data-step="4">
-            <p class="step-question">Do you currently have management or representation?</p>
+            <p class="step-question"><span class="t-en">Do you currently have management or representation?</span><span class="t-es">¿Tienes management o representación actualmente?</span></p>
             <div class="toggle-group">
-              <button type="button" class="toggle-btn" data-value="yes" onclick="selectManagement(this, true)">Yes</button>
-              <button type="button" class="toggle-btn" data-value="no" onclick="selectManagement(this, false)">No</button>
+              <button type="button" class="toggle-btn" data-value="yes" onclick="selectManagement(this, true)"><span class="t-en">Yes</span><span class="t-es">Sí</span></button>
+              <button type="button" class="toggle-btn" data-value="no" onclick="selectManagement(this, false)"><span class="t-en">No</span><span class="t-es">No</span></button>
             </div>
             <input type="hidden" name="has_management" id="f-management" />
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-              <button type="button" class="step-btn step-btn-next" id="mgmt-next" onclick="nextStep()" disabled>Continue</button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" id="mgmt-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 5b: If yes - who + why switch (conditional) -->
           <div class="form-step" data-step="5" data-conditional="management-yes">
-            <p class="step-question">Tell us about your current management.</p>
+            <p class="step-question"><span class="t-en">Tell us about your current management.</span><span class="t-es">Cuéntanos sobre tu management actual.</span></p>
             <div class="form-field">
-              <label for="f-current-mgmt">Who are they?</label>
+              <label for="f-current-mgmt"><span class="t-en">Who are they?</span><span class="t-es">¿Quién es?</span></label>
               <input id="f-current-mgmt" type="text" name="current_management" placeholder="Agency or manager name" />
             </div>
             <div class="form-field">
-              <label for="f-why-switch">Why do you want to switch to FERAL?</label>
+              <label for="f-why-switch"><span class="t-en">Why do you want to switch to FERAL?</span><span class="t-es">¿Por qué quieres cambiarte a FERAL?</span></label>
               <textarea id="f-why-switch" name="why_switch" placeholder="What's missing from your current setup?" rows="3"></textarea>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 6: Inspiration -->
           <div class="form-step" data-step="6">
-            <p class="step-question">Who do you take inspiration from?</p>
+            <p class="step-question"><span class="t-en">Who do you take inspiration from?</span><span class="t-es">¿De quién te inspiras?</span></p>
             <div class="form-field">
-              <label for="f-inspiration">Creators, brands, people</label>
+              <label for="f-inspiration"><span class="t-en">Creators, brands, people</span><span class="t-es">Creadoras, marcas, personas</span></label>
               <textarea id="f-inspiration" name="inspiration" placeholder="Other creators you admire, brands you love, people who motivate you." rows="3" required></textarea>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()">Continue</button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 7: Impact -->
           <div class="form-step" data-step="7">
-            <p class="step-question">Why do you think you would make an impact at FERAL?</p>
+            <p class="step-question"><span class="t-en">Why do you think you would make an impact at FERAL?</span><span class="t-es">¿Por qué crees que tendrías impacto en FERAL?</span></p>
             <div class="form-field">
-              <label for="f-impact">Tell us</label>
+              <label for="f-impact"><span class="t-en">Tell us</span><span class="t-es">Cuéntanos</span></label>
               <textarea id="f-impact" name="impact" placeholder="What drives you, what makes you different, and what you want to build." rows="4" required></textarea>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()">Back</button>
-              <button type="submit" class="step-btn step-btn-next">Submit Application</button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+              <button type="submit" class="step-btn step-btn-next"><span class="t-en">Submit Application</span><span class="t-es">Enviar aplicación</span></button>
             </div>
           </div>
         </div>
@@ -660,8 +661,8 @@
           <div class="success-check">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
           </div>
-          <h2 class="success-title">Application received.</h2>
-          <p class="success-text">We review every application personally. Expect to hear from us within 48 hours.</p>
+          <h2 class="success-title"><span class="t-en">Application received.</span><span class="t-es">Aplicación recibida.</span></h2>
+          <p class="success-text"><span class="t-en">We review every application personally. Expect to hear from us within 48 hours.</span><span class="t-es">Revisamos cada aplicación personalmente. Espera saber de nosotros en 48 horas.</span></p>
         </div>
       </form>
     </div>
@@ -919,5 +920,6 @@
 
     updateProgress();
   </script>
+  <script src="lang-toggle.js" defer></script>
 </body>
 </html>

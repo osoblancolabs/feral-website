@@ -1,80 +1,120 @@
-# Creative Team Form: Backend Setup
+# FERAL Form Backend Setup
 
-The application form on `creative-team.html` posts to a Google Apps Script web app that writes each submission to a Google Sheet AND emails `kiefer@feralagency.net`.
+One Apps Script handles two application forms from a single deployment URL:
 
-This file walks you through deploying the script once. Total time: about 10 minutes.
+| Form                              | Page                      | Sheet tab              |
+| --------------------------------- | ------------------------- | ---------------------- |
+| Creative Director application     | `creative-team.html`      | "Creative Director"    |
+| Ascension application (creators)  | `apply-ascension.html`    | "Ascension"            |
+
+Both forms POST to the same Web app URL. The script reads the hidden `form_type` field on each form and routes the submission to the correct tab in a single Google Sheet workbook ("FERAL Applications"). Email notifications go to `kiefer@feralagency.net` with a form-specific subject line and the applicant's email as reply-to.
+
+This file walks you through deploying (or redeploying) the script.
 
 ---
 
-## Step 1: Create the Apps Script project
+## First-time deploy
 
-1. Open https://script.google.com while logged in to the Google account that should OWN the application data (probably the `kiefer@feralagency.net` account, or a workspace account you control).
+If you've never deployed the script:
+
+1. Open https://script.google.com while logged in to the Google account that should OWN the application data.
 2. Click **New project** (top left).
 3. Delete the default `function myFunction() {}` placeholder.
-4. Open `form-setup/creative-team-apps-script.gs` from this repo, copy ALL of it, and paste into the Apps Script editor.
-5. Rename the project to `FERAL Creative Director Form` (top of page, click "Untitled project").
-6. Click the save icon (or Cmd+S).
-
-## Step 2: Deploy as a web app
-
-1. In the Apps Script editor, click the blue **Deploy** button (top right) and choose **New deployment**.
-2. Click the gear icon next to "Select type" and pick **Web app**.
-3. Fill in:
-   - **Description:** Creative Director form v1
-   - **Execute as:** Me (your.email@example.com)
-   - **Who has access:** **Anyone** (this is required so anonymous form submissions can reach the endpoint; the script only writes to YOUR Sheet)
-4. Click **Deploy**.
-5. Google will ask you to authorize the script. Click **Authorize access**, pick the same Google account, click **Advanced** → **Go to FERAL Creative Director Form (unsafe)** → **Allow**. (The "unsafe" warning is normal for unverified personal scripts.)
-6. Copy the **Web app URL**. It looks like:
-   ```
-   https://script.google.com/macros/s/AKfycb...long-string.../exec
-   ```
-
-## Step 3: Wire the URL into the website
-
-Open `creative-team.html`, find line ~751:
-
-```html
-<form id="ct-form" action="https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec" method="POST" novalidate>
-```
-
-Replace the entire URL with the Web app URL you copied. Save, commit, push. Vercel redeploys.
-
-## Step 4: Smoke test
-
-1. Open `https://stayferal.com/creative-team` in a private/incognito window.
-2. Paste your Web app URL into the browser address bar directly. You should see:
-   ```json
-   {"ok":true,"message":"FERAL Creative Director form endpoint is live."}
-   ```
-3. Submit a test application through the form on the site.
-4. Check `kiefer@feralagency.net` inbox:
-   - First-ever submission triggers TWO emails: one with the Sheet URL ("FERAL form: new Sheet created") plus the application itself.
-   - Every submission after that sends one email per application.
-5. Open the Sheet from that first email. You should see a header row plus your test submission. Bookmark the Sheet URL.
+4. Open `form-setup/creative-team-apps-script.gs` from this repo. Copy ALL of it. Paste into the Apps Script editor.
+5. Rename the project at the top to `FERAL Application Forms`.
+6. Save (Cmd+S).
+7. Click **Deploy** → **New deployment** → gear icon → **Web app**.
+8. Description: `FERAL forms v1`. Execute as: **Me**. Who has access: **Anyone**.
+9. Click **Deploy** and authorize when prompted (Advanced → Go to FERAL Application Forms → Allow).
+10. Copy the **Web app URL** (looks like `https://script.google.com/macros/s/AKfycb.../exec`).
+11. Paste that URL into BOTH `creative-team.html` line ~751 AND `apply-ascension.html` (search for `script.google.com` in each file and replace the action URL).
+12. Commit and push. Vercel redeploys.
 
 ---
 
-## When you change the form
+## Redeploying the existing script (current state)
 
-If you add or remove fields on `creative-team.html`, update the `FIELDS` array at the top of `creative-team-apps-script.gs`, then redeploy:
+The repo already has a deployed URL wired into `creative-team.html` and `apply-ascension.html`:
 
-1. Apps Script editor → **Deploy** → **Manage deployments**.
-2. Click the pencil icon on the active deployment.
-3. Change **Version** to **New version**, click **Deploy**.
-4. The URL stays the same. No need to touch the website.
+```
+https://script.google.com/macros/s/AKfycbybwEq0ZzOS1t7OwlQ3YQAtJgW_Bv6w7bmal5fGRi3jqB8NYQIu02n6T5TkocZ7O1UT/exec
+```
 
-If you change a field NAME (the `name="..."` attribute on the input), update the matching `key` in the FIELDS array OR your Sheet will end up with blank cells for that column.
+When the `.gs` file changes (like now, after adding the ascension form), you need to push a new version under the SAME deployment URL so the wired-up URLs keep working.
+
+1. Open the existing Apps Script project at https://script.google.com.
+2. Replace the entire contents of `Code.gs` with the latest `form-setup/creative-team-apps-script.gs` from this repo.
+3. Save (Cmd+S).
+4. Click **Deploy** → **Manage deployments** (top right).
+5. Click the pencil icon on the active deployment.
+6. Set **Version** to **New version**, add description like `Add ascension form routing`, click **Deploy**.
+7. The Web app URL stays the same. Nothing on the website needs to change.
+
+---
+
+## What happens on first ascension submission
+
+The script keeps using the SAME Google Sheet that the Creative Director form created. On the first ascension submission, the script:
+
+1. Renames the original sheet tab from its old name to **"Creative Director"** (so the named-tab routing works).
+2. Creates a new tab called **"Ascension"** with headers matching the ascension form fields.
+3. Appends the submission as a row.
+4. Emails `kiefer@feralagency.net` with subject `New Ascension Application: <applicant name>`.
+
+If for some reason the script can't find the original sheet (e.g. it was trashed), it creates a fresh "FERAL Applications" workbook and emails you the URL.
+
+---
+
+## Smoke test after redeploy
+
+1. Paste the Web app URL directly into a browser. Should respond:
+   ```json
+   {"ok":true,"message":"FERAL form endpoint is live.","forms":["creative_director","ascension_application"]}
+   ```
+2. Submit a test through `stayferal.com/apply-ascension`. Check that:
+   - The applicant email arrives at `kiefer@feralagency.net`.
+   - A new row appears on the "Ascension" tab of the Sheet.
+3. Submit a test through `stayferal.com/creative-team`. Check that:
+   - The Creative Director applicant email arrives.
+   - The row lands on the "Creative Director" tab (not Ascension).
+
+---
+
+## Adding new form fields
+
+If you change `apply-ascension.html` or `creative-team.html` to add/remove a field, update the matching form's `fields` array in `creative-team-apps-script.gs` (look for the `FORMS` constant near the top). Then redeploy following the "Redeploying" section above.
+
+The column order on the Sheet matches the order of the `fields` array. Renaming labels here changes future header rows on new tabs but doesn't rewrite existing headers, so for the cleanest result, delete the affected tab in the Sheet and let the script recreate it on next submission.
+
+---
+
+## Adding a third form
+
+The script is built to scale. To add a new form (e.g., Ghost System application):
+
+1. Add a new entry to the `FORMS` object in the `.gs` file:
+   ```js
+   ghost_system: {
+     sheet: 'Ghost System',
+     defaultSubject: 'New Ghost System Application',
+     fields: [
+       { key: 'submitted_at', label: 'Submitted (ET)' },
+       // ... rest of fields ...
+     ],
+   },
+   ```
+2. Add a hidden `<input type="hidden" name="form_type" value="ghost_system" />` to the new form's HTML.
+3. Redeploy.
 
 ---
 
 ## Troubleshooting
 
-**Form shows the success screen but nothing arrives.**
-Check the Apps Script editor → **Executions** (left sidebar). Click the latest one. If it shows an error, fix the script and redeploy. Most common cause: the email address has a typo, or the script failed to create the Sheet because of permissions (re-auth via Step 2.5).
+**Submission shows success but nothing in Sheet or inbox.**
+Apps Script editor → **Executions** (left sidebar). Open the latest execution. The error tells you what failed. Most common: the script doesn't have the required permissions on the Sheet. Re-auth (Deploy → New deployment → authorize → don't actually finish, just dismiss; the auth grant carries over).
 
-**Email arrives but the Sheet is empty.**
-The `SHEET_ID` script property got cleared, or the Sheet was moved to Trash. Open the Apps Script editor → **Project Settings** (gear icon) → scroll to **Script Properties**. If `SHEET_ID` is missing or pointing to a trashed file, delete it. Next submission will create a fresh Sheet.
+**Ascension submissions landing on the Creative Director tab.**
+The hidden `form_type` field on `apply-ascension.html` is missing or set to the wrong value. Verify it reads `<input type="hidden" name="form_type" value="ascension_application" />`.
 
-**You want to change the notification email.**
-Edit the `NOTIFY_EMAIL` constant at the top of `creative-team-apps-script.gs`, then redeploy (Manage deployments → pencil → New version).
+**You want to change where notifications go.**
+Edit the `NOTIFY_EMAIL` constant at the top of the `.gs` file, redeploy via Manage deployments → New version.

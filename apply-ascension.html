@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply to FERAL Ascension</title>
+  <meta name="description" content="Apply to FERAL Ascension. The team that builds seven-figure creator brands." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="lang-toggle.css" />
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-elevated: #0a0a0a;
+      --surface: #111111;
+      --text: #f5f5f5;
+      --text-muted: #a3a3a3;
+      --accent: #b8a9c9;
+      --accent-dim: rgba(184, 169, 201, 0.35);
+      --border-pearl: rgba(184, 169, 201, 0.12);
+      --btn-pearl: linear-gradient(135deg, rgba(184, 169, 201, 0.95) 0%, rgba(212, 184, 196, 0.9) 50%, rgba(200, 190, 210, 0.95) 100%);
+      --btn-hover-bg: #1a1520;
+      --btn-hover-text: #e8dcee;
+      --btn-hover-border: rgba(184, 169, 201, 0.4);
+      --font-heading: "DM Sans", system-ui, sans-serif;
+      --font-sans: "Inter", system-ui, sans-serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    .ax-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-pearl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ax-header-logo img { width: 36px; height: 36px; border-radius: 50%; }
+    .ax-header-tag {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    /* Page frame */
+    .ax-page { padding-top: 68px; }
+    .ax-container { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .ax-hero { padding: 3.5rem 0 2.5rem; text-align: center; }
+    .ax-eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin: 0 0 1rem;
+    }
+    .ax-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.75rem;
+    }
+    .ax-sub {
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 0;
+      line-height: 1.55;
+    }
+
+    /* Form shell */
+    .ax-form-shell {
+      max-width: 760px;
+      margin: 1rem auto 5rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-pearl);
+      border-radius: 12px;
+      padding: 2.5rem;
+    }
+    @media (max-width: 600px) {
+      .ax-form-shell { padding: 1.75rem 1.25rem; }
+    }
+
+    .ax-section-h {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-pearl);
+    }
+    .ax-section-h:first-of-type { margin-top: 0; }
+
+    .form-field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1.1rem; }
+    .form-field label {
+      font-size: 0.76rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .form-field-required label::after { content: ' *'; color: var(--accent); }
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      background: var(--surface);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.95rem;
+      color: var(--text);
+      font-family: var(--font-sans);
+      transition: border-color 0.2s var(--ease-out);
+      outline: none;
+      width: 100%;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: rgba(163, 163, 163, 0.5); }
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus { border-color: var(--accent); }
+    .form-field input.error,
+    .form-field textarea.error,
+    .form-field select.error { border-color: #e07a7a; }
+    .form-field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+    .form-field select option { background: var(--surface); color: var(--text); }
+    .form-field textarea { resize: vertical; min-height: 110px; }
+    .form-help { font-size: 0.78rem; color: var(--text-muted); margin: 0.15rem 0 0; }
+    .form-error-msg { font-size: 0.78rem; color: #e07a7a; margin: 0.15rem 0 0; display: none; }
+    .form-field.has-error .form-error-msg { display: block; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+    }
+
+    /* Y/N toggle (segmented radio) */
+    .seg {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      padding: 4px;
+      width: 100%;
+      max-width: 220px;
+    }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg label {
+      text-align: center;
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.01em;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
+      user-select: none;
+    }
+    .seg input:checked + label {
+      background: var(--accent);
+      color: #0a0a0a;
+      font-weight: 600;
+    }
+    .form-field.has-error .seg { border-color: #e07a7a; }
+
+    /* Checkbox group */
+    .check-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1rem;
+    }
+    @media (max-width: 600px) {
+      .check-group { grid-template-columns: 1fr; }
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 0.85rem;
+      background: var(--surface);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+    }
+    .check-item:hover { border-color: var(--accent-dim); }
+    .check-item input {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--border-pearl);
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .check-item input:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .check-item input:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 6px;
+      height: 11px;
+      border: solid #0a0a0a;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .check-item span {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.25;
+    }
+    .check-other-field {
+      margin-top: 0.6rem;
+      display: none;
+    }
+    .check-other-field.is-visible { display: block; }
+
+    /* Submit button */
+    .ax-btn {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      padding: 1rem 2rem;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 4px;
+      border: 1px solid var(--border-pearl);
+      cursor: pointer;
+      transition: transform 0.2s var(--ease-out), background 0.4s var(--ease-out), color 0.4s var(--ease-out), box-shadow 0.3s var(--ease-out);
+      text-align: center;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--btn-pearl);
+      color: #0a0a0a;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    .ax-btn:hover {
+      background: var(--btn-hover-bg);
+      color: var(--btn-hover-text);
+      border-color: var(--btn-hover-border);
+      box-shadow: 0 0 32px rgba(184, 169, 201, 0.25);
+      transform: translateY(-2px);
+    }
+    .ax-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    .form-status {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .form-status.error { color: #e07a7a; }
+
+    /* Success state */
+    .ax-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .ax-success.visible { display: flex; }
+    .ax-success-check {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(184, 169, 201, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .ax-success-check svg { width: 32px; height: 32px; stroke: var(--accent); }
+    .ax-success h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .ax-success p { color: var(--text-muted); max-width: 400px; margin: 0; }
+
+    .ax-foot {
+      border-top: 1px solid var(--border-pearl);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="ax-header">
+    <a href="ascension.html" class="ax-header-logo" aria-label="Back to FERAL Ascension">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" />
+    </a>
+    <span class="ax-header-tag"><span class="t-en">Ascension Application</span><span class="t-es">Solicitud Ascension</span></span>
+  </header>
+
+  <main class="ax-page">
+
+    <div class="ax-container">
+      <div class="ax-hero">
+        <p class="ax-eyebrow">FERAL Ascension</p>
+        <h1 class="ax-title"><span class="t-en">Apply to work with us.</span><span class="t-es">Postula para trabajar con nosotros.</span></h1>
+        <p class="ax-sub"><span class="t-en">Fill this out fully. We read every application personally and only respond to the creators we want to work with.</span><span class="t-es">Llena todo. Leemos cada aplicación personalmente y solo respondemos a las creadoras con las que queremos trabajar.</span></p>
+      </div>
+    </div>
+
+    <div class="ax-form-shell">
+
+      <div id="ax-form-body">
+
+        <!--
+          Submissions go to the same Google Apps Script as the Creative Director form.
+          The script routes by the hidden `form_subject` field below.
+          When you deploy ascension, the same script URL handles both forms.
+        -->
+        <form id="ax-form" action="https://script.google.com/macros/s/AKfycbybwEq0ZzOS1t7OwlQ3YQAtJgW_Bv6w7bmal5fGRi3jqB8NYQIu02n6T5TkocZ7O1UT/exec" method="POST" novalidate>
+
+          <input type="hidden" name="form_type" value="ascension_application" />
+          <input type="hidden" name="form_subject" id="ax-subject" value="New Ascension Application" />
+
+          <!-- CONTACT ====================================================== -->
+          <h2 class="ax-section-h"><span class="t-en">Contact</span><span class="t-es">Contacto</span></h2>
+
+          <div class="form-row">
+            <div class="form-field form-field-required" data-field="full_name">
+              <label for="f-name"><span class="t-en">Full name</span><span class="t-es">Nombre completo</span></label>
+              <input id="f-name" type="text" name="full_name" placeholder="Jane Doe" data-en-placeholder="Jane Doe" data-es-placeholder="Juana Pérez" required autocomplete="name" />
+              <p class="form-error-msg"><span class="t-en">Please enter your full name.</span><span class="t-es">Por favor escribe tu nombre completo.</span></p>
+            </div>
+            <div class="form-field form-field-required" data-field="email">
+              <label for="f-email"><span class="t-en">Email</span><span class="t-es">Correo</span></label>
+              <input id="f-email" type="email" name="email" placeholder="you@email.com" data-en-placeholder="you@email.com" data-es-placeholder="tu@correo.com" required autocomplete="email" />
+              <p class="form-error-msg"><span class="t-en">Please enter a valid email.</span><span class="t-es">Por favor escribe un correo válido.</span></p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field form-field-required" data-field="phone">
+              <label for="f-phone"><span class="t-en">Phone</span><span class="t-es">Teléfono</span></label>
+              <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" data-en-placeholder="+1 (555) 000-0000" data-es-placeholder="+1 (555) 000-0000" required autocomplete="tel" />
+              <p class="form-error-msg"><span class="t-en">Please enter your phone number.</span><span class="t-es">Por favor escribe tu teléfono.</span></p>
+            </div>
+            <div class="form-field form-field-required" data-field="city">
+              <label for="f-city"><span class="t-en">City</span><span class="t-es">Ciudad</span></label>
+              <input id="f-city" type="text" name="city" placeholder="Los Angeles" data-en-placeholder="Los Angeles" data-es-placeholder="Los Ángeles" required />
+              <p class="form-error-msg"><span class="t-en">Please enter your city.</span><span class="t-es">Por favor escribe tu ciudad.</span></p>
+            </div>
+          </div>
+
+          <div class="form-field form-field-required" data-field="country">
+            <label for="f-country"><span class="t-en">Country</span><span class="t-es">País</span></label>
+            <input id="f-country" type="text" name="country" placeholder="United States" data-en-placeholder="United States" data-es-placeholder="Estados Unidos" required autocomplete="country-name" />
+            <p class="form-error-msg"><span class="t-en">Please enter your country.</span><span class="t-es">Por favor escribe tu país.</span></p>
+          </div>
+
+          <!-- SOCIALS ======================================================= -->
+          <h2 class="ax-section-h"><span class="t-en">Socials</span><span class="t-es">Redes sociales</span></h2>
+
+          <div class="form-row">
+            <div class="form-field form-field-required" data-field="instagram">
+              <label for="f-ig">Instagram</label>
+              <input id="f-ig" type="text" name="instagram" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" required />
+              <p class="form-error-msg"><span class="t-en">Please enter your Instagram handle.</span><span class="t-es">Por favor escribe tu usuario de Instagram.</span></p>
+            </div>
+            <div class="form-field" data-field="tiktok">
+              <label for="f-tt">TikTok <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
+              <input id="f-tt" type="text" name="tiktok" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field" data-field="youtube">
+              <label for="f-yt">YouTube <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
+              <input id="f-yt" type="text" name="youtube" placeholder="@yourchannel or URL" data-en-placeholder="@yourchannel or URL" data-es-placeholder="@tucanal o URL" />
+            </div>
+            <div class="form-field" data-field="x_handle">
+              <label for="f-x">X <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
+              <input id="f-x" type="text" name="x_handle" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" />
+            </div>
+          </div>
+
+          <!-- BUSINESS ====================================================== -->
+          <h2 class="ax-section-h"><span class="t-en">Your business</span><span class="t-es">Tu negocio</span></h2>
+
+          <div class="form-field form-field-required" data-field="has_onlyfans">
+            <label><span class="t-en">Do you have an OnlyFans?</span><span class="t-es">¿Tienes OnlyFans?</span></label>
+            <div class="seg" role="radiogroup" aria-label="Do you have an OnlyFans?">
+              <input type="radio" name="has_onlyfans" id="of-yes" value="Yes" required />
+              <label for="of-yes"><span class="t-en">Yes</span><span class="t-es">Sí</span></label>
+              <input type="radio" name="has_onlyfans" id="of-no" value="No" />
+              <label for="of-no">No</label>
+            </div>
+            <p class="form-error-msg"><span class="t-en">Please select Yes or No.</span><span class="t-es">Por favor selecciona Sí o No.</span></p>
+          </div>
+
+          <div class="form-field form-field-required" data-field="years_creating">
+            <label for="f-years"><span class="t-en">How many years have you been making content?</span><span class="t-es">¿Cuántos años llevas creando contenido?</span></label>
+            <select id="f-years" name="years_creating" required>
+              <option value="" disabled selected data-en="Select range" data-es="Selecciona un rango">Select range</option>
+              <option value="Less than 1 year" data-en="Less than 1 year" data-es="Menos de 1 año">Less than 1 year</option>
+              <option value="1-2 years" data-en="1 to 2 years" data-es="1 a 2 años">1 to 2 years</option>
+              <option value="2-4 years" data-en="2 to 4 years" data-es="2 a 4 años">2 to 4 years</option>
+              <option value="4-6 years" data-en="4 to 6 years" data-es="4 a 6 años">4 to 6 years</option>
+              <option value="6+ years" data-en="6+ years" data-es="6+ años">6+ years</option>
+            </select>
+            <p class="form-error-msg"><span class="t-en">Please select a range.</span><span class="t-es">Por favor selecciona un rango.</span></p>
+          </div>
+
+          <div class="form-field form-field-required" data-field="monthly_earnings">
+            <label for="f-earnings"><span class="t-en">Current monthly earnings (USD)</span><span class="t-es">Ingresos mensuales actuales (USD)</span></label>
+            <select id="f-earnings" name="monthly_earnings" required>
+              <option value="" disabled selected data-en="Select range" data-es="Selecciona un rango">Select range</option>
+              <option value="$0 to $2,000" data-en="$0 to $2,000" data-es="$0 a $2,000">$0 to $2,000</option>
+              <option value="$2,000 to $5,000" data-en="$2,000 to $5,000" data-es="$2,000 a $5,000">$2,000 to $5,000</option>
+              <option value="$5,000 to $10,000" data-en="$5,000 to $10,000" data-es="$5,000 a $10,000">$5,000 to $10,000</option>
+              <option value="$10,000 to $25,000" data-en="$10,000 to $25,000" data-es="$10,000 a $25,000">$10,000 to $25,000</option>
+              <option value="$25,000 to $50,000" data-en="$25,000 to $50,000" data-es="$25,000 a $50,000">$25,000 to $50,000</option>
+              <option value="$50,000 to $100,000" data-en="$50,000 to $100,000" data-es="$50,000 a $100,000">$50,000 to $100,000</option>
+              <option value="$100,000+" data-en="$100,000+" data-es="$100,000+">$100,000+</option>
+            </select>
+            <p class="form-error-msg"><span class="t-en">Please select a range.</span><span class="t-es">Por favor selecciona un rango.</span></p>
+          </div>
+
+          <div class="form-field form-field-required" data-field="constraints">
+            <label><span class="t-en">Main constraint (select all that apply)</span><span class="t-es">Principal limitante (selecciona todas las que apliquen)</span></label>
+            <div class="check-group" id="constraint-group">
+              <label class="check-item"><input type="checkbox" name="constraints[]" value="Social growth & content" /><span><span class="t-en">Social growth &amp; Content</span><span class="t-es">Crecimiento social y contenido</span></span></label>
+              <label class="check-item"><input type="checkbox" name="constraints[]" value="New fans" /><span><span class="t-en">New Fans</span><span class="t-es">Nuevos fans</span></span></label>
+              <label class="check-item"><input type="checkbox" name="constraints[]" value="Chatting & sales" /><span><span class="t-en">Chatting &amp; Sales</span><span class="t-es">Chat y ventas</span></span></label>
+              <label class="check-item"><input type="checkbox" name="constraints[]" value="Systems & data analysis" /><span><span class="t-en">Systems &amp; Data Analysis</span><span class="t-es">Sistemas y análisis de datos</span></span></label>
+              <label class="check-item"><input type="checkbox" name="constraints[]" value="Branding & creative direction" /><span><span class="t-en">Branding &amp; Creative Direction</span><span class="t-es">Branding y dirección creativa</span></span></label>
+              <label class="check-item"><input type="checkbox" name="constraints[]" value="Other" id="constraint-other" /><span><span class="t-en">Other</span><span class="t-es">Otro</span></span></label>
+            </div>
+            <div class="check-other-field" id="constraint-other-wrap">
+              <input id="f-constraint-other" type="text" name="constraint_other" placeholder="Tell us what's holding you back" data-en-placeholder="Tell us what's holding you back" data-es-placeholder="Dinos qué te está limitando" />
+            </div>
+            <p class="form-error-msg"><span class="t-en">Please pick at least one.</span><span class="t-es">Por favor selecciona al menos una.</span></p>
+          </div>
+
+          <!-- FIT =========================================================== -->
+          <h2 class="ax-section-h"><span class="t-en">Why FERAL</span><span class="t-es">Por qué FERAL</span></h2>
+
+          <div class="form-field form-field-required" data-field="why_feral">
+            <label for="f-why"><span class="t-en">Why do you think you'd be a good addition to FERAL?</span><span class="t-es">¿Por qué crees que serías una buena adición a FERAL?</span></label>
+            <textarea id="f-why" name="why_feral" rows="5" maxlength="800" placeholder="Tell us about you, your goals, your work ethic, and what you bring to the table." data-en-placeholder="Tell us about you, your goals, your work ethic, and what you bring to the table." data-es-placeholder="Cuéntanos sobre ti, tus metas, tu ética de trabajo y qué aportas." required></textarea>
+            <p class="form-help"><span class="t-en">Specifics beat adjectives.</span><span class="t-es">Los detalles concretos ganan a los adjetivos.</span></p>
+            <p class="form-error-msg"><span class="t-en">Tell us why.</span><span class="t-es">Cuéntanos por qué.</span></p>
+          </div>
+
+          <div class="form-field form-field-required" data-field="start_today">
+            <label><span class="t-en">If you're selected for an interview, would you be willing to start today?</span><span class="t-es">Si te seleccionan para una entrevista, ¿estarías dispuesta a empezar hoy?</span></label>
+            <div class="seg" role="radiogroup" aria-label="Willing to start today?">
+              <input type="radio" name="start_today" id="st-yes" value="Yes" required />
+              <label for="st-yes"><span class="t-en">Yes</span><span class="t-es">Sí</span></label>
+              <input type="radio" name="start_today" id="st-no" value="No" />
+              <label for="st-no">No</label>
+            </div>
+            <p class="form-error-msg"><span class="t-en">Please select Yes or No.</span><span class="t-es">Por favor selecciona Sí o No.</span></p>
+          </div>
+
+          <button type="submit" class="ax-btn" id="ax-submit"><span class="t-en">Submit application</span><span class="t-es">Enviar solicitud</span></button>
+          <p class="form-status" id="ax-status" aria-live="polite"></p>
+        </form>
+
+      </div>
+
+      <div class="ax-success" id="ax-success" aria-live="polite">
+        <div class="ax-success-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h2><span class="t-en">Application received.</span><span class="t-es">Solicitud recibida.</span></h2>
+        <p><span class="t-en">We read every application personally. If you're a fit, you'll hear from us within a few days.</span><span class="t-es">Leemos cada aplicación personalmente. Si encajas, sabrás de nosotros en pocos días.</span></p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="ax-foot">© <span id="year"></span> FERAL. All rights reserved.</footer>
+
+  <script src="lang-toggle.js" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('ax-form');
+    const submitBtn = document.getElementById('ax-submit');
+    const status = document.getElementById('ax-status');
+
+    // Toggle "Other" text input when the Other checkbox is checked
+    const otherCb = document.getElementById('constraint-other');
+    const otherWrap = document.getElementById('constraint-other-wrap');
+    otherCb.addEventListener('change', () => {
+      otherWrap.classList.toggle('is-visible', otherCb.checked);
+      if (otherCb.checked) document.getElementById('f-constraint-other').focus();
+    });
+
+    // Clear error on edit
+    form.querySelectorAll('input, textarea, select').forEach(el => {
+      const clear = () => {
+        const f = el.closest('.form-field');
+        if (f) f.classList.remove('has-error');
+        el.classList.remove('error');
+      };
+      el.addEventListener('input', clear);
+      el.addEventListener('change', clear);
+    });
+
+    function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    function validate() {
+      let firstInvalid = null;
+      let ok = true;
+
+      // Standard required fields (text, email, tel, select, textarea)
+      form.querySelectorAll('input[type=text], input[type=email], input[type=tel], input[type=url], select, textarea').forEach(el => {
+        if (!el.required) return;
+        const f = el.closest('.form-field');
+        let valid = !!el.value.trim();
+        if (valid && el.type === 'email') valid = isValidEmail(el.value.trim());
+        if (!valid) {
+          ok = false;
+          f.classList.add('has-error');
+          el.classList.add('error');
+          if (!firstInvalid) firstInvalid = el;
+        }
+      });
+
+      // Radio groups (Y/N toggles)
+      ['has_onlyfans', 'start_today'].forEach(name => {
+        const group = form.querySelectorAll(`input[name="${name}"]`);
+        if (group.length && ![...group].some(r => r.checked)) {
+          ok = false;
+          const f = group[0].closest('.form-field');
+          f.classList.add('has-error');
+          if (!firstInvalid) firstInvalid = group[0];
+        }
+      });
+
+      // Constraint checkboxes — at least one required
+      const constraints = form.querySelectorAll('input[name="constraints[]"]');
+      if (![...constraints].some(c => c.checked)) {
+        ok = false;
+        const f = constraints[0].closest('.form-field');
+        f.classList.add('has-error');
+        if (!firstInvalid) firstInvalid = constraints[0];
+      }
+
+      if (firstInvalid) firstInvalid.focus();
+      return ok;
+    }
+
+    // Localized strings used by the submit handler.
+    const COPY = {
+      en: {
+        fixFields: 'Please fix the highlighted fields.',
+        sending:   'Sending...',
+        submit:    'Submit application',
+        oops:      'Something went wrong. Try again, or email kiefer@feralagency.net directly.',
+      },
+      es: {
+        fixFields: 'Por favor corrige los campos marcados.',
+        sending:   'Enviando...',
+        submit:    'Enviar solicitud',
+        oops:      'Algo salió mal. Inténtalo de nuevo o escribe a kiefer@feralagency.net.',
+      },
+    };
+    const getCopy = () => COPY[document.documentElement.getAttribute('lang') === 'es' ? 'es' : 'en'];
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      status.textContent = '';
+      status.classList.remove('error');
+
+      if (!validate()) {
+        status.textContent = getCopy().fixFields;
+        status.classList.add('error');
+        return;
+      }
+
+      // Build the subject line for the email
+      const name = document.getElementById('f-name').value.trim();
+      document.getElementById('ax-subject').value = 'New Ascension Application: ' + name;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = getCopy().sending;
+
+      // Apps Script accepts URL-encoded POST without CORS preflight
+      const data = new FormData(form);
+      const params = new URLSearchParams();
+      data.forEach((v, k) => params.append(k, v));
+
+      try {
+        await fetch(form.action, { method: 'POST', mode: 'no-cors', body: params });
+        document.getElementById('ax-form-body').style.display = 'none';
+        document.getElementById('ax-success').classList.add('visible');
+        document.getElementById('ax-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = getCopy().submit;
+        status.textContent = getCopy().oops;
+        status.classList.add('error');
+      }
+    });
+  </script>
+</body>
+</html>

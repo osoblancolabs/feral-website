@@ -1,128 +1,218 @@
 /**
- * FERAL Creative Director Application — Apps Script web app backend.
+ * FERAL Application Forms — Apps Script web app backend.
  *
- * What it does:
- *   1. Receives POST from creative-team.html form.
- *   2. On first run, creates a Google Sheet named "FERAL Creative Director Applications"
- *      and stores its ID in script properties so future runs reuse it.
- *   3. Appends each submission as a row.
- *   4. Emails NOTIFY_EMAIL with the formatted application.
+ * Handles TWO form types from a single deployment URL:
+ *   1. Creative Director applications (creative-team.html)
+ *   2. Ascension applications (apply-ascension.html)
  *
- * Setup:
- *   1. Go to https://script.google.com and create a new project.
- *   2. Replace the default Code.gs contents with this file.
- *   3. Deploy as "Web app":
- *        Execute as: Me (your Google account)
- *        Who has access: Anyone
- *      Copy the deployment URL.
- *   4. Paste that URL into creative-team.html line 751
- *      (replace the REPLACE_WITH_DEPLOYMENT_ID placeholder).
- *   5. Submit a test application to verify the Sheet is created and the email lands.
+ * Routing is by the hidden `form_type` field on each form.
+ * Each form_type writes to its own tab in the same Google Sheet.
+ * Email notifications go to NOTIFY_EMAIL with form-specific subject lines.
+ *
+ * Setup: see form-setup/SETUP.md
  */
 
 // ============================================================
-// CONFIG — change these if needed
+// CONFIG
 // ============================================================
 const NOTIFY_EMAIL = 'kiefer@feralagency.net';
-const SHEET_NAME = 'FERAL Creative Director Applications';
+const WORKBOOK_NAME = 'FERAL Applications';
 
-// Form field order. Anything new added to the form gets a new entry here.
-const FIELDS = [
-  { key: 'submitted_at',     label: 'Submitted (ET)' },
-  { key: 'full_name',        label: 'Full name' },
-  { key: 'email',            label: 'Email' },
-  { key: 'phone',            label: 'Phone' },
-  { key: 'location',         label: 'Location' },
-  { key: 'instagram_handle', label: 'Instagram' },
-  { key: 'portfolio_url',    label: 'Portfolio' },
-  { key: 'loom_url',         label: 'Loom video' },
-  { key: 'experience_years', label: 'Experience' },
-  { key: 'best_win',         label: 'Best win' },
-  { key: 'why_feral',        label: 'Why FERAL' },
-  { key: 'start_date',       label: 'Earliest start' },
-  { key: 'compensation',     label: 'Compensation expectations' },
-];
+// Form definitions. Add new forms by adding a new key here.
+// `key` matches the hidden form_type field on the HTML form.
+// `fields` is the column order. `submitted_at` is auto-filled.
+const FORMS = {
+  creative_director: {
+    sheet: 'Creative Director',
+    defaultSubject: 'New Creative Director Application',
+    fields: [
+      { key: 'submitted_at',     label: 'Submitted (ET)' },
+      { key: 'full_name',        label: 'Full name' },
+      { key: 'email',            label: 'Email' },
+      { key: 'phone',            label: 'Phone' },
+      { key: 'location',         label: 'Location' },
+      { key: 'instagram_handle', label: 'Instagram' },
+      { key: 'portfolio_url',    label: 'Portfolio' },
+      { key: 'loom_url',         label: 'Loom video' },
+      { key: 'experience_years', label: 'Experience' },
+      { key: 'best_win',         label: 'Best win' },
+      { key: 'why_feral',        label: 'Why FERAL' },
+      { key: 'start_date',       label: 'Earliest start' },
+      { key: 'compensation',     label: 'Compensation expectations' },
+    ],
+  },
+  ascension_application: {
+    sheet: 'Ascension',
+    defaultSubject: 'New Ascension Application',
+    fields: [
+      { key: 'submitted_at',      label: 'Submitted (ET)' },
+      { key: 'full_name',         label: 'Full name' },
+      { key: 'email',             label: 'Email' },
+      { key: 'phone',             label: 'Phone' },
+      { key: 'city',              label: 'City' },
+      { key: 'country',           label: 'Country' },
+      { key: 'instagram',         label: 'Instagram' },
+      { key: 'tiktok',            label: 'TikTok' },
+      { key: 'youtube',           label: 'YouTube' },
+      { key: 'x_handle',          label: 'X' },
+      { key: 'has_onlyfans',      label: 'Has OnlyFans' },
+      { key: 'years_creating',    label: 'Years creating' },
+      { key: 'monthly_earnings',  label: 'Monthly earnings' },
+      { key: 'constraints',       label: 'Main constraints' },
+      { key: 'constraint_other',  label: 'Constraint - other' },
+      { key: 'why_feral',         label: 'Why FERAL' },
+      { key: 'start_today',       label: 'Willing to start today' },
+    ],
+  },
+};
+
+// Fallback if a form posts without form_type (back-compat with old deployments)
+const DEFAULT_FORM_KEY = 'creative_director';
 
 // ============================================================
 // MAIN HANDLER
 // ============================================================
 function doPost(e) {
   try {
-    const params = e.parameter || {};
-    const row = buildRow(params);
-    const sheet = getOrCreateSheet();
+    const params = flatten(e);
+    const formKey = (params.form_type || DEFAULT_FORM_KEY).toLowerCase();
+    const config = FORMS[formKey];
+    if (!config) {
+      throw new Error('Unknown form_type: ' + formKey);
+    }
+
+    const row = buildRow(params, config);
+    const sheet = getOrCreateSheet(config);
     sheet.appendRow(row);
-    sendEmail(params);
-    return jsonResponse({ ok: true });
+    sendEmail(params, config);
+    return jsonResponse({ ok: true, form: formKey });
   } catch (err) {
     console.error(err);
     return jsonResponse({ ok: false, error: err.message });
   }
 }
 
-// Visiting the deployment URL in a browser hits doGet — used as a smoke test.
+/**
+ * Flatten the Apps Script `e` object into a {key: value} map where multi-value
+ * params (e.g., HTML checkbox groups posted as "name[]") are joined with ", ".
+ * Strips the trailing "[]" off keys so the FIELDS list can reference them plainly.
+ */
+function flatten(e) {
+  const out = Object.assign({}, e.parameter || {});
+  const multi = e.parameters || {};
+  Object.keys(multi).forEach(k => {
+    const cleanKey = k.replace(/\[\]$/, '');
+    const arr = multi[k];
+    if (arr && arr.length > 1) {
+      out[cleanKey] = arr.join(', ');
+    } else if (cleanKey !== k && arr && arr.length === 1) {
+      out[cleanKey] = arr[0];
+    }
+  });
+  return out;
+}
+
 function doGet() {
-  return jsonResponse({ ok: true, message: 'FERAL Creative Director form endpoint is live.' });
+  return jsonResponse({
+    ok: true,
+    message: 'FERAL form endpoint is live.',
+    forms: Object.keys(FORMS),
+  });
 }
 
 // ============================================================
 // SHEET
 // ============================================================
-function getOrCreateSheet() {
+function getOrCreateSheet(config) {
   const props = PropertiesService.getScriptProperties();
-  let sheetId = props.getProperty('SHEET_ID');
+  let workbookId = props.getProperty('WORKBOOK_ID');
 
-  if (sheetId) {
-    try {
-      return SpreadsheetApp.openById(sheetId).getActiveSheet();
-    } catch (err) {
-      // Stored ID no longer valid (sheet trashed). Fall through and create new.
-      sheetId = null;
+  // Back-compat: migrate the original deployment's SHEET_ID into WORKBOOK_ID
+  // so we keep using the existing spreadsheet instead of orphaning it.
+  if (!workbookId) {
+    const legacySheetId = props.getProperty('SHEET_ID');
+    if (legacySheetId) {
+      try {
+        const legacy = SpreadsheetApp.openById(legacySheetId);
+        workbookId = legacy.getId();
+        props.setProperty('WORKBOOK_ID', workbookId);
+        // The legacy default sheet is the old "FERAL Creative Director Applications"
+        // single sheet. Rename it so the named-tab logic below finds it.
+        const onlySheet = legacy.getSheets()[0];
+        if (onlySheet && onlySheet.getName() !== 'Creative Director') {
+          onlySheet.setName('Creative Director');
+        }
+      } catch (err) {
+        workbookId = null;
+      }
     }
   }
 
-  const ss = SpreadsheetApp.create(SHEET_NAME);
-  props.setProperty('SHEET_ID', ss.getId());
+  let ss;
+  if (workbookId) {
+    try {
+      ss = SpreadsheetApp.openById(workbookId);
+    } catch (err) {
+      workbookId = null;
+    }
+  }
 
-  const sheet = ss.getActiveSheet();
-  sheet.appendRow(FIELDS.map(f => f.label));
-  sheet.getRange(1, 1, 1, FIELDS.length)
-       .setFontWeight('bold')
-       .setBackground('#0a0a0a')
-       .setFontColor('#f5f5f5');
-  sheet.setFrozenRows(1);
-  sheet.autoResizeColumns(1, FIELDS.length);
+  if (!ss) {
+    ss = SpreadsheetApp.create(WORKBOOK_NAME);
+    props.setProperty('WORKBOOK_ID', ss.getId());
+    const defaultSheet = ss.getSheetByName('Sheet1');
+    if (defaultSheet && ss.getSheets().length > 1) ss.deleteSheet(defaultSheet);
+    MailApp.sendEmail({
+      to: NOTIFY_EMAIL,
+      subject: 'FERAL forms: workbook created',
+      body: 'A new Google Sheet was created for FERAL form submissions:\n\n'
+          + ss.getUrl()
+          + '\n\nEach form type writes to its own tab.',
+    });
+  }
 
-  // Email a one-time setup notice with the Sheet URL.
-  MailApp.sendEmail({
-    to: NOTIFY_EMAIL,
-    subject: 'FERAL form: new Sheet created',
-    body: 'New Google Sheet was created for Creative Director applications:\n\n'
-        + ss.getUrl()
-        + '\n\nFuture submissions will append to this sheet.',
-  });
-
+  let sheet = ss.getSheetByName(config.sheet);
+  if (!sheet) {
+    sheet = ss.insertSheet(config.sheet);
+    sheet.appendRow(config.fields.map(f => f.label));
+    sheet.getRange(1, 1, 1, config.fields.length)
+         .setFontWeight('bold')
+         .setBackground('#0a0a0a')
+         .setFontColor('#f5f5f5');
+    sheet.setFrozenRows(1);
+    sheet.autoResizeColumns(1, config.fields.length);
+    // Drop the legacy "Sheet1" if it's still around once we've created at least one named sheet.
+    const legacy = ss.getSheetByName('Sheet1');
+    if (legacy && ss.getSheets().length > 1) ss.deleteSheet(legacy);
+  }
   return sheet;
 }
 
-function buildRow(params) {
+function buildRow(params, config) {
   const tz = 'America/New_York';
   const now = Utilities.formatDate(new Date(), tz, "yyyy-MM-dd HH:mm");
-  return FIELDS.map(f => f.key === 'submitted_at' ? now : (params[f.key] || ''));
+  return config.fields.map(f => {
+    if (f.key === 'submitted_at') return now;
+    // Form fields posted as arrays (e.g., constraints[]) come back as a single
+    // value or comma-joined depending on the client. Apps Script joins multi-
+    // value parameters with the e.parameters property; e.parameter takes the
+    // first. We prefer the joined form for checkboxes.
+    return params[f.key] || '';
+  });
 }
 
 // ============================================================
 // EMAIL
 // ============================================================
-function sendEmail(params) {
+function sendEmail(params, config) {
   const name = params.full_name || 'New applicant';
-  const subject = params.form_subject || ('New Creative Director Application: ' + name);
+  const subject = params.form_subject || (config.defaultSubject + ': ' + name);
 
-  const lines = FIELDS
+  const lines = config.fields
     .filter(f => f.key !== 'submitted_at')
     .map(f => f.label + ':\n' + (params[f.key] || '(blank)') + '\n');
 
-  const body = lines.join('\n') + '\n---\nSubmitted via stayferal.com/creative-team';
+  const body = lines.join('\n') + '\n---\nSubmitted via stayferal.com';
 
   MailApp.sendEmail({
     to: NOTIFY_EMAIL,

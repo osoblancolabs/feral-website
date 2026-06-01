@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FERAL Ascension | Apply</title>
+  <meta name="description" content="FERAL Ascension. The team that builds seven-figure creator brands. Apply if you're ready." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lang-toggle.css" />
+  <style>
+    /* Ascension-specific overrides — page lives on top of styles.css */
+    .asc-page { padding-top: 2rem; }
+    .asc-hero {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .asc-eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent, #b8a9c9);
+      margin: 0 0 1rem;
+    }
+    .asc-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+    }
+    .asc-sub {
+      color: var(--text-muted, #a3a3a3);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.55;
+    }
+
+    /* VSL embed */
+    .asc-vsl {
+      max-width: 920px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(184, 169, 201, 0.12);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+      background: #0a0a0a;
+    }
+    .asc-vsl-ratio {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+    .asc-vsl-placeholder {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: rgba(245, 245, 245, 0.55);
+      font-size: 0.95rem;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(184, 169, 201, 0.1), transparent 60%),
+        #0a0a0a;
+    }
+    .asc-vsl-placeholder svg { width: 64px; height: 64px; opacity: 0.55; }
+    .asc-vsl-placeholder .tag {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+      color: rgba(184, 169, 201, 0.85);
+    }
+
+    /* APPLY button gate */
+    .asc-cta-wrap {
+      max-width: 920px;
+      margin: 2rem auto 0;
+      display: flex;
+      justify-content: center;
+      min-height: 64px;
+    }
+    .asc-cta-locked {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      border: 1px solid rgba(184, 169, 201, 0.15);
+      background: rgba(255, 255, 255, 0.02);
+      color: rgba(245, 245, 245, 0.55);
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .asc-cta-locked .timer {
+      font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+      padding: 0.22rem 0.55rem;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.35);
+      color: rgba(184, 169, 201, 0.95);
+      letter-spacing: 0.05em;
+      font-variant-numeric: tabular-nums;
+      min-width: 3.6rem;
+      text-align: center;
+    }
+    .asc-cta-apply {
+      display: none;
+      min-width: 280px;
+      text-decoration: none;
+    }
+    .asc-cta-wrap.is-unlocked .asc-cta-locked { display: none; }
+    .asc-cta-wrap.is-unlocked .asc-cta-apply { display: inline-block; }
+
+    /* Section frame */
+    .asc-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+    .asc-section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 3rem;
+    }
+    .asc-section-head h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.75rem;
+    }
+    .asc-section-head p {
+      color: var(--text-muted, #a3a3a3);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Case study grid reuses .result-card from styles.css */
+
+    /* FAQ */
+    .asc-faq { max-width: 800px; margin: 0 auto; }
+    .asc-faq-item {
+      border-bottom: 1px solid rgba(184, 169, 201, 0.12);
+    }
+    .asc-faq-q {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      color: var(--text, #f5f5f5);
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 500;
+      text-align: left;
+      padding: 1.4rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      letter-spacing: -0.005em;
+    }
+    .asc-faq-q .ic {
+      font-size: 1.4rem;
+      color: rgba(184, 169, 201, 0.85);
+      font-weight: 300;
+      transition: transform 0.25s ease;
+    }
+    .asc-faq-item.is-open .asc-faq-q .ic { transform: rotate(45deg); }
+    .asc-faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      color: var(--text-muted, #a3a3a3);
+      line-height: 1.65;
+    }
+    .asc-faq-a-inner { padding: 0 0 1.4rem; font-size: 0.98rem; }
+    .asc-faq-item.is-open .asc-faq-a { max-height: 600px; }
+
+    /* Long scrolling success collage with sticky APPLY button */
+    .asc-collage-section {
+      position: relative;
+      padding: 5rem 0;
+    }
+    .asc-collage-intro {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+    }
+    .asc-collage-frame {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .asc-collage {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .asc-collage { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .asc-collage { grid-template-columns: 1fr; }
+    }
+    .asc-collage img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid rgba(184, 169, 201, 0.08);
+      background: #0a0a0a;
+    }
+
+    /* Sticky middle button that stays visible while screenshots scroll behind */
+    .asc-collage-sticky {
+      position: sticky;
+      bottom: 2rem;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 30;
+      margin-top: -3rem;
+    }
+    .asc-collage-sticky a {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 2.4rem;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 6px;
+      color: #0a0a0a;
+      background: linear-gradient(135deg, rgba(184, 169, 201, 0.95) 0%, rgba(212, 184, 196, 0.9) 50%, rgba(200, 190, 210, 0.95) 100%);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55), 0 0 32px rgba(184, 169, 201, 0.35);
+      transition: transform 0.25s ease;
+    }
+    .asc-collage-sticky a:hover { transform: translateY(-2px); }
+
+    /* Closing CTA below the collage */
+    .asc-close {
+      text-align: center;
+      padding: 5rem 1.5rem 7rem;
+    }
+    .asc-close h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      margin: 0 0 1rem;
+    }
+    .asc-close p {
+      color: var(--text-muted, #a3a3a3);
+      max-width: 560px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Footer link to legacy index */
+    .asc-foot {
+      border-top: 1px solid rgba(184, 169, 201, 0.12);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted, #a3a3a3);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <a href="index.html" class="logo" aria-label="FERAL home">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" width="36" height="36" />
+    </a>
+    <span style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted, #a3a3a3);"><span class="t-en">Ascension Application</span><span class="t-es">Solicitud Ascension</span></span>
+  </header>
+
+  <main class="asc-page" id="main">
+
+    <!-- HERO + VSL ====================================================== -->
+    <section class="asc-hero">
+      <p class="asc-eyebrow">FERAL Ascension</p>
+      <h1 class="asc-title"><span class="t-en">Build a seven-figure brand in a year.</span><span class="t-es">Construye una marca millonaria en un año.</span></h1>
+      <p class="asc-sub"><span class="t-en">Watch the video, then apply. Real team, real systems, real results.</span><span class="t-es">Mira el video y postula. Equipo real, sistemas reales, resultados reales.</span></p>
+
+      <div class="asc-vsl">
+        <div class="asc-vsl-ratio">
+          <!-- VSL placeholder. Replace this block with the YouTube/Vimeo iframe when the video is ready:
+               <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID?rel=0" title="FERAL Ascension VSL" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+          -->
+          <div class="asc-vsl-placeholder" aria-label="VSL pending">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M10 8l6 4-6 4V8z" fill="currentColor" />
+            </svg>
+            <span class="tag"><span class="t-en">VSL Pending</span><span class="t-es">Video próximamente</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="asc-cta-wrap" id="asc-cta-wrap">
+        <span class="asc-cta-locked" id="asc-locked">
+          <span class="t-en">Apply unlocks in</span><span class="t-es">Se desbloquea en</span>
+          <span class="timer" id="asc-timer">1:30</span>
+        </span>
+        <a href="apply-ascension.html" class="btn btn-primary asc-cta-apply" id="asc-apply"><span class="t-en">Apply Now</span><span class="t-es">Postular ahora</span></a>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES ==================================================== -->
+    <section class="asc-section" id="case-studies">
+      <div class="asc-section-head">
+        <h2><span class="t-en">Case studies</span><span class="t-es">Casos de éxito</span></h2>
+        <p><span class="t-en">Real creators we've worked with. Click any card for the full breakdown.</span><span class="t-es">Creadoras reales con las que hemos trabajado. Haz clic en cualquier tarjeta para ver el caso completo.</span></p>
+      </div>
+
+      <div class="results-grid">
+
+        <!-- Kiera -->
+        <article class="result-card" data-creator="kiera">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Kiera</h3>
+              <span class="result-card-timeline"><span class="t-en">6 months with FERAL</span><span class="t-es">6 meses con FERAL</span></span>
+            </div>
+            <span class="result-card-badge"><span class="t-en">$0 to $1M</span><span class="t-es">$0 a $1M</span></span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">$79/mo to $1,000,017 in 6 months</span><span class="t-es">$79/mes a $1,000,017 en 6 meses</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Before</span><span class="t-es">Antes</span></span>
+              <span class="result-metric-value result-metric-before"><span class="t-en">$79/mo</span><span class="t-es">$79/mes</span></span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">After (6 months)</span><span class="t-es">Después (6 meses)</span></span>
+              <span class="result-metric-value result-metric-after">$1,000,017</span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">160K+</span><span class="result-stat-label"><span class="t-en">IG followers</span><span class="t-es">Seguidores IG</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">44M</span><span class="result-stat-label"><span class="t-en">monthly views</span><span class="t-es">vistas mensuales</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">15,280</span><span class="result-stat-label"><span class="t-en">subscribers</span><span class="t-es">suscriptores</span></span></div>
+          </div>
+          <a href="results/kiera.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+        <!-- Noelia -->
+        <article class="result-card" data-creator="noelia">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Noelia</h3>
+              <span class="result-card-timeline"><span class="t-en">12 months with FERAL</span><span class="t-es">12 meses con FERAL</span></span>
+            </div>
+            <span class="result-card-badge"><span class="t-en">$291K month</span><span class="t-es">$291K mensual</span></span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">$2K/mo to $291K/mo. 17K to 341K followers.</span><span class="t-es">$2K/mes a $291K/mes. 17K a 341K seguidores.</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Before</span><span class="t-es">Antes</span></span>
+              <span class="result-metric-value result-metric-before"><span class="t-en">$2K/mo</span><span class="t-es">$2K/mes</span></span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">After</span><span class="t-es">Después</span></span>
+              <span class="result-metric-value result-metric-after"><span class="t-en">$291K/mo</span><span class="t-es">$291K/mes</span></span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">341K</span><span class="result-stat-label"><span class="t-en">IG followers</span><span class="t-es">Seguidores IG</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">38.5M</span><span class="result-stat-label"><span class="t-en">monthly views</span><span class="t-es">vistas mensuales</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">20x</span><span class="result-stat-label"><span class="t-en">follower growth</span><span class="t-es">crecimiento seguidores</span></span></div>
+          </div>
+          <a href="results/noelia.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+        <!-- Megan -->
+        <article class="result-card" data-creator="megan">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Megan</h3>
+              <span class="result-card-timeline"><span class="t-en">First month with FERAL</span><span class="t-es">Primer mes con FERAL</span></span>
+            </div>
+            <span class="result-card-badge"><span class="t-en">Agency record</span><span class="t-es">Récord de la agencia</span></span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">$5,400 single custom. $10.9K in a day.</span><span class="t-es">$5,400 en un solo custom. $10.9K en un día.</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Previous agencies</span><span class="t-es">Agencias anteriores</span></span>
+              <span class="result-metric-value result-metric-before"><span class="t-en">Burned</span><span class="t-es">Estafada</span></span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">With FERAL</span><span class="t-es">Con FERAL</span></span>
+              <span class="result-metric-value result-metric-after"><span class="t-en">$10.9K/day</span><span class="t-es">$10.9K/día</span></span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">+151%</span><span class="result-stat-label"><span class="t-en">revenue growth</span><span class="t-es">crecimiento ingresos</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">$5.1K</span><span class="result-stat-label"><span class="t-en">customs in 2 days</span><span class="t-es">customs en 2 días</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">+230%</span><span class="result-stat-label"><span class="t-en">message revenue</span><span class="t-es">ingresos por mensajes</span></span></div>
+          </div>
+          <a href="results/megan.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+        <!-- Olivia -->
+        <article class="result-card" data-creator="olivia">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Olivia</h3>
+              <span class="result-card-timeline"><span class="t-en">4 months with FERAL</span><span class="t-es">4 meses con FERAL</span></span>
+            </div>
+            <span class="result-card-badge"><span class="t-en">101M views</span><span class="t-es">101M vistas</span></span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">$214K gross in first 2 months</span><span class="t-es">$214K brutos en los primeros 2 meses</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Before (followers)</span><span class="t-es">Antes (seguidores)</span></span>
+              <span class="result-metric-value result-metric-before">~77K</span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">After (followers)</span><span class="t-es">Después (seguidores)</span></span>
+              <span class="result-metric-value result-metric-after">195K</span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">101M</span><span class="result-stat-label"><span class="t-en">IG views</span><span class="t-es">vistas IG</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">10</span><span class="result-stat-label"><span class="t-en">viral posts/week</span><span class="t-es">posts virales/semana</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">+118K</span><span class="result-stat-label"><span class="t-en">new followers</span><span class="t-es">nuevos seguidores</span></span></div>
+          </div>
+          <a href="results/olivia.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+        <!-- Sofia -->
+        <article class="result-card" data-creator="sofia">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Sofia</h3>
+              <span class="result-card-timeline"><span class="t-en">31 months with FERAL</span><span class="t-es">31 meses con FERAL</span></span>
+            </div>
+            <span class="result-card-badge">Top 0.07%</span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">$0 to $976K across two accounts</span><span class="t-es">$0 a $976K entre dos cuentas</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Starting followers</span><span class="t-es">Seguidores iniciales</span></span>
+              <span class="result-metric-value result-metric-before">3.1K</span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Peak monthly</span><span class="t-es">Pico mensual</span></span>
+              <span class="result-metric-value result-metric-after"><span class="t-en">$55K/mo</span><span class="t-es">$55K/mes</span></span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">83K+</span><span class="result-stat-label"><span class="t-en">IG followers</span><span class="t-es">Seguidores IG</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">15.3M</span><span class="result-stat-label"><span class="t-en">monthly views</span><span class="t-es">vistas mensuales</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">$976K</span><span class="result-stat-label"><span class="t-en">total revenue</span><span class="t-es">ingresos totales</span></span></div>
+          </div>
+          <a href="results/sofia.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+        <!-- Lorena -->
+        <article class="result-card" data-creator="lorena">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Lorena</h3>
+              <span class="result-card-timeline"><span class="t-en">26 months with FERAL</span><span class="t-es">26 meses con FERAL</span></span>
+            </div>
+            <span class="result-card-badge"><span class="t-en">$101K month</span><span class="t-es">$101K mensual</span></span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">$101K in a single month</span><span class="t-es">$101K en un solo mes</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Monthly revenue</span><span class="t-es">Ingresos mensuales</span></span>
+              <span class="result-metric-value result-metric-after">$101,669</span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">IG reach</span><span class="t-es">Alcance IG</span></span>
+              <span class="result-metric-value result-metric-after"><span class="t-en">6.4M accounts</span><span class="t-es">6.4M cuentas</span></span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">13.4M</span><span class="result-stat-label"><span class="t-en">views one month</span><span class="t-es">vistas en un mes</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">+125%</span><span class="result-stat-label"><span class="t-en">reach growth</span><span class="t-es">crecimiento alcance</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">2</span><span class="result-stat-label"><span class="t-en">reels over 1M</span><span class="t-es">reels sobre 1M</span></span></div>
+          </div>
+          <a href="results/lorena.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+        <!-- Yasmin -->
+        <article class="result-card" data-creator="yasmin">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Yasmin</h3>
+              <span class="result-card-timeline"><span class="t-en">3 months with FERAL</span><span class="t-es">3 meses con FERAL</span></span>
+            </div>
+            <span class="result-card-badge"><span class="t-en">100K in 3 months</span><span class="t-es">100K en 3 meses</span></span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">2K to 100K followers in 3 months</span><span class="t-es">2K a 100K seguidores en 3 meses</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Before (views)</span><span class="t-es">Antes (vistas)</span></span>
+              <span class="result-metric-value result-metric-before"><span class="t-en">40K/mo</span><span class="t-es">40K/mes</span></span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">After (views)</span><span class="t-es">Después (vistas)</span></span>
+              <span class="result-metric-value result-metric-after"><span class="t-en">40M/mo</span><span class="t-es">40M/mes</span></span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">100K</span><span class="result-stat-label"><span class="t-en">followers in 3 months</span><span class="t-es">seguidores en 3 meses</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">44K</span><span class="result-stat-label"><span class="t-en">followers in 2 weeks</span><span class="t-es">seguidores en 2 semanas</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">1000x</span><span class="result-stat-label"><span class="t-en">views increase</span><span class="t-es">aumento vistas</span></span></div>
+          </div>
+          <a href="results/yasmin.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+        <!-- Mia -->
+        <article class="result-card" data-creator="mia">
+          <div class="result-card-header">
+            <div class="result-card-name">
+              <h3>Mia</h3>
+              <span class="result-card-timeline"><span class="t-en">1 month turnaround</span><span class="t-es">Cambio en 1 mes</span></span>
+            </div>
+            <span class="result-card-badge"><span class="t-en">11M view reel</span><span class="t-es">Reel de 11M vistas</span></span>
+          </div>
+          <div class="result-card-headline"><span class="t-en">Losing 800 followers/mo to +37K in 30 days</span><span class="t-es">De perder 800 seguidores/mes a +37K en 30 días</span></div>
+          <div class="result-card-metrics">
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">Before (monthly)</span><span class="t-es">Antes (mensual)</span></span>
+              <span class="result-metric-value result-metric-before"><span class="t-en">-800 followers</span><span class="t-es">-800 seguidores</span></span>
+            </div>
+            <div class="result-metric-arrow" aria-hidden="true"></div>
+            <div class="result-metric">
+              <span class="result-metric-label"><span class="t-en">After (monthly)</span><span class="t-es">Después (mensual)</span></span>
+              <span class="result-metric-value result-metric-after"><span class="t-en">+37K followers</span><span class="t-es">+37K seguidores</span></span>
+            </div>
+          </div>
+          <div class="result-card-stats">
+            <div class="result-stat"><span class="result-stat-value">22,055%</span><span class="result-stat-label"><span class="t-en">reach increase</span><span class="t-es">aumento alcance</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">11M</span><span class="result-stat-label"><span class="t-en">views (1 reel)</span><span class="t-es">vistas (1 reel)</span></span></div>
+            <div class="result-stat"><span class="result-stat-value">$23.5K</span><span class="result-stat-label"><span class="t-en">in one week</span><span class="t-es">en una semana</span></span></div>
+          </div>
+          <a href="results/mia.html" class="result-card-toggle"><span class="t-en">View full breakdown</span><span class="t-es">Ver caso completo</span></a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- FAQ ============================================================= -->
+    <section class="asc-section" id="faq">
+      <div class="asc-section-head">
+        <h2><span class="t-en">Real questions, real answers</span><span class="t-es">Preguntas reales, respuestas reales</span></h2>
+        <p><span class="t-en">Everything serious creators ask before applying.</span><span class="t-es">Todo lo que las creadoras serias preguntan antes de postular.</span></p>
+      </div>
+
+      <div class="asc-faq">
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">Is this a "management" or an "agency"?</span><span class="t-es">¿Esto es un "management" o una "agencia"?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">No. FERAL is a creator team. You keep your accounts in your name. We don't take your logins, we don't lock you into anything you can't walk out of, and we build YOUR brand. The team includes a Creative Director, Exclusive Content Director, Editor, Account Manager, Backend Content Manager, and Talent Manager, plus a dedicated sales pod. We work for you.</span><span class="t-es">No. FERAL es un equipo de creadoras. Tus cuentas siguen a tu nombre. No nos quedamos con tus accesos, no te encerramos en nada de lo que no puedas salir, y construimos TU marca. El equipo incluye Director Creativo, Director de Contenido Exclusivo, Editor, Account Manager, Backend Content Manager y Talent Manager, más un pod de ventas dedicado. Trabajamos para ti.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">I've been burned before. Why is this different?</span><span class="t-es">Ya me estafaron antes. ¿Por qué esto es diferente?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">Every creator we've signed had heard the pitch before. What gets results isn't the pitch, it's the team. You get a dedicated pod, C-suite oversight on your account, and a system that has taken creators from $79 a month to over a million dollars in 6 months. Look at Megan above. She was burned by two agencies before us and broke our internal record in her first month.</span><span class="t-es">Todas las creadoras que firmamos ya habían escuchado el discurso antes. Lo que da resultados no es el discurso, es el equipo. Recibes un pod dedicado, supervisión de la directiva sobre tu cuenta, y un sistema que ha llevado creadoras de $79 al mes a más de un millón en 6 meses. Mira a Megan arriba. La estafaron dos agencias antes de nosotros y rompió nuestro récord interno en su primer mes.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">Do I have to be on a premium platform already?</span><span class="t-es">¿Tengo que estar ya en una plataforma premium?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">No. We've built creators from zero. We've also stepped into accounts already running at $100K a month. Either way, the apply step is the same. We'll figure out the right entry on the call.</span><span class="t-es">No. Hemos construido creadoras desde cero. También hemos entrado en cuentas que ya facturan $100K al mes. En cualquier caso, el paso de postular es el mismo. Decidimos el punto de entrada correcto en la llamada.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">How is the split structured?</span><span class="t-es">¿Cómo se estructura el porcentaje?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">50/50 on sales-team-facilitated earnings. No upfront fee. We get paid when you get paid. If we don't grow your numbers, we don't get paid. That's the whole point of the model.</span><span class="t-es">50/50 sobre ingresos facilitados por el equipo de ventas. Sin pago inicial. Cobramos cuando tú cobras. Si no hacemos crecer tus números, no cobramos. Ese es el punto del modelo.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">Who actually owns my accounts?</span><span class="t-es">¿Quién es dueña realmente de mis cuentas?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">You do. Always. We don't transfer logins to a corporate account, we don't bury your name behind a holding company, we don't take your domain. Your brand is your asset.</span><span class="t-es">Tú. Siempre. No transferimos accesos a una cuenta corporativa, no ocultamos tu nombre detrás de una sociedad, no nos quedamos con tu dominio. Tu marca es tu activo.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">What's the time commitment from me?</span><span class="t-es">¿Cuánto tiempo me toma a mí?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">Show up for creative direction meetings, shoot the content the team plans, hit deadlines. That's the bar. Creators who can do that without us chasing them go to a million a year. Creators who can't get dropped, so set the expectation honestly when you apply.</span><span class="t-es">Asistir a las reuniones de dirección creativa, grabar el contenido que planifica el equipo, cumplir los plazos. Esa es la vara. Las creadoras que pueden hacerlo sin que las persigamos llegan al millón al año. Las que no, las soltamos. Sé honesta al postular.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">What if my friends or family find out?</span><span class="t-es">¿Y si se enteran mis amigos o mi familia?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">If you have a 50K+ following and don't want a public premium-platform identity, we have the Ghost System path. No link in bio, no public profile, content sold through a phone-based paywall. We'll talk about whether that's the right fit on the call.</span><span class="t-es">Si tienes más de 50K seguidores y no quieres una identidad pública en plataformas premium, tenemos la ruta Ghost System. Sin link en la bio, sin perfil público, contenido vendido a través de un paywall en el teléfono. Hablamos de si es la opción correcta en la llamada.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">What's the contract look like?</span><span class="t-es">¿Cómo es el contrato?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">3-year working agreement, because building a real brand takes longer than a quarter. Standard 60-day notice on either side. No mystery clauses, no traps. You'll get the actual paper on the call.</span><span class="t-es">Acuerdo de trabajo de 3 años, porque construir una marca real toma más de un trimestre. Aviso estándar de 60 días por cualquiera de las partes. Sin cláusulas misteriosas, sin trampas. Recibes el contrato real en la llamada.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">Do you work with anyone international?</span><span class="t-es">¿Trabajan con creadoras internacionales?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">Yes. The Ghost System path is built to bypass country restrictions where premium platforms are unavailable. If you're outside the US, apply, we'll route you to the right model.</span><span class="t-es">Sí. La ruta Ghost System está diseñada para esquivar restricciones de países donde las plataformas premium no están disponibles. Si estás fuera de Estados Unidos, postula y te dirigimos al modelo correcto.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">How fast does this move once I apply?</span><span class="t-es">¿Qué tan rápido avanza esto cuando postulo?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">If your application clears, a setter follows up to book the call. If we both want to move forward after the call, first payment lands within a week. We're picky about who's in, and we move fast on the ones who fit.</span><span class="t-es">Si tu aplicación pasa, un setter te contacta para agendar la llamada. Si ambas partes quieren avanzar después de la llamada, el primer pago entra en una semana. Somos selectivos con quién entra, y nos movemos rápido con quienes encajan.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">What's the catch?</span><span class="t-es">¿Cuál es la trampa?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">No catch. Just a high bar. We don't tolerate slack, we don't sign creators who can't execute, and the application is real, not a formality. If you can't hit the bar, you won't make it past the call. If you can, you have a team behind you that has already built creators into seven-figure brands.</span><span class="t-es">No hay trampa. Solo una vara alta. No toleramos flojera, no firmamos creadoras que no ejecutan, y la aplicación es real, no un trámite. Si no cumples la vara, no pasas de la llamada. Si la cumples, tienes detrás un equipo que ya ha convertido creadoras en marcas millonarias.</span></div></div>
+        </div>
+
+        <div class="asc-faq-item">
+          <button class="asc-faq-q" type="button"><span><span class="t-en">I don't have a huge following yet. Should I still apply?</span><span class="t-es">Todavía no tengo un público grande. ¿Aún así postulo?</span></span><span class="ic">+</span></button>
+          <div class="asc-faq-a"><div class="asc-faq-a-inner"><span class="t-en">Apply. Kiera had 1,200 followers when we started. The right character with a real work ethic outperforms a 500K account with no engagement, every time.</span><span class="t-es">Postula. Kiera tenía 1,200 seguidores cuando empezamos. El personaje correcto con ética de trabajo real supera a una cuenta de 500K sin engagement, siempre.</span></div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LONG SCROLLING SUCCESS COLLAGE =================================== -->
+    <section class="asc-collage-section" id="receipts">
+      <div class="asc-collage-intro">
+        <h2 style="font-family: var(--font-heading); font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin: 0 0 0.75rem;"><span class="t-en">The receipts</span><span class="t-es">Los resultados</span></h2>
+        <p style="color: var(--text-muted, #a3a3a3); margin: 0;"><span class="t-en">Scroll. Every screenshot below is a real result for a real creator we represent.</span><span class="t-es">Desplázate. Cada captura es un resultado real de una creadora real que representamos.</span></p>
+      </div>
+
+      <div class="asc-collage-frame">
+        <div class="asc-collage">
+          <!-- Kiera receipts -->
+          <img src="results/screenshots/kiera/1m-milestone.png" alt="Kiera milestone" loading="lazy" />
+          <img src="results/screenshots/kiera/60-days-proof.png" alt="Kiera 60-day proof" loading="lazy" />
+          <img src="results/screenshots/kiera/6month-of-stats.png" alt="Kiera 6 month stats" loading="lazy" />
+          <img src="results/screenshots/kiera/6month-infloww-creator.png" alt="Kiera 6 month earnings" loading="lazy" />
+          <img src="results/screenshots/kiera/october-results.png" alt="Kiera October results" loading="lazy" />
+          <img src="results/screenshots/kiera/month5-earnings.png" alt="Kiera month 5 earnings" loading="lazy" />
+          <img src="results/screenshots/kiera/instagram-growth.png" alt="Kiera Instagram growth" loading="lazy" />
+          <img src="results/screenshots/kiera/dec-instagram.png" alt="Kiera December Instagram" loading="lazy" />
+          <img src="results/screenshots/kiera/custom-1000-mar22.png" alt="Kiera $1,000 custom order" loading="lazy" />
+
+          <!-- Noelia receipts -->
+          <img src="results/screenshots/noelia/jan-earnings.png" alt="Noelia January earnings" loading="lazy" />
+          <img src="results/screenshots/noelia/jan-stats.png" alt="Noelia January stats" loading="lazy" />
+          <img src="results/screenshots/noelia/instagram-341k.png" alt="Noelia 341K followers" loading="lazy" />
+          <img src="results/screenshots/noelia/fans-growth.png" alt="Noelia fans growth" loading="lazy" />
+          <img src="results/screenshots/noelia/fans-growth2.png" alt="Noelia fans growth 2" loading="lazy" />
+          <img src="results/screenshots/noelia/aug-reach.png" alt="Noelia August reach" loading="lazy" />
+          <img src="results/screenshots/noelia/aug-views.png" alt="Noelia August views" loading="lazy" />
+
+          <!-- Megan receipts -->
+          <img src="results/screenshots/megan/best-week.png" alt="Megan best week" loading="lazy" />
+          <img src="results/screenshots/megan/single-day.png" alt="Megan single day" loading="lazy" />
+          <img src="results/screenshots/megan/custom-2000-mar12.png" alt="Megan $2,000 custom" loading="lazy" />
+          <img src="results/screenshots/megan/custom-1200-feb27.png" alt="Megan $1,200 custom" loading="lazy" />
+          <img src="results/screenshots/megan/custom-1000-mar15.png" alt="Megan $1,000 custom" loading="lazy" />
+          <img src="results/screenshots/megan/videocall-2000-feb26.png" alt="Megan $2,000 video call" loading="lazy" />
+          <img src="results/screenshots/megan/videocall-1500.png" alt="Megan $1,500 video call" loading="lazy" />
+          <img src="results/screenshots/megan/videocall-1200.png" alt="Megan $1,200 video call" loading="lazy" />
+
+          <!-- Olivia receipts -->
+          <img src="results/screenshots/olivia/oct-revenue.png" alt="Olivia October revenue" loading="lazy" />
+          <img src="results/screenshots/olivia/weekly-stats.png" alt="Olivia weekly stats" loading="lazy" />
+          <img src="results/screenshots/olivia/of-analytics.png" alt="Olivia platform analytics" loading="lazy" />
+          <img src="results/screenshots/olivia/ig-views.png" alt="Olivia IG views" loading="lazy" />
+          <img src="results/screenshots/olivia/ig-analytics.png" alt="Olivia IG analytics" loading="lazy" />
+          <img src="results/screenshots/olivia/follower-growth.png" alt="Olivia follower growth" loading="lazy" />
+
+          <!-- Sofia receipts -->
+          <img src="results/screenshots/sofia/spanish-revenue.png" alt="Sofia Spanish revenue" loading="lazy" />
+          <img src="results/screenshots/sofia/english-revenue.png" alt="Sofia English revenue" loading="lazy" />
+          <img src="results/screenshots/sofia/ranking.png" alt="Sofia ranking" loading="lazy" />
+          <img src="results/screenshots/sofia/views-76m.png" alt="Sofia 76M views" loading="lazy" />
+          <img src="results/screenshots/sofia/views-23m.png" alt="Sofia 23M views" loading="lazy" />
+          <img src="results/screenshots/sofia/instagram-analytics.png" alt="Sofia Instagram analytics" loading="lazy" />
+
+          <!-- Lorena receipts -->
+          <img src="results/screenshots/lorena/oct-revenue.png" alt="Lorena October revenue" loading="lazy" />
+          <img src="results/screenshots/lorena/ig-reels.png" alt="Lorena IG reels" loading="lazy" />
+          <img src="results/screenshots/lorena/ig-views.png" alt="Lorena IG views" loading="lazy" />
+
+          <!-- Yasmin receipts -->
+          <img src="results/screenshots/yasmin/automation-revenue.png" alt="Yasmin automation revenue" loading="lazy" />
+          <img src="results/screenshots/yasmin/100k-milestone.jpeg" alt="Yasmin 100K milestone" loading="lazy" />
+          <img src="results/screenshots/yasmin/2month-followers.png" alt="Yasmin 2 month followers" loading="lazy" />
+          <img src="results/screenshots/yasmin/2month-views.png" alt="Yasmin 2 month views" loading="lazy" />
+          <img src="results/screenshots/yasmin/follower-trend.png" alt="Yasmin follower trend" loading="lazy" />
+          <img src="results/screenshots/yasmin/custom-1000-jan17.png" alt="Yasmin $1,000 custom" loading="lazy" />
+
+          <!-- Mia receipts -->
+          <img src="results/screenshots/mia/viral-reel.png" alt="Mia viral reel" loading="lazy" />
+          <img src="results/screenshots/mia/reel-views.png" alt="Mia reel views" loading="lazy" />
+          <img src="results/screenshots/mia/weekly-revenue.png" alt="Mia weekly revenue" loading="lazy" />
+          <img src="results/screenshots/mia/2weeks-views.png" alt="Mia 2 weeks views" loading="lazy" />
+          <img src="results/screenshots/mia/2weeks-reach.png" alt="Mia 2 weeks reach" loading="lazy" />
+          <img src="results/screenshots/mia/2weeks-followers.png" alt="Mia 2 weeks followers" loading="lazy" />
+          <img src="results/screenshots/mia/2weeks-interactions.png" alt="Mia 2 weeks interactions" loading="lazy" />
+        </div>
+
+        <div class="asc-collage-sticky">
+          <a href="apply-ascension.html"><span class="t-en">Apply now</span><span class="t-es">Postular ahora</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING CTA ===================================================== -->
+    <section class="asc-close">
+      <h2><span class="t-en">If you've read this far, apply.</span><span class="t-es">Si llegaste hasta aquí, postula.</span></h2>
+      <p><span class="t-en">We're picky about who's in. If you can execute, the team behind you has already built creators into seven-figure brands. The application is below.</span><span class="t-es">Somos selectivos con quién entra. Si puedes ejecutar, el equipo detrás de ti ya ha convertido creadoras en marcas millonarias. La aplicación está abajo.</span></p>
+      <a href="apply-ascension.html" class="btn btn-primary"><span class="t-en">Apply to Ascension</span><span class="t-es">Postular a Ascension</span></a>
+    </section>
+
+  </main>
+
+  <footer class="asc-foot">© <span id="year"></span> FERAL. All rights reserved.</footer>
+
+  <script src="lang-toggle.js" defer></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 90-second timer that unlocks the Apply button
+    (function () {
+      const wrap = document.getElementById('asc-cta-wrap');
+      const timer = document.getElementById('asc-timer');
+      if (!wrap || !timer) return;
+      let remaining = 90;
+      const fmt = (s) => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+      timer.textContent = fmt(remaining);
+      const tick = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+          wrap.classList.add('is-unlocked');
+          clearInterval(tick);
+          return;
+        }
+        timer.textContent = fmt(remaining);
+      }, 1000);
+    })();
+
+    // FAQ accordion
+    document.querySelectorAll('.asc-faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.closest('.asc-faq-item');
+        item.classList.toggle('is-open');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/* Site-wide language toggle. Pair with lang-toggle.js.
+   Every translatable string should be wrapped:
+   <span class="t-en">English</span><span class="t-es">Spanish</span>
+
+   Attribute-based strings (placeholders, option text) use
+   data-en-placeholder / data-es-placeholder on inputs and
+   data-en / data-es on <option> elements. */
+
+html[lang="en"] .t-es { display: none; }
+html[lang="es"] .t-en { display: none; }
+
+.lang-switch {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(184, 169, 201, 0.25);
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+.lang-switch button {
+  background: transparent;
+  color: rgba(245, 245, 245, 0.6);
+  border: 0;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.lang-switch button.is-active {
+  background: rgba(184, 169, 201, 0.95);
+  color: #0a0a0a;
+}
+
+.lang-switch button:not(.is-active):hover {
+  color: #f5f5f5;
+}
+
+@media (max-width: 600px) {
+  .lang-switch {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+  .lang-switch button {
+    padding: 0.38rem 0.65rem;
+    font-size: 0.68rem;
+  }
+}
