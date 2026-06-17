@@ -5,3 +5,4 @@
 | Embed VSL YouTube video on /creative-team | 2026-05-23 00:58 | 2026-05-23 00:59 | ~1 min |
 | Add countdown Apply Now button under VSL | 2026-05-23 01:06 | 2026-05-23 01:07 | ~1 min |
 | Overlay new FERAL logotype on homepage hero banner | 2026-05-23 01:13 | 2026-05-23 01:14 | ~1 min |
+| Build ads VSL → book-a-call landing page (timer-gated CTA, GHL booking embed, 3 case studies, testimonials, endless results scroll, ad pixel) | 2026-06-15 23:49 MST | 2026-06-16 00:49 MST | ~1 hr (brainstorm + spec + plan + build + PII redaction/verification + code review) |

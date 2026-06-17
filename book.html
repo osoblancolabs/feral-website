@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="FERAL | Book a Call" data-es="FERAL | Reserva una llamada">FERAL | Book a Call</title>
+  <meta name="description" content="Watch the breakdown, then book a call with the FERAL team." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lang-toggle.css" />
+  <link rel="stylesheet" href="book.css" />
+  <!-- Enable scroll-reveal hidden state only when JS is present (no flash, no-JS shows everything). -->
+  <script>
+    document.documentElement.classList.add("book-reveal-on");
+    /* Safety net: if book.js never runs (load/parse error), un-gate after 4s so
+       proof content can never stay hidden. book.js sets body.book-ready when alive. */
+    setTimeout(function () {
+      if (!document.body || !document.body.classList.contains("book-ready")) {
+        document.documentElement.classList.remove("book-reveal-on");
+      }
+    }, 4000);
+  </script>
+
+  <!-- ============================================================
+       AD PIXEL  —  ads manager: paste base pixel code below.
+       Works with Meta (fbq), TikTok (ttq), or GA (gtag).
+       The page fires a conversion through window.feralTrackBookCall()
+       on CTA click and when the booking calendar enters view.
+       To attach your conversion, listen for either of these:
+         • dataLayer event:  'feral_book_call'  (GTM)
+         • DOM event:         document.addEventListener('feral:book-call', fn)
+       ============================================================ -->
+  <!-- PIXEL_BASE_CODE_HERE -->
+
+</head>
+<body class="book-body">
+  <a class="skip-link" href="#main"><span class="t-en">Skip to content</span><span class="t-es">Saltar al contenido</span></a>
+
+  <div class="book-grain" aria-hidden="true"></div>
+
+  <header class="header book-header" role="banner">
+    <a href="index.html" class="logo" aria-label="FERAL home">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" width="40" height="40" />
+    </a>
+    <a href="#booking" class="book-header-cta" data-book-scroll>
+      <span class="t-en">Book a call</span><span class="t-es">Reserva una llamada</span>
+    </a>
+  </header>
+
+  <main id="main" class="book-main">
+
+    <!-- HERO + VSL ==================================================== -->
+    <section class="book-hero" id="top">
+      <div class="book-hero-glow" aria-hidden="true"></div>
+      <p class="book-kicker book-rise"><span class="t-en">For creators serious about scaling</span><span class="t-es">Para creadoras que van en serio</span></p>
+      <h1 class="book-headline book-rise book-rise-1">
+        <span class="t-en">Watch how we turn creators from <em>overlooked</em> into <em>seven&#8209;figure</em> brands.</span>
+        <span class="t-es">Mira cómo convertimos creadoras <em>ignoradas</em> en marcas de <em>siete&nbsp;cifras</em>.</span>
+      </h1>
+
+      <div class="book-vsl book-rise book-rise-2">
+        <div class="book-vsl-ratio">
+          <iframe src="https://www.youtube-nocookie.com/embed/P-RQi1fSxTY?rel=0&autoplay=1&mute=1&playsinline=1" title="FERAL VSL" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+
+      <div class="book-cta book-rise book-rise-3" id="book-cta">
+        <div class="book-cta-locked" id="book-locked">
+          <span class="book-cta-label"><span class="t-en">Booking opens in</span><span class="t-es">Las reservas abren en</span></span>
+          <span class="book-cta-timer" id="book-timer" aria-live="polite">0:30</span>
+          <span class="book-cta-track" aria-hidden="true"><span class="book-cta-bar" id="book-timer-bar"></span></span>
+        </div>
+        <a href="#booking" class="btn btn-primary book-cta-go" id="book-go" data-book-scroll>
+          <span class="t-en">Book a call</span><span class="t-es">Reserva una llamada</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- PROOF BAND =================================================== -->
+    <section class="book-proof" aria-label="Results at a glance">
+      <div class="book-proof-item"><span class="n">$1M</span><span class="l"><span class="t-en">in 6 months</span><span class="t-es">en 6 meses</span></span></div>
+      <div class="book-proof-item"><span class="n">$291K</span><span class="l"><span class="t-en">best single month</span><span class="t-es">mejor mes</span></span></div>
+      <div class="book-proof-item"><span class="n">100M+</span><span class="l"><span class="t-en">views generated</span><span class="t-es">vistas generadas</span></span></div>
+      <div class="book-proof-item"><span class="n">100+</span><span class="l"><span class="t-en">creators represented</span><span class="t-es">creadoras representadas</span></span></div>
+    </section>
+
+    <!-- CASE STUDIES ================================================= -->
+    <section class="book-section" id="case-studies">
+      <div class="book-section-head" data-reveal>
+        <span class="book-eyebrow"><span class="t-en">Documented case-studies</span><span class="t-es">Casos documentados</span></span>
+        <h2><span class="t-en">Three creators. Real numbers.</span><span class="t-es">Tres creadoras. Números reales.</span></h2>
+      </div>
+
+      <article class="book-dossier" data-reveal>
+        <div class="book-dossier-body">
+          <span class="book-dossier-index">01</span>
+          <h3 class="book-dossier-name">Kiera</h3>
+          <p class="book-dossier-headline"><span class="t-en">From a $79 month to a million-dollar brand in 6 months.</span><span class="t-es">De un mes de $79 a una marca millonaria en 6 meses.</span></p>
+          <a class="book-dossier-link" href="results/kiera.html"><span class="t-en">Full breakdown</span><span class="t-es">Caso completo</span></a>
+        </div>
+        <div class="book-dossier-ba" role="group" aria-label="Before and after">
+          <div class="ba-block ba-before">
+            <span class="ba-label"><span class="t-en">Before</span><span class="t-es">Antes</span></span>
+            <span class="ba-value">$79/mo</span>
+          </div>
+          <span class="ba-arrow" aria-hidden="true">&#8594;</span>
+          <div class="ba-block ba-after">
+            <span class="ba-label"><span class="t-en">After &middot; 6 months</span><span class="t-es">Después &middot; 6 meses</span></span>
+            <span class="ba-value">$1,000,017</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="book-dossier" data-reveal>
+        <div class="book-dossier-body">
+          <span class="book-dossier-index">02</span>
+          <h3 class="book-dossier-name">Noelia</h3>
+          <p class="book-dossier-headline"><span class="t-en">From $2K months to a top earner. 17K to 341K followers.</span><span class="t-es">De meses de $2K a top de ingresos. De 17K a 341K seguidores.</span></p>
+          <a class="book-dossier-link" href="results/noelia.html"><span class="t-en">Full breakdown</span><span class="t-es">Caso completo</span></a>
+        </div>
+        <div class="book-dossier-ba" role="group" aria-label="Before and after">
+          <div class="ba-block ba-before">
+            <span class="ba-label"><span class="t-en">Before</span><span class="t-es">Antes</span></span>
+            <span class="ba-value">$2K/mo</span>
+          </div>
+          <span class="ba-arrow" aria-hidden="true">&#8594;</span>
+          <div class="ba-block ba-after">
+            <span class="ba-label"><span class="t-en">After</span><span class="t-es">Después</span></span>
+            <span class="ba-value">$291K/mo</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="book-dossier" data-reveal>
+        <div class="book-dossier-body">
+          <span class="book-dossier-index">03</span>
+          <h3 class="book-dossier-name">Megan</h3>
+          <p class="book-dossier-headline"><span class="t-en">$11K days, $90K months.</span><span class="t-es">$11K al día, $90K al mes.</span></p>
+          <a class="book-dossier-link" href="results/megan.html"><span class="t-en">Full breakdown</span><span class="t-es">Caso completo</span></a>
+        </div>
+        <div class="book-dossier-ba" role="group" aria-label="Before and after">
+          <div class="ba-block ba-before">
+            <span class="ba-label"><span class="t-en">Before</span><span class="t-es">Antes</span></span>
+            <span class="ba-value">$23K/mo</span>
+          </div>
+          <span class="ba-arrow" aria-hidden="true">&#8594;</span>
+          <div class="ba-block ba-after">
+            <span class="ba-label"><span class="t-en">After</span><span class="t-es">Después</span></span>
+            <span class="ba-value">$90K+/mo</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- BOOKING ====================================================== -->
+    <section class="book-section book-booking" id="booking">
+      <div class="book-section-head book-booking-head" data-reveal>
+        <span class="book-eyebrow"><span class="t-en">The next step</span><span class="t-es">El siguiente paso</span></span>
+        <h2><span class="t-en">Book your call</span><span class="t-es">Reserva tu llamada</span></h2>
+        <p><span class="t-en">Pick a time that works. We'll review your account and map the path to scale.</span><span class="t-es">Elige un horario. Revisamos tu cuenta y trazamos el plan para escalar.</span></p>
+      </div>
+      <div class="book-embed" data-reveal>
+        <!-- Calendly inline embed, themed to FERAL black/pearl. widget.js is loaded at end of body.
+             book.js listens for Calendly's 'event_scheduled' message and fires the booking conversion. -->
+        <div class="calendly-inline-widget"
+             data-url="https://calendly.com/kiefer-melossom/feral-model-interview?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f5f5f5&primary_color=b8a9c9"
+             style="min-width:320px;height:760px;"></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS ================================================= -->
+    <section class="book-section book-tw" id="testimonials">
+      <div class="book-section-head" data-reveal>
+        <span class="book-eyebrow"><span class="t-en">In their words</span><span class="t-es">En sus palabras</span></span>
+        <h2><span class="t-en">What creators say</span><span class="t-es">Lo que dicen las creadoras</span></h2>
+      </div>
+      <div class="book-tw-grid">
+        <blockquote class="book-quote" data-reveal>
+          <p>I was so skeptical because every agency I talked to before felt like a scam. FERAL was different from the first call. They didn't overpromise, they just showed me exactly what they were going to do and then they did it. Six months later I'm looking at numbers I never thought were possible.</p>
+          <footer>Vanessa</footer>
+        </blockquote>
+        <blockquote class="book-quote" data-reveal>
+          <p>FERAL makes other agencies look like a joke. I came from Creator's Inc and FERAL put them to shame. They tripled what Creator's Inc was doing in 2 months. Honestly I would never look anywhere else.</p>
+          <footer>Olivia</footer>
+        </blockquote>
+
+        <figure class="book-shot" data-reveal>
+          <img src="results/wins/win-msg-best-week.png" alt="Creator message after her best week with FERAL" loading="lazy" />
+          <figcaption><span class="t-en">A creator, after her best week with FERAL</span><span class="t-es">Una creadora, tras su mejor semana con FERAL</span></figcaption>
+        </figure>
+
+        <blockquote class="book-quote" data-reveal>
+          <p>I've tried so many agencies and they are all the same. FERAL is FINALLY a team I can count on that listens to what I want, knows exactly how to grow accounts, and helped me become a professional model not just someone who posts content. I'll never go anywhere else.</p>
+          <footer>Megan</footer>
+        </blockquote>
+        <blockquote class="book-quote book-quote-em" data-reveal>
+          <p>I was ready to quit before I found FERAL. My accounts were dying and I didn't know what I was doing wrong. Within a month everything turned around. One reel hit 11 million views. I went from wanting to give up to feeling like this is actually going to work.</p>
+          <footer>Mia</footer>
+        </blockquote>
+        <blockquote class="book-quote" data-reveal>
+          <p>The team is so good at what they do. I'm finally making what I'm worth. They are in my corner and have ways of making me money that seem like black magic.</p>
+          <footer>Noelia</footer>
+        </blockquote>
+        <blockquote class="book-quote" data-reveal>
+          <p>I went from 2,000 followers to 100K in three months. I didn't even know that was possible. My content hasn't changed that much, the strategy behind it has. That's all FERAL.</p>
+          <footer>Yasmin</footer>
+        </blockquote>
+        <blockquote class="book-quote" data-reveal>
+          <p>Two and a half years with FERAL and I still feel like their top priority. Most agencies lose interest after a few months. These guys keep pushing and keep finding new ways to grow. They built me into a brand.</p>
+          <footer>Sofia</footer>
+        </blockquote>
+        <blockquote class="book-quote" data-reveal>
+          <p>I love that FERAL treats you like a partner, not a number. I've been with them over two years and the consistency is unreal. They don't just get you results the first month and then disappear. They keep showing up.</p>
+          <footer>Lorena</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ENDLESS RESULTS MARQUEE ====================================== -->
+    <section class="book-marquee-sec" id="receipts">
+      <div class="book-section-head book-marquee-head" data-reveal>
+        <span class="book-eyebrow"><span class="t-en">The receipts</span><span class="t-es">Los resultados</span></span>
+        <h2><span class="t-en">Proof doesn't stop scrolling.</span><span class="t-es">La prueba no deja de correr.</span></h2>
+        <p><span class="t-en">Every screenshot is a real result for a real creator we represent.</span><span class="t-es">Cada captura es un resultado real de una creadora real que representamos.</span></p>
+      </div>
+
+      <div class="book-marquee-wrap">
+        <div class="book-marquee" aria-hidden="true">
+          <div class="book-marquee-col">
+            <img src="results/screenshots/kiera/109-days.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/6month-infloww-overview.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/before-ranking.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/custom-1000-mar1.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/instagram-growth.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/month1-earnings.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/october-subs.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/lorena/oct-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/custom-1000-mar15.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/custom-5400-mar21.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/single-day.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/videocall-2000-feb26.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/2weeks-interactions.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/before-followers-jul.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/weekly-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/aug-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/insights-overview.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/jan-stats.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/profile2.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/olivia/ig-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/before-profile.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/instagram-analytics.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/views-76m.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/2month-reach.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/aug1-status.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/custom-1000-jan17.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-yasmin-14m-views.png" alt="" loading="lazy" decoding="async" />
+          </div>
+          <div class="book-marquee-col">
+            <img src="results/screenshots/kiera/1m-milestone.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-100k-month2.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/before-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/custom-1000-mar22.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-61k-2weeks.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/month5-earnings.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/week1-growth.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-915k-net.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/custom-1200-feb27.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/customs.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-kiera-282k.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/weekly-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/2weeks-reach.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-lorena-101k.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/aug-reach.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/early-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-noelia-38m-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/oct-earnings.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/results-dashboard.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-olivia-171k.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/english-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/ranking.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-olivia-69k.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/2month-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/automation-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-sofia-top007.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-yasmin-49k-message.png" alt="" loading="lazy" decoding="async" />
+          </div>
+          <div class="book-marquee-col">
+            <img src="results/screenshots/kiera/60-days-proof.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/6month-of-alltime.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/custom-1000-jan21.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/custom-1000-mar9.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/jan-instagram-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/october-results.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/lorena/ig-reels.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/best-week.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/custom-2000-mar12.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/customs2.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/videocall-1200.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/2weeks-followers.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/2weeks-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/reel-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/aug-reach2.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/fans-growth.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/instagram-341k.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/profile.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/olivia/follower-growth.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/olivia/oct-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/ig-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/spanish-revenue.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/100k-milestone.jpeg" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/aug-views.jpg" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/before-interactions.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/follower-trend.png" alt="" loading="lazy" decoding="async" />
+          </div>
+          <div class="book-marquee-col">
+            <img src="results/screenshots/kiera/6month-infloww-creator.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/6month-of-stats.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-299k-two-creators.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/dec-instagram.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/kiera/latest-earnings.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-86k-30days.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/lorena/ig-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/creator-message.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-950k.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/customs3.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/megan/videocall-1500.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-kiera-44m-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/before-followers-aug.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/mia/viral-reel.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-lorena-13m-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/fans-growth2.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/noelia/jan-earnings.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-nuria-31m-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/olivia/ig-analytics.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/olivia/weekly-stats.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-olivia-43m-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/sofia/views-23m.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/2month-followers.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/wins/win-sofia-15m-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/before-views.png" alt="" loading="lazy" decoding="async" />
+            <img src="results/screenshots/yasmin/month1-interactions.png" alt="" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <div class="book-marquee-cta">
+          <a href="#booking" class="btn btn-primary" data-book-scroll><span class="t-en">Book a call</span><span class="t-es">Reserva una llamada</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING CTA ================================================== -->
+    <section class="book-close" data-reveal>
+      <h2><span class="t-en">If you've watched this far, book the call.</span><span class="t-es">Si llegaste hasta aquí, reserva la llamada.</span></h2>
+      <p><span class="t-en">We're selective. If you can execute, the team behind you has already built creators into seven-figure brands.</span><span class="t-es">Somos selectivos. Si puedes ejecutar, el equipo detrás de ti ya ha convertido creadoras en marcas millonarias.</span></p>
+      <a href="#booking" class="btn btn-primary book-close-btn" data-book-scroll><span class="t-en">Book a call</span><span class="t-es">Reserva una llamada</span></a>
+    </section>
+
+  </main>
+
+  <footer class="book-foot">&copy; <span id="year"></span> FERAL. <span class="t-en">All rights reserved.</span><span class="t-es">Todos los derechos reservados.</span></footer>
+
+  <script src="lang-toggle.js" defer></script>
+  <script src="book.js" defer></script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</body>
+</html>

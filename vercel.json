@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/creative-team", "destination": "/creative-team.html" }
+    { "source": "/creative-team", "destination": "/creative-team.html" },
+    { "source": "/book", "destination": "/book.html" }
   ]
 }
