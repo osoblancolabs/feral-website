@@ -17,3 +17,7 @@ Desktop.ini
 .env
 .env*.local
 .vercel
+
+# Internal only — keep OUT of this PUBLIC repo (redaction notes, planning docs, redaction tooling)
+docs/
+scripts/
