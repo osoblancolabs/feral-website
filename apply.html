@@ -326,6 +326,14 @@
       color: var(--text);
     }
 
+    /* Inline validation message */
+    .form-error {
+      color: #e07a7a;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      margin: 0.1rem 0 0;
+    }
+
     /* Navigation Buttons */
     .step-nav {
       display: flex;
@@ -975,18 +983,68 @@
       progressText.textContent = `Question ${currentVisible + 1} of ${total}`;
     }
 
-    function validateCurrentStep() {
+    // Email must look like name@domain.tld (not merely contain an @).
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function curLang() {
+      return document.documentElement.getAttribute("lang") === "es" ? "es" : "en";
+    }
+    function t(en, es) { return curLang() === "es" ? es : en; }
+
+    // Returns null when the current step is valid, otherwise { el, msg } explaining
+    // why it can't continue (el = field to highlight, msg = localized reason).
+    function getStepError() {
       const step = allSteps[currentStep];
       const inputs = step.querySelectorAll("input[required], textarea[required], select[required]");
       for (const inp of inputs) {
-        if (!inp.value.trim()) return false;
-        if (inp.type === "email" && !inp.value.includes("@")) return false;
+        if (!inp.value.trim()) {
+          return { el: inp, msg: t("Please fill this in to continue.", "Completa este campo para continuar.") };
+        }
+        if (inp.type === "email" && !EMAIL_RE.test(inp.value.trim())) {
+          return { el: inp, msg: t("Please enter a valid email address, like you@email.com.", "Ingresa un correo válido, por ejemplo tu@correo.com.") };
+        }
       }
-      if (currentStep === 4 && hasManagement === null) return false;
-      return true;
+      if (currentStep === 4 && hasManagement === null) {
+        return { el: null, msg: t("Please choose Yes or No to continue.", "Elige Sí o No para continuar.") };
+      }
+      return null;
+    }
+
+    function validateCurrentStep() { return getStepError() === null; }
+
+    function clearStepError() {
+      const box = document.getElementById("form-error");
+      if (box) box.remove();
+      document.querySelectorAll('[aria-invalid="true"]').forEach(function (el) {
+        el.style.borderColor = "";
+        el.removeAttribute("aria-invalid");
+      });
+    }
+
+    // Show a visible, localized reason the step can't be submitted, just above the
+    // step's buttons, and highlight + focus the offending field.
+    function showStepError(err) {
+      clearStepError();
+      const step = allSteps[currentStep];
+      const box = document.createElement("p");
+      box.className = "form-error";
+      box.id = "form-error";
+      box.setAttribute("role", "alert");
+      box.textContent = err.msg;
+      const nav = step.querySelector(".step-nav");
+      step.insertBefore(box, nav);
+      if (err.el) {
+        err.el.style.borderColor = "#e07a7a";
+        err.el.setAttribute("aria-invalid", "true");
+        err.el.focus();
+        // Clear the warning as soon as the user starts correcting the field.
+        err.el.addEventListener("input", clearStepError, { once: true });
+        err.el.addEventListener("change", clearStepError, { once: true });
+      }
     }
 
     function goToStep(target) {
+      clearStepError();
       const prev = allSteps[currentStep];
       const direction = target > currentStep ? 1 : -1;
 
@@ -1005,17 +1063,12 @@
     }
 
     function nextStep() {
-      if (!validateCurrentStep()) {
-        const step = allSteps[currentStep];
-        const inputs = step.querySelectorAll("input, textarea, select");
-        inputs.forEach(inp => {
-          if (inp.required && !inp.value.trim()) {
-            inp.style.borderColor = "#e07a7a";
-            setTimeout(() => inp.style.borderColor = "", 1500);
-          }
-        });
+      const err = getStepError();
+      if (err) {
+        showStepError(err);
         return;
       }
+      clearStepError();
 
       let target = currentStep + 1;
       while (target < allSteps.length) {
@@ -1090,7 +1143,9 @@
     // Form submission
     document.getElementById("apply-form").addEventListener("submit", function(e) {
       e.preventDefault();
-      if (!validateCurrentStep()) return;
+      const stepErr = getStepError();
+      if (stepErr) { showStepError(stepErr); return; }
+      clearStepError();
 
       const form = this;
       const data = new FormData(form);
