@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="FERAL | Book your call" data-es="FERAL | Reserva tu llamada">FERAL | Book your call</title>
+  <meta name="description" content="Pick a time to talk with the FERAL team." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" />
+
+  <!-- Gate: the booking calendar is only reachable after the application
+       form qualifies the lead (apply.html?src=book). Direct visits with no
+       qualified flag are sent back to the form. -->
+  <script>
+    try {
+      if (sessionStorage.getItem("feral_q") !== "pass") {
+        window.location.replace("apply.html?src=book");
+      }
+    } catch (e) {
+      window.location.replace("apply.html?src=book");
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lang-toggle.css" />
+  <link rel="stylesheet" href="book.css" />
+
+  <!-- ============================================================
+       AD PIXEL  —  ads manager: paste base pixel code below.
+       This is the QUALIFIED booking page. The optimized conversion
+       'feral_book_call' fires here (and only here), so the pixel is
+       conditioned on qualified leads only. A stronger
+       'feral_booking_confirmed' event fires when Calendly confirms a booking.
+         • dataLayer events:  'feral_book_call', 'feral_booking_confirmed' (GTM)
+         • DOM events:         'feral:book-call', 'feral:booking-confirmed'
+       ============================================================ -->
+  <!-- PIXEL_BASE_CODE_HERE -->
+</head>
+<body class="book-body">
+  <div class="book-grain" aria-hidden="true"></div>
+
+  <header class="header book-header" role="banner">
+    <a href="index.html" class="logo" aria-label="FERAL home">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" width="40" height="40" />
+    </a>
+  </header>
+
+  <main id="main" class="book-main">
+    <section class="book-section book-booking" id="booking">
+      <div class="book-section-head book-booking-head">
+        <span class="book-eyebrow"><span class="t-en">You're in</span><span class="t-es">Estás dentro</span></span>
+        <h2><span class="t-en">Book your call</span><span class="t-es">Reserva tu llamada</span></h2>
+        <p><span class="t-en">Pick a time that works. We'll review your account and map the path to scale.</span><span class="t-es">Elige un horario. Revisamos tu cuenta y trazamos el plan para escalar.</span></p>
+      </div>
+      <div class="book-embed">
+        <!-- Calendly inline embed, themed to FERAL black/pearl. widget.js is loaded at end of body. -->
+        <div class="calendly-inline-widget"
+             data-url="https://calendly.com/kiefer-melossom/feral-model-interview?hide_gdpr_banner=1&background_color=0a0a0a&text_color=f5f5f5&primary_color=b8a9c9"
+             style="min-width:320px;height:760px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="book-foot">&copy; <span id="year"></span> FERAL. <span class="t-en">All rights reserved.</span><span class="t-es">Todos los derechos reservados.</span></footer>
+
+  <script>
+    (function () {
+      var y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+
+      // Only fire the conversion for a genuinely qualified visitor.
+      try { if (sessionStorage.getItem("feral_q") !== "pass") return; } catch (e) { return; }
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "feral_book_call", source: "qualified_booking_page" });
+      try { document.dispatchEvent(new CustomEvent("feral:book-call", { detail: { source: "qualified" } })); } catch (e) {}
+
+      // Calendly confirms an actual booking -> stronger conversion signal.
+      window.addEventListener("message", function (e) {
+        if (e && e.data && typeof e.data.event === "string" && e.data.event === "calendly.event_scheduled") {
+          window.dataLayer.push({ event: "feral_booking_confirmed", source: "calendly" });
+          try { document.dispatchEvent(new CustomEvent("feral:booking-confirmed")); } catch (err) {}
+        }
+      });
+    })();
+  </script>
+  <script src="lang-toggle.js" defer></script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</body>
+</html>

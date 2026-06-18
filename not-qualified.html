@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="FERAL | Thank you" data-es="FERAL | Gracias">FERAL | Thank you</title>
+  <meta name="description" content="Thank you for your interest in FERAL." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lang-toggle.css" />
+  <link rel="stylesheet" href="book.css" />
+
+  <!-- ============================================================
+       AD PIXEL  —  ads manager: paste base pixel code below.
+       This is the NOT-QUALIFIED page. No optimized conversion fires here.
+       A non-optimized 'feral_lead_unqualified' event is pushed for your own
+       analytics only — do NOT map an ad conversion to it.
+       ============================================================ -->
+  <!-- PIXEL_BASE_CODE_HERE -->
+
+  <style>
+    .nq-wrap {
+      min-height: calc(100vh - 70px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 4rem 1.5rem;
+    }
+    .nq-card {
+      max-width: 560px; text-align: center;
+    }
+    .nq-card h1 {
+      font-family: var(--font-heading, "DM Sans", sans-serif);
+      font-size: clamp(1.7rem, 3.6vw, 2.4rem); font-weight: 600;
+      letter-spacing: -0.025em; line-height: 1.12; margin: 0 0 1.1rem;
+    }
+    .nq-card p {
+      color: var(--text-muted, #b8b8b8); line-height: 1.6;
+      font-size: 1.02rem; margin: 0 auto; max-width: 46ch;
+    }
+  </style>
+</head>
+<body class="book-body">
+  <div class="book-grain" aria-hidden="true"></div>
+
+  <header class="header book-header" role="banner">
+    <a href="index.html" class="logo" aria-label="FERAL home">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" width="40" height="40" />
+    </a>
+  </header>
+
+  <main id="main" class="book-main">
+    <div class="nq-wrap">
+      <div class="nq-card">
+        <span class="book-eyebrow"><span class="t-en">Thank you for applying</span><span class="t-es">Gracias por postularte</span></span>
+        <h1><span class="t-en">We've reviewed your application.</span><span class="t-es">Hemos revisado tu aplicación.</span></h1>
+        <p>
+          <span class="t-en">We regret to inform you that there are no available spots on the FERAL MEDIA team at the moment. We encourage you to check back with us in 2&ndash;3 months.</span>
+          <span class="t-es">Lamentamos informarte que no hay cupos disponibles en el equipo de FERAL MEDIA en este momento. Te animamos a contactarnos nuevamente en 2&ndash;3 meses.</span>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="book-foot">&copy; <span id="year"></span> FERAL. <span class="t-en">All rights reserved.</span><span class="t-es">Todos los derechos reservados.</span></footer>
+
+  <script>
+    (function () {
+      var y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+      // Non-optimized analytics signal only (do not map an ad conversion to this).
+      try {
+        if (sessionStorage.getItem("feral_q") === "fail") {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: "feral_lead_unqualified" });
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script src="lang-toggle.js" defer></script>
+</body>
+</html>

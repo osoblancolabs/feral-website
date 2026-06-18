@@ -1,8 +1,8 @@
 /* ============================================================
    book.js — /book ads landing page behavior
    - 30s timer gate that reveals the Book-a-call CTA
-   - ad-pixel conversion hook (dataLayer + DOM event)
-   - smooth-scroll CTAs + fire conversion
+   - CTAs navigate to the application form (apply.html?src=book)
+   - soft top-of-funnel signal on CTA click (NOT the optimized conversion)
    - on-scroll reveals
    - seamless infinite results marquee
    ============================================================ */
@@ -19,51 +19,26 @@
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
 
-  // Conversion hook -------------------------------------------
-  // The ad pixel (Meta/TikTok/GA) attaches to either of these.
-  window.feralTrackBookCall = function (source) {
+  // Soft top-of-funnel signal --------------------------------
+  // NOT the optimized conversion. The CTA now navigates to the application
+  // form (apply.html?src=book); the qualified-only conversion 'feral_book_call'
+  // fires on /book-call after the form gate passes.
+  function feralTrackCtaClick(source) {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "feral_book_call", source: source || "cta" });
+    window.dataLayer.push({ event: "feral_book_cta_click", source: source || "cta" });
     try {
-      document.dispatchEvent(new CustomEvent("feral:book-call", { detail: { source: source || "cta" } }));
+      document.dispatchEvent(new CustomEvent("feral:book-cta-click", { detail: { source: source || "cta" } }));
     } catch (e) {}
-  };
+  }
 
-  // CTA clicks: smooth-scroll to the calendar + track ---------
-  var ctas = document.querySelectorAll("[data-book-scroll]");
+  // CTA clicks: fire the soft signal, then let the link navigate to the form.
+  var ctas = document.querySelectorAll("[data-book-cta]");
   for (var i = 0; i < ctas.length; i++) {
-    ctas[i].addEventListener("click", function (e) {
-      var target = document.getElementById("booking");
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-      }
-      window.feralTrackBookCall("cta_click");
+    ctas[i].addEventListener("click", function () {
+      feralTrackCtaClick("cta_click");
+      // no preventDefault — the anchor navigates to apply.html?src=book
     });
   }
-
-  // Booking calendar enters view -> fire conversion once ------
-  var booking = document.getElementById("booking");
-  if (booking && "IntersectionObserver" in window) {
-    var fired = false;
-    var bookingIO = new IntersectionObserver(function (entries) {
-      for (var j = 0; j < entries.length; j++) {
-        if (entries[j].isIntersecting && !fired) {
-          fired = true;
-          window.feralTrackBookCall("calendar_view");
-          bookingIO.disconnect();
-        }
-      }
-    }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
-    bookingIO.observe(booking);
-  }
-
-  // Calendly: fire the booking conversion when an appointment is actually scheduled.
-  window.addEventListener("message", function (e) {
-    if (e && e.data && typeof e.data.event === "string" && e.data.event === "calendly.event_scheduled") {
-      window.feralTrackBookCall("booking_confirmed");
-    }
-  });
 
   // Timer gate — counts down from 30s. Timestamp-based so it stays
   // accurate (and still finishes) if the tab is backgrounded/throttled.
