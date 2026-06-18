@@ -71,18 +71,22 @@
       var y = document.getElementById("year");
       if (y) y.textContent = new Date().getFullYear();
 
-      // Only fire the conversion for a genuinely qualified visitor.
+      // Only run for a genuinely qualified visitor.
       try { if (sessionStorage.getItem("feral_q") !== "pass") return; } catch (e) { return; }
 
+      // Qualified lead reached the booking page (conditioned conversion).
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: "feral_book_call", source: "qualified_booking_page" });
       try { document.dispatchEvent(new CustomEvent("feral:book-call", { detail: { source: "qualified" } })); } catch (e) {}
 
-      // Calendly confirms an actual booking -> stronger conversion signal.
+      // When the booking is completed, send the invitee to the branded confirmation page.
+      // Preferred path: the Calendly event type's "Redirect to an external site" setting
+      // (Confirmation page) sends them to /booked WITH the scheduled time in the query
+      // string. Safety net: if that redirect isn't configured yet, this listener forwards
+      // to /booked after a short delay so they still land on the thank-you page.
       window.addEventListener("message", function (e) {
         if (e && e.data && typeof e.data.event === "string" && e.data.event === "calendly.event_scheduled") {
-          window.dataLayer.push({ event: "feral_booking_confirmed", source: "calendly" });
-          try { document.dispatchEvent(new CustomEvent("feral:booking-confirmed")); } catch (err) {}
+          setTimeout(function () { window.location.href = "booked.html"; }, 1800);
         }
       });
     })();

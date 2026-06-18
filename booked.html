@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" id="root-html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-en="FERAL | Call confirmed" data-es="FERAL | Llamada confirmada">FERAL | Call confirmed</title>
+  <meta name="description" content="Your call with the FERAL team is confirmed." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lang-toggle.css" />
+  <link rel="stylesheet" href="book.css" />
+
+  <!-- ============================================================
+       AD PIXEL  —  ads manager: paste base pixel code below.
+       This is the CONFIRMED-BOOKING page (invitee completed scheduling).
+       The strongest conversion 'feral_booking_confirmed' fires here.
+         • dataLayer event:  'feral_booking_confirmed'  (GTM)
+         • DOM event:         'feral:booking-confirmed'
+       ============================================================ -->
+  <!-- PIXEL_BASE_CODE_HERE -->
+
+  <style>
+    .bk-wrap {
+      min-height: calc(100vh - 70px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 4rem 1.5rem;
+    }
+    .bk-card { max-width: 620px; width: 100%; text-align: center; }
+    .bk-check {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(184, 169, 201, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .bk-check svg { width: 32px; height: 32px; stroke: var(--accent, #b8a9c9); }
+    .bk-title {
+      font-family: var(--font-heading, "DM Sans", sans-serif);
+      font-size: clamp(1.7rem, 3.6vw, 2.4rem); font-weight: 600;
+      letter-spacing: -0.025em; line-height: 1.12; margin: 0 0 1.75rem;
+    }
+    .bk-time {
+      display: inline-flex; flex-direction: column; gap: 0.4rem;
+      margin: 0 auto 2rem; padding: 1.25rem 2rem;
+      border: 1px solid var(--border-pearl, rgba(184, 169, 201, 0.18));
+      border-radius: 14px; background: rgba(184, 169, 201, 0.06);
+    }
+    .bk-time-label {
+      font-family: var(--font-heading, "DM Sans", sans-serif);
+      text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.16em;
+      color: var(--accent, #b8a9c9);
+    }
+    .bk-time-value {
+      font-family: var(--font-heading, "DM Sans", sans-serif);
+      font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em;
+    }
+    .bk-next { max-width: 48ch; margin: 0 auto; }
+    .bk-next-label {
+      display: block; font-family: var(--font-heading, "DM Sans", sans-serif);
+      text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.16em;
+      color: var(--accent, #b8a9c9); margin-bottom: 0.6rem;
+    }
+    .bk-next p { color: var(--text-muted, #b8b8b8); line-height: 1.6; font-size: 1.02rem; margin: 0; }
+  </style>
+</head>
+<body class="book-body">
+  <div class="book-grain" aria-hidden="true"></div>
+
+  <header class="header book-header" role="banner">
+    <a href="index.html" class="logo" aria-label="FERAL home">
+      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" width="40" height="40" />
+    </a>
+  </header>
+
+  <main id="main" class="book-main">
+    <div class="bk-wrap">
+      <div class="bk-card">
+        <div class="bk-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <span class="book-eyebrow"><span class="t-en">You're booked</span><span class="t-es">Estás agendada</span></span>
+        <h1 class="bk-title">
+          <span class="t-en">Thank you<span id="bk-name-en"></span>. Your call is confirmed.</span>
+          <span class="t-es">Gracias<span id="bk-name-es"></span>. Tu llamada está confirmada.</span>
+        </h1>
+
+        <div class="bk-time" id="bk-time" hidden>
+          <span class="bk-time-label"><span class="t-en">Your scheduled time</span><span class="t-es">Tu horario</span></span>
+          <span class="bk-time-value" id="bk-time-value"></span>
+        </div>
+
+        <div class="bk-next">
+          <span class="bk-next-label"><span class="t-en">What happens next</span><span class="t-es">Qué sigue</span></span>
+          <p>
+            <span class="t-en">A member of our team will reach out to you to get in contact and ensure you have everything you need prior to your scheduled interview.</span>
+            <span class="t-es">Un miembro de nuestro equipo se pondrá en contacto contigo para asegurarse de que tengas todo lo que necesitas antes de tu entrevista agendada.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="book-foot">&copy; <span id="year"></span> FERAL. <span class="t-en">All rights reserved.</span><span class="t-es">Todos los derechos reservados.</span></footer>
+
+  <script>
+    (function () {
+      var y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+
+      var params = new URLSearchParams(window.location.search);
+      // Calendly's "pass event details" redirect appends event_start_time (ISO-8601
+      // with timezone offset) and invitee_full_name to the URL.
+      var startIso = (params.get("event_start_time") || "").trim();
+      var fullName = (params.get("invitee_full_name") || "").trim();
+
+      // Personalize the greeting with the invitee's first name (textContent = safe).
+      if (fullName) {
+        var first = ", " + fullName.split(/\s+/)[0];
+        var en = document.getElementById("bk-name-en"); if (en) en.textContent = first;
+        var es = document.getElementById("bk-name-es"); if (es) es.textContent = first;
+      }
+
+      function formatTime(iso) {
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return null;
+        var lang = document.documentElement.getAttribute("lang") === "es" ? "es-ES" : "en-US";
+        try {
+          return d.toLocaleString(lang, {
+            weekday: "long", month: "long", day: "numeric", year: "numeric",
+            hour: "numeric", minute: "2-digit", timeZoneName: "short"
+          });
+        } catch (e) { return d.toString(); }
+      }
+
+      function renderTime() {
+        if (!startIso) return;
+        var f = formatTime(startIso);
+        if (f) {
+          document.getElementById("bk-time-value").textContent = f;
+          document.getElementById("bk-time").hidden = false;
+        }
+      }
+      renderTime();
+      // Re-format if the visitor switches language (date phrasing is locale-aware).
+      document.addEventListener("feralLangChanged", renderTime);
+
+      // Fire the strongest conversion only when there's evidence of a real booking:
+      // either Calendly passed the time, or the visitor came through the qualified flow.
+      var passed = false;
+      try { passed = sessionStorage.getItem("feral_q") === "pass"; } catch (e) {}
+      if (startIso || passed) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "feral_booking_confirmed", source: startIso ? "calendly_redirect" : "post_booking" });
+        try { document.dispatchEvent(new CustomEvent("feral:booking-confirmed")); } catch (e) {}
+      }
+    })();
+  </script>
+  <script src="lang-toggle.js" defer></script>
+</body>
+</html>
