@@ -3,30 +3,68 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ——— Hero banner: animate in immediately (no scroll gate) ———
-  const heroBanner = document.getElementById('hero-banner');
-  if (heroBanner) {
-    requestAnimationFrame(() => heroBanner.classList.add('hero-banner-animated'));
+
+  // ——— Splash (first entry per session) + hero entrance ———
+  const splash = document.getElementById('splash');
+  const heroMedia = document.getElementById('hero-media');
+  const enterHero = () => {
+    if (heroMedia) heroMedia.classList.add('hero-enter');
+  };
+  let splashSeen = false;
+  try { splashSeen = sessionStorage.getItem('feral_splash') === '1'; } catch (e) {}
+  if (splash && !splashSeen && !prefersReducedMotion) {
+    document.body.classList.add('splash-lock');
+    window.setTimeout(() => {
+      splash.classList.add('splash-hide');
+      document.body.classList.remove('splash-lock');
+      try { sessionStorage.setItem('feral_splash', '1'); } catch (e) {}
+      enterHero();
+      window.setTimeout(() => splash.remove(), 700);
+    }, 1600);
+  } else {
+    if (splash) splash.remove();
+    enterHero();
   }
 
-  // ——— Hero / About video reveal: fallback art stays until the file can play ———
-  const setupVideoReveal = (videoId, targetSelector, liveClass) => {
-    const video = document.getElementById(videoId);
-    const target = document.querySelector(targetSelector);
-    if (!video || !target || prefersReducedMotion) return;
-    const reveal = () => {
-      target.classList.add(liveClass);
-      const played = video.play();
+  // ——— Hero reel: poster paints instantly, playback starts as soon as it can ———
+  const heroVideo = document.getElementById('hero-reel');
+  if (heroVideo && !prefersReducedMotion) {
+    const start = () => {
+      const played = heroVideo.play();
       if (played && typeof played.catch === 'function') played.catch(() => {});
     };
-    if (video.readyState >= 3) {
-      reveal();
+    if (heroVideo.readyState >= 3) {
+      start();
     } else {
-      video.addEventListener('canplay', reveal, { once: true });
+      heroVideo.addEventListener('canplay', start, { once: true });
     }
-  };
-  setupVideoReveal('hero-reel', '.hero-banner', 'hero-video-live');
-  setupVideoReveal('about-reel', '.about-video-wrap', 'about-video-live');
+  }
+
+  // ——— Parallax (desktop only; reduced-motion opts out) ———
+  const parallaxEls = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+  if (parallaxEls.length && !prefersReducedMotion && window.matchMedia('(min-width: 769px)').matches) {
+    let parallaxPending = false;
+    const applyParallax = () => {
+      parallaxPending = false;
+      const vh = window.innerHeight;
+      parallaxEls.forEach((el) => {
+        const box = el.parentElement.getBoundingClientRect();
+        if (box.bottom < -240 || box.top > vh + 240) return;
+        const delta = box.top + box.height / 2 - vh / 2;
+        const y = delta * parseFloat(el.getAttribute('data-parallax'));
+        el.style.transform = 'translate3d(0, ' + y.toFixed(1) + 'px, 0)';
+      });
+    };
+    const queueParallax = () => {
+      if (!parallaxPending) {
+        parallaxPending = true;
+        requestAnimationFrame(applyParallax);
+      }
+    };
+    window.addEventListener('scroll', queueParallax, { passive: true });
+    window.addEventListener('resize', queueParallax, { passive: true });
+    applyParallax();
+  }
 
   // ——— Pearlescent overlay: shift gradient with scroll ———
   const pearlOverlay = document.getElementById('pearl-overlay');

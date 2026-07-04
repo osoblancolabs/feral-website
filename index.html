@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add("js");</script>
   <title>FERAL. | Influencer Representation & Media Distribution</title>
   <meta name="description" content="FERAL is a full-service influencer representation and media distribution company that has worked with over 100 creators. Talent development, content strategy, monetization. $750K+ average creator earnings, 1.2B monthly views. Apply at stayferal.net." />
   <meta name="keywords" content="influencer representation, media distribution, creator representation, talent development, content strategy, creator monetization, influencer marketing" />
@@ -16,18 +17,18 @@
   <meta property="og:url" content="https://stayferal.net/" />
   <meta property="og:site_name" content="FERAL." />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://stayferal.net/assets/feral_babes_banner_2_middle.png" />
+  <meta property="og:image" content="https://stayferal.net/assets/hero-poster.jpg" />
   <meta property="og:image:alt" content="FERAL – creator talent and brand" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="FERAL. | Influencer Representation & Media Distribution" />
   <meta name="twitter:description" content="FERAL: influencer representation and media distribution. We've worked with over 100 creators. $750K+ avg earnings. Apply at stayferal.net." />
-  <meta name="twitter:image" content="https://stayferal.net/assets/feral_babes_banner_2_middle.png" />
+  <meta name="twitter:image" content="https://stayferal.net/assets/hero-poster.jpg" />
   <meta name="twitter:image:alt" content="FERAL – creator talent and brand" />
   <meta name="theme-color" content="#000000" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="assets/feral_babes_banner_2_middle.png" as="image" />
+  <link rel="preload" href="assets/hero-poster.jpg" as="image" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script type="application/ld+json">
@@ -89,6 +90,9 @@
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="splash" id="splash" aria-hidden="true">
+    <img src="assets/feral-logotype-overlay.png" alt="" class="splash-logo" />
+  </div>
   <div class="pearl-overlay" id="pearl-overlay" aria-hidden="true"></div>
   <header class="header">
     <nav class="nav" aria-label="Main navigation">
@@ -110,22 +114,13 @@
 
   <main id="main-content">
     <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-banner reveal" id="hero-banner">
-        <video class="hero-video" id="hero-reel" muted loop playsinline preload="metadata" aria-hidden="true"><source src="assets/hero-reel.mp4" type="video/mp4" /></video>
-        <div class="hero-banner-top">
-          <img src="assets/feral_babes_banner_2_top.png" alt="FERAL creator talent – top section" class="hero-banner-img" width="1024" height="225" />
-        </div>
-        <div class="hero-banner-middle">
-          <img src="assets/feral_babes_banner_2_middle.png" alt="FERAL creator talent" class="hero-banner-img" width="1024" height="124" />
-        </div>
-        <div class="hero-banner-bottom">
-          <img src="assets/feral_babes_banner_2_bottom.png" alt="FERAL creator network – bottom section" class="hero-banner-img" width="1024" height="226" />
-        </div>
-        <img src="assets/feral-logotype-overlay.png" alt="FERAL." class="hero-banner-logo" width="1075" height="211" />
+      <div class="hero-media" id="hero-media">
+        <video class="hero-video" id="hero-reel" muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true" data-parallax="-0.14"><source src="assets/hero-reel.mp4" type="video/mp4" /></video>
+        <div class="hero-media-scrim" aria-hidden="true"></div>
       </div>
       <div class="hero-content reveal">
         <h1 id="hero-heading" class="hero-title"><span class="t-en">Become a</span><span class="t-es">Conviértete en una</span> <span class="hero-title-accent"><span class="t-en">Million Dollar</span><span class="t-es">Creadora Millonaria</span></span> <span class="t-en">Creator</span><span class="t-es"></span></h1>
-        <p class="hero-subtitle"><span class="t-en">We represent the world&#39;s most distinctive influencers. Full-service representation for serious creators who want to become the 1%</span><span class="t-es" lang="es">Representamos a las influencers más distintivas del mundo. Servicio completo para creadoras serias que quieren ser el 1%</span></p>
+        <p class="hero-subtitle"><span class="t-en"><span class="hero-sub-line">We represent the world&#39;s most distinctive influencers.</span> <span class="hero-sub-line">Full-service representation for serious creators who want to become the 1%</span></span><span class="t-es" lang="es"><span class="hero-sub-line">Representamos a las influencers más distintivas del mundo.</span> <span class="hero-sub-line">Servicio completo para creadoras serias que quieren ser el 1%</span></span></p>
         <a href="apply.html" class="btn btn-primary"><span class="t-en">Apply to work with us</span><span class="t-es">Postula para trabajar con nosotros</span></a>
       </div>
     </section>
@@ -161,6 +156,7 @@
     </section>
 
     <section id="services" class="section services" aria-labelledby="services-heading">
+      <div class="parallax-glow" data-parallax="0.2" aria-hidden="true"></div>
       <h2 id="services-heading" class="section-title reveal section-title-pearl"><span class="t-en">What we do</span><span class="t-es">Qué hacemos</span></h2>
       <p class="section-intro reveal"><span class="t-en">Talent development, content strategy, monetization, fan community growth. We do it all for over 100 creators. You create; we handle the rest.</span><span class="t-es" lang="es">Desarrollo de talento, estrategia de contenido, monetización, crecimiento de tu comunidad de fans. Lo hacemos todo para más de 100 creadoras. Tú creas; nosotros nos encargamos del resto.</span></p>
       <div class="services-grid">
@@ -218,22 +214,20 @@
     </section>
 
     <section id="about" class="section about" aria-labelledby="about-heading">
-      <div class="about-video-wrap">
-        <video class="about-video" id="about-reel" muted loop playsinline preload="metadata" aria-hidden="true" title="FERAL creator and influencer content">
-          <source src="assets/hero-reel.mp4" type="video/mp4" />
-        </video>
-        <div class="about-video-overlay" aria-hidden="true"></div>
-      </div>
       <div class="about-grid">
         <div class="about-content">
           <h2 id="about-heading" class="section-title reveal section-title-pearl"><span class="t-en">About FERAL</span><span class="t-es">Sobre FERAL</span></h2>
           <p class="reveal"><span class="t-en">FERAL is a premiere influencer incubator and brand development company. We have helped over 100 creators scale to 5 and 6 figures per month using our proprietary data-driven approach, full-service production, and high-value positioning to maximize income. Our network drives 1.2B monthly views and $21M+ in revenue for the creators we work with.</span><span class="t-es">FERAL es una incubadora de influencers y firma de desarrollo de marca de primer nivel. Hemos ayudado a más de 100 creadoras a escalar a 5 y 6 cifras mensuales usando nuestro enfoque basado en datos, producción de servicio completo y posicionamiento de alto valor para maximizar ingresos. Nuestra red genera 1.2B de vistas mensuales y más de $21M en ingresos para las creadoras con las que trabajamos.</span></p>
           <p class="reveal"><span class="t-en">We built this for creators who want a real partner.</span><span class="t-es">Construimos esto para creadoras que quieren un socio real.</span></p>
         </div>
+        <figure class="about-photo reveal" >
+          <img src="assets/about-photo.jpg" alt="" loading="lazy" data-parallax="-0.08" />
+        </figure>
       </div>
     </section>
 
     <section id="results" class="section results" aria-labelledby="results-heading">
+      <div class="parallax-glow parallax-glow--left" data-parallax="0.26" aria-hidden="true"></div>
       <h2 id="results-heading" class="section-title reveal section-title-pearl"><span class="t-en">Creator Success Stories</span><span class="t-es" lang="es">Casos de éxito de nuestras creadoras</span></h2>
       <p class="section-intro reveal"><span class="t-en">When exceptional talent meets an extraordinary team, dreams become reality.</span><span class="t-es">Cuando el talento excepcional se encuentra con un equipo extraordinario, los sueños se vuelven realidad.</span></p>
 
@@ -542,6 +536,7 @@
     </section>
 
     <section id="right-place" class="section right-place" aria-label="We work with / We don't work with">
+      <div class="parallax-glow" data-parallax="0.18" aria-hidden="true"></div>
       <div class="work-with-grid reveal">
         <div class="work-with-block">
           <h3 class="work-with-title"><span class="t-en">We Work With:</span><span class="t-es">Trabajamos con:</span></h3>
@@ -577,6 +572,7 @@
     </section>
 
     <section class="section testimonials" aria-labelledby="testimonials-heading">
+      <div class="parallax-glow parallax-glow--left" data-parallax="0.22" aria-hidden="true"></div>
       <h2 id="testimonials-heading" class="section-title reveal section-title-pearl"><span class="t-en">Why creators choose FERAL</span><span class="t-es" lang="es">Por qué las creadoras eligen FERAL</span></h2>
       <p class="section-intro reveal"><span class="t-en">Here's what creators say after working with us.</span><span class="t-es" lang="es">Esto es lo que dicen las creadoras después de trabajar con nosotros.</span></p>
       <div class="testimonials-slider">
