@@ -47,10 +47,19 @@ html[lang="es"] .t-en { display: none; }
   color: #f5f5f5;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 769px) and (max-width: 1439px) {
+  /* Clear the nav CTA ("Join Us" / back links) at laptop widths */
   .lang-switch {
-    top: 0.6rem;
-    right: 0.6rem;
+    top: 4.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Keep clear of the fixed header + hamburger on small screens */
+  .lang-switch {
+    top: auto;
+    bottom: 0.9rem;
+    right: 0.9rem;
   }
   .lang-switch button {
     padding: 0.38rem 0.65rem;

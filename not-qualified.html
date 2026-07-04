@@ -20,7 +20,23 @@
        A non-optimized 'feral_lead_unqualified' event is pushed for your own
        analytics only — do NOT map an ad conversion to it.
        ============================================================ -->
-  <!-- PIXEL_BASE_CODE_HERE -->
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1686435738851819');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1686435738851819&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 
   <style>
     .nq-wrap {
@@ -47,7 +63,7 @@
 
   <header class="header book-header" role="banner">
     <a href="index.html" class="logo" aria-label="FERAL home">
-      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" width="40" height="40" />
+      <img src="assets/feral-logotype-overlay.png" alt="FERAL." width="1075" height="211" />
     </a>
   </header>
 

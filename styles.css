@@ -2,10 +2,10 @@
 
 :root {
   --bg: #000000;
-  --bg-elevated: #000000;
+  --bg-elevated: #0d0b10;
   --surface: #000000;
   --text: #f5f5f5;
-  --text-muted: #a3a3a3;
+  --text-muted: #c2c2c2;
   --accent: #b8a9c9;
   --accent-dim: rgba(184, 169, 201, 0.35);
   --pearl-pink: rgba(212, 184, 196, 0.5);
@@ -17,6 +17,7 @@
   --stats-row-gradient: linear-gradient(90deg, #7d6b9a 0%, #9d8fb5 18%, #b8a9c9 38%, #e8b4c4 55%, #e2d9dc 72%, #b8a9c9 88%, #7d6b9a 100%);
   --stat-card-gradient: linear-gradient(135deg, rgba(125, 107, 154, 0.22) 0%, rgba(184, 169, 201, 0.18) 35%, rgba(232, 180, 196, 0.2) 65%, rgba(184, 169, 201, 0.18) 100%);
   --btn-pearl: linear-gradient(135deg, rgba(184, 169, 201, 0.95) 0%, rgba(212, 184, 196, 0.9) 50%, rgba(200, 190, 210, 0.95) 100%);
+  --btn-pearl-bright: linear-gradient(135deg, #cbbede 0%, #e3cdd6 50%, #d5cbe0 100%);
   --btn-pearl-hover: linear-gradient(135deg, rgba(212, 184, 196, 0.25) 0%, rgba(184, 169, 201, 0.3) 50%, rgba(157, 143, 181, 0.25) 100%);
   --btn-hover-bg: #1a1520;
   --btn-hover-text: #e8dcee;
@@ -26,7 +27,7 @@
   --font-heading: "DM Sans", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration: 0.6s;
+  --duration: 0.4s;
   --scroll-pct: 0;
 }
 
@@ -116,10 +117,10 @@ a:hover {
   color: var(--accent);
 }
 
-/* Reveal animation base — elements start hidden and animate in on scroll */
+/* Reveal animation base — elements start dimmed and settle in on scroll */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
+  opacity: 0.4;
+  transform: translateY(12px);
   transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
 }
 
@@ -128,10 +129,18 @@ a:hover {
   transform: translateY(0);
 }
 
+/* CTA escape hatch — anything containing a call to action is never scroll-gated */
+.reveal:has(.btn),
+.reveal:has(.nav-cta),
+.hero-content.reveal {
+  opacity: 1;
+  transform: none;
+}
+
 .reveal.reveal-delay-1 { transition-delay: 0.1s; }
 .reveal.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal.reveal-delay-3 { transition-delay: 0.2s; }
+.reveal.reveal-delay-4 { transition-delay: 0.2s; }
 
 @keyframes header-pearl-shimmer {
   0% { opacity: 0.7; }
@@ -140,18 +149,18 @@ a:hover {
 }
 
 .section-title.reveal {
-  transition-duration: 3.6s;
+  transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .section-title.header-pearl-revealed {
-  animation: section-title-pearl 4.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: section-title-pearl 0.5s var(--ease-out) forwards;
 }
 
 @keyframes section-title-pearl {
   0% {
-    opacity: 0;
-    letter-spacing: 0.08em;
+    opacity: 0.4;
+    letter-spacing: 0.02em;
   }
   100% {
     opacity: 1;
@@ -167,7 +176,7 @@ a:hover {
   right: 0;
   z-index: 100;
   padding: 1rem 1.5rem;
-  background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+  background: linear-gradient(to bottom, var(--bg) 0%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
   transition: background 0.3s var(--ease-out);
 }
 
@@ -187,9 +196,9 @@ a:hover {
 }
 
 .logo img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  height: 28px;
+  width: auto;
+  border-radius: 0;
 }
 
 .nav-links {
@@ -219,15 +228,18 @@ a:hover {
 }
 
 .nav-cta {
-  color: var(--accent) !important;
+  background: var(--btn-pearl);
+  color: #0a0a0a !important;
+  font-weight: 600;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--accent-dim);
-  border-radius: 4px;
+  border: 1px solid var(--border-pearl);
+  border-radius: 999px;
+  transition: background 0.25s var(--ease-out);
 }
 
 .nav-cta:hover {
-  background: var(--accent-dim);
-  color: var(--text) !important;
+  background: var(--btn-pearl-bright);
+  color: #0a0a0a !important;
 }
 
 .nav-toggle {
@@ -256,6 +268,7 @@ a:hover {
 }
 
 .hero-banner {
+  position: relative;
   margin-bottom: 3rem;
   border-radius: 8px;
   overflow: hidden;
@@ -265,40 +278,72 @@ a:hover {
   width: 100%;
 }
 
+/* Hero reel — hidden until JS confirms playback (.hero-video-live); strips are the fallback */
+.hero-video {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-banner.hero-video-live {
+  aspect-ratio: 16 / 9;
+}
+
+.hero-banner.hero-video-live .hero-video {
+  display: block;
+}
+
+.hero-banner.hero-video-live .hero-banner-top,
+.hero-banner.hero-video-live .hero-banner-middle,
+.hero-banner.hero-video-live .hero-banner-bottom,
+.hero-banner.hero-video-live .hero-banner-logo {
+  /* The reel carries its own baked-in wordmark */
+  display: none;
+}
+
 .hero-banner-top,
 .hero-banner-bottom {
   overflow: hidden;
-  transition: transform 3s var(--ease-out);
+  transition: transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out);
 }
 
 .hero-banner-top {
-  transform: translateX(-100%);
+  transform: translateX(-24px);
+  opacity: 0.6;
 }
 
 .hero-banner-bottom {
-  transform: translateX(100%);
+  transform: translateX(24px);
+  opacity: 0.6;
 }
 
 .hero-banner-animated .hero-banner-top {
   transform: translateX(0);
+  opacity: 1;
 }
 
 .hero-banner-animated .hero-banner-bottom {
   transform: translateX(0);
+  opacity: 1;
 }
 
 .hero-banner-middle {
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transition: opacity 5s var(--ease-out);
+  opacity: 0.4;
+  transition: opacity 0.4s var(--ease-out);
 }
 
+/* Scrim over the middle strip so the logotype stays legible — never solid black */
 .hero-banner-middle::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: #000;
+  background: rgba(0, 0, 0, 0.85);
   z-index: 1;
   pointer-events: none;
 }
@@ -336,11 +381,6 @@ a:hover {
   width: 100%;
   height: auto;
   display: block;
-}
-
-.hero-content.reveal {
-  transition-duration: 3.6s;
-  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .hero-content {
@@ -417,28 +457,33 @@ a:hover {
 }
 
 .btn-primary:hover {
-  background: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
-  border-color: var(--btn-hover-border);
-  box-shadow: 0 0 32px rgba(184, 169, 201, 0.25);
+  background: var(--btn-pearl-bright);
+  color: #0a0a0a;
+  border-color: var(--accent);
+  box-shadow: 0 0 32px rgba(184, 169, 201, 0.4);
 }
 
 .btn-secondary {
-  background: var(--btn-pearl-hover);
-  color: var(--accent);
-  border: 1px solid var(--border-pearl);
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--accent);
   transition: background 0.4s var(--ease-out), color 0.4s var(--ease-out);
 }
 
 .btn-secondary:hover {
-  background: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
-  border-color: var(--btn-hover-border);
-  box-shadow: 0 0 24px rgba(184, 169, 201, 0.2);
+  background: rgba(184, 169, 201, 0.15);
+  color: #fff;
 }
 
 .btn-secondary:hover::before {
   transform: translateX(150%);
+}
+
+.btn:focus-visible,
+.nav-cta:focus-visible,
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Stats */
@@ -523,7 +568,7 @@ a:hover {
 
 /* Sections */
 .section {
-  padding: 5rem 1.5rem;
+  padding: 4rem 1.5rem;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -642,21 +687,6 @@ a:hover {
   }
 }
 
-/* What we do cards: animations 2s slower */
-#services .service-card.reveal {
-  transition-duration: 2.6s;
-}
-
-#services .service-icon svg [stroke] {
-  transition-duration: 2.95s;
-}
-
-#services .service-icon svg path[fill="currentColor"],
-#services .service-icon svg path[fill] {
-  transition-duration: 2.5s;
-  transition-delay: 0.6s;
-}
-
 .service-card {
   padding: 2rem;
   background: var(--bg-elevated);
@@ -687,7 +717,7 @@ a:hover {
 .service-icon svg [stroke] {
   stroke-dasharray: 150;
   stroke-dashoffset: 150;
-  transition: stroke-dashoffset 0.95s var(--ease-out);
+  transition: stroke-dashoffset 0.6s var(--ease-out);
 }
 
 .service-card.revealed .service-icon svg [stroke] {
@@ -697,7 +727,7 @@ a:hover {
 .service-icon svg path[fill="currentColor"],
 .service-icon svg path[fill] {
   opacity: 0;
-  transition: opacity 0.5s var(--ease-out) 0.4s;
+  transition: opacity 0.4s var(--ease-out) 0.15s;
 }
 
 .service-card.revealed .service-icon svg path[fill="currentColor"],
@@ -750,18 +780,26 @@ a:hover {
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* Gradient fallback while the reel is absent — video fades in on .about-video-live */
+  background: radial-gradient(ellipse at center, rgba(125, 107, 154, 0.25), var(--bg));
 }
 
 .about-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.about-video-wrap.about-video-live .about-video {
+  opacity: 1;
 }
 
 .about-video-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
@@ -879,7 +917,7 @@ a:hover {
 
 .result-metric-label {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -947,7 +985,7 @@ a:hover {
 
 .result-stat-label {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   margin-top: 0.15rem;
 }
@@ -1012,7 +1050,7 @@ a:hover {
 }
 
 .testimonial.reveal {
-  transform: translateY(20px) scale(0.98);
+  transform: translateY(12px) scale(0.99);
 }
 
 .testimonial {
@@ -1028,7 +1066,7 @@ a:hover {
 }
 
 .testimonial.revealed {
-  animation: testimonial-reveal 0.6s var(--ease-out) forwards;
+  animation: testimonial-reveal 0.4s var(--ease-out) forwards;
 }
 
 .testimonial:hover {
@@ -1038,8 +1076,8 @@ a:hover {
 
 @keyframes testimonial-reveal {
   from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
+    opacity: 0.4;
+    transform: translateY(12px) scale(0.99);
   }
   to {
     opacity: 1;
@@ -1186,21 +1224,21 @@ a:hover {
 .footer-inner {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
   gap: 1.5rem;
 }
 
 .footer-logo img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  height: 24px;
+  width: auto;
+  border-radius: 0;
 }
 
 .footer-nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
 }
 
@@ -1209,7 +1247,30 @@ a:hover {
   color: var(--text-muted);
 }
 
+.footer-nav a:hover {
+  color: var(--accent);
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-end;
+}
+
+.footer-legal a {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.footer-legal a:hover {
+  color: var(--accent);
+}
+
 .footer-copy {
+  grid-column: 1 / -1;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-pearl);
   font-size: 0.85rem;
   color: var(--text-muted);
   margin: 0;
@@ -1275,7 +1336,27 @@ a:hover {
   }
 
   .footer-inner {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    justify-items: center;
     text-align: center;
+  }
+
+  .footer-nav,
+  .footer-legal {
+    justify-content: center;
+  }
+}
+
+/* Reduced motion — show everything immediately, no movement */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .hero-banner-top,
+  .hero-banner-bottom,
+  .hero-banner-middle,
+  .section-title {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
   }
 }

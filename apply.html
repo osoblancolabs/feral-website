@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Apply | FERAL</title>
-  <meta name="description" content="Apply to work with FERAL. Full-service creator management for serious influencers ready to scale." />
+  <meta name="description" content="Apply to partner with FERAL. Full-service creator partnership for serious creators ready to scale." />
   <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +15,7 @@
       --bg-elevated: #0a0a0a;
       --surface: #111111;
       --text: #f5f5f5;
-      --text-muted: #a3a3a3;
+      --text-muted: #c2c2c2;
       --accent: #b8a9c9;
       --accent-dim: rgba(184, 169, 201, 0.35);
       --border-pearl: rgba(184, 169, 201, 0.12);
@@ -144,7 +144,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 3rem 3rem 6rem 2.5rem;
+      padding: 3rem 3rem 3rem 2.5rem;
       position: relative;
       z-index: 3;
     }
@@ -334,6 +334,24 @@
       margin: 0.1rem 0 0;
     }
 
+    /* Consent line (final step, above the nav buttons) */
+    .consent-note {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+      margin: 0.5rem 0 0;
+    }
+
+    .consent-note a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .consent-note a:hover {
+      color: var(--text);
+    }
+
     /* Navigation Buttons */
     .step-nav {
       display: flex;
@@ -381,22 +399,12 @@
       border-color: var(--accent-dim) !important;
     }
 
-    /* Progress Bar */
+    /* Progress Bar (in-flow, directly above the form) */
     .progress-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(14px);
-      border-top: 1px solid var(--border-pearl);
-      padding: 0.75rem 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .progress-inner {
-      max-width: 540px;
-      margin-left: auto;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -488,31 +496,55 @@
       .apply-panel {
         width: 100%;
         min-width: unset;
-        padding: 2rem 1.5rem 5rem;
+        padding: 2rem 1.5rem;
       }
 
       .apply-title { font-size: 1.8rem; }
       .form-row { flex-direction: column; gap: 1rem; }
-
-      .progress-inner {
-        max-width: 100%;
-        margin: 0;
-      }
     }
 
     @media (max-width: 480px) {
-      .apply-panel { padding: 1.5rem 1rem 5rem; }
+      .apply-panel { padding: 1.5rem 1rem; }
       .apply-title { font-size: 1.5rem; }
+    }
+    /* Keep the injected language pill clear of the back link, form fields, and Submit at every width */
+    body .lang-switch {
+      top: 4.5rem;
+      bottom: auto;
+      right: 1rem;
     }
   </style>
   <link rel="stylesheet" href="lang-toggle.css" />
+
+  <!-- ============================================================
+       AD PIXEL — application page. Base pixel + PageView only.
+       'CompleteRegistration' fires from the form's success handler
+       below (never 'Lead' here — that fires on book-call.html only).
+       ============================================================ -->
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1686435738851819');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1686435738851819&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
   <header class="apply-header">
     <a href="index.html" class="apply-header-logo">
       <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" />
     </a>
-    <a href="index.html" class="apply-header-back"><span class="t-en">Back to site</span><span class="t-es">Volver al sitio</span></a>
+    <a href="index.html" class="apply-header-back"><span class="t-en">Back to site</span><span class="t-es" lang="es">Volver al sitio</span></a>
   </header>
 
   <div class="apply-layout">
@@ -524,58 +556,70 @@
     </div>
 
     <div class="apply-panel">
-      <p class="apply-tagline"><span class="t-en">Apply to FERAL</span><span class="t-es">Postula a FERAL</span></p>
-      <h1 class="apply-title"><span class="t-en">Ready to scale?</span><span class="t-es">¿Lista para escalar?</span></h1>
-      <p class="apply-subtitle"><span class="t-en">We review every application personally. Tell us about yourself and where you want to go.</span><span class="t-es">Revisamos cada aplicación personalmente. Cuéntanos sobre ti y a dónde quieres llegar.</span></p>
+      <p class="apply-tagline"><span class="t-en">Apply to FERAL</span><span class="t-es" lang="es">Postula a FERAL</span></p>
+      <h1 class="apply-title"><span class="t-en">Ready to scale?</span><span class="t-es" lang="es">¿Lista para escalar?</span></h1>
+      <p class="apply-subtitle"><span class="t-en">We review every application personally. Tell us about yourself and where you want to go.</span><span class="t-es" lang="es">Revisamos cada aplicación personalmente. Cuéntanos sobre ti y a dónde quieres llegar.</span></p>
+
+      <!-- Progress Bar -->
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress-inner">
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <span class="progress-text" id="progress-text"><span class="t-en">Question 1 of 8</span><span class="t-es" lang="es">Pregunta 1 de 8</span></span>
+        </div>
+      </div>
 
       <form id="apply-form" action="https://formsubmit.co/Kiefer@feralagency.net" method="POST">
         <input type="hidden" name="_subject" value="New FERAL Application" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
+        <!-- Honeypot: hidden from real users; bots that fill it get dropped by FormSubmit. -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="steps-container" id="steps-container">
 
           <!-- Step 1: Name + Email -->
           <div class="form-step active" data-step="0">
-            <p class="step-question"><span class="t-en">Let&#39;s start with the basics.</span><span class="t-es">Empecemos por lo básico.</span></p>
+            <p class="step-question"><span class="t-en">Let&#39;s start with the basics.</span><span class="t-es" lang="es">Empecemos por lo básico.</span></p>
             <div class="form-row">
               <div class="form-field">
-                <label for="f-name"><span class="t-en">Name</span><span class="t-es">Nombre</span></label>
-                <input id="f-name" type="text" name="name" placeholder="Your name" required autocomplete="name" />
+                <label for="f-name"><span class="t-en">Name</span><span class="t-es" lang="es">Nombre</span></label>
+                <input id="f-name" type="text" name="name" placeholder="Your name" data-en-placeholder="Your name" data-es-placeholder="Tu nombre" required autocomplete="name" />
               </div>
               <div class="form-field">
-                <label for="f-email"><span class="t-en">Email</span><span class="t-es">Correo</span></label>
-                <input id="f-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email" />
+                <label for="f-email"><span class="t-en">Email</span><span class="t-es" lang="es">Correo</span></label>
+                <input id="f-email" type="email" name="email" placeholder="you@email.com" data-en-placeholder="you@email.com" data-es-placeholder="tu@email.com" required autocomplete="email" />
               </div>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 2: Phone + Instagram -->
           <div class="form-step" data-step="1">
-            <p class="step-question"><span class="t-en">How can we reach you?</span><span class="t-es">¿Cómo te contactamos?</span></p>
+            <p class="step-question"><span class="t-en">How can we reach you?</span><span class="t-es" lang="es">¿Cómo te contactamos?</span></p>
             <div class="form-row">
               <div class="form-field">
-                <label for="f-phone"><span class="t-en">Phone</span><span class="t-es">Teléfono</span></label>
-                <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" required autocomplete="tel" />
+                <label for="f-phone"><span class="t-en">Phone</span><span class="t-es" lang="es">Teléfono</span></label>
+                <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" data-en-placeholder="+1 (555) 000-0000" data-es-placeholder="+1 (555) 000-0000" required autocomplete="tel" />
               </div>
               <div class="form-field">
-                <label for="f-instagram"><span class="t-en">Instagram</span><span class="t-es">Instagram</span></label>
-                <input id="f-instagram" type="text" name="instagram" placeholder="@yourhandle" required />
+                <label for="f-instagram"><span class="t-en">Instagram</span><span class="t-es" lang="es">Instagram</span></label>
+                <input id="f-instagram" type="text" name="instagram" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" required />
               </div>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 3: Country -->
           <div class="form-step" data-step="2">
-            <p class="step-question"><span class="t-en">Where are you based?</span><span class="t-es">¿Dónde vives?</span></p>
+            <p class="step-question"><span class="t-en">Where are you based?</span><span class="t-es" lang="es">¿Dónde vives?</span></p>
             <div class="form-field">
-              <label for="f-country"><span class="t-en">Country of Residence</span><span class="t-es">País de residencia</span></label>
+              <label for="f-country"><span class="t-en">Country of Residence</span><span class="t-es" lang="es">País de residencia</span></label>
               <select id="f-country" name="country" required autocomplete="country-name">
                 <option value="" disabled selected data-en="Select country" data-es="Selecciona un país">Select country</option>
                 <option value="United States" data-en="United States" data-es="Estados Unidos">United States</option>
@@ -760,16 +804,16 @@
               </select>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 4: Earnings -->
           <div class="form-step" data-step="3">
-            <p class="step-question"><span class="t-en">What are you currently earning?</span><span class="t-es">¿Cuánto estás ganando actualmente?</span></p>
+            <p class="step-question"><span class="t-en">What are you currently earning?</span><span class="t-es" lang="es">¿Cuánto estás ganando actualmente?</span></p>
             <div class="form-field">
-              <label for="f-earnings"><span class="t-en">Current Monthly Earnings</span><span class="t-es">Ingresos mensuales actuales</span></label>
+              <label for="f-earnings"><span class="t-en">Current Monthly Earnings</span><span class="t-es" lang="es">Ingresos mensuales actuales</span></label>
               <select id="f-earnings" name="earnings" required>
                 <option value="" disabled selected data-en="Select range" data-es="Selecciona un rango">Select range</option>
                 <option value="0-1k" data-en="$0 - $1,000" data-es="$0 - $1,000">$0 - $1,000</option>
@@ -782,65 +826,66 @@
               </select>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 5: Current management -->
           <div class="form-step" data-step="4">
-            <p class="step-question"><span class="t-en">Do you currently have management or representation?</span><span class="t-es">¿Tienes management o representación actualmente?</span></p>
+            <p class="step-question"><span class="t-en">Do you currently have management or representation?</span><span class="t-es" lang="es">¿Tienes management o representación actualmente?</span></p>
             <div class="toggle-group">
-              <button type="button" class="toggle-btn" data-value="yes" onclick="selectManagement(this, true)"><span class="t-en">Yes</span><span class="t-es">Sí</span></button>
-              <button type="button" class="toggle-btn" data-value="no" onclick="selectManagement(this, false)"><span class="t-en">No</span><span class="t-es">No</span></button>
+              <button type="button" class="toggle-btn" data-value="yes" onclick="selectManagement(this, true)"><span class="t-en">Yes</span><span class="t-es" lang="es">Sí</span></button>
+              <button type="button" class="toggle-btn" data-value="no" onclick="selectManagement(this, false)"><span class="t-en">No</span><span class="t-es" lang="es">No</span></button>
             </div>
             <input type="hidden" name="has_management" id="f-management" />
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" id="mgmt-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" id="mgmt-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 5b: If yes - who + why switch (conditional) -->
           <div class="form-step" data-step="5" data-conditional="management-yes">
-            <p class="step-question"><span class="t-en">Tell us about your current management.</span><span class="t-es">Cuéntanos sobre tu management actual.</span></p>
+            <p class="step-question"><span class="t-en">Tell us about your current management.</span><span class="t-es" lang="es">Cuéntanos sobre tu management actual.</span></p>
             <div class="form-field">
-              <label for="f-current-mgmt"><span class="t-en">Who are they?</span><span class="t-es">¿Quién es?</span></label>
-              <input id="f-current-mgmt" type="text" name="current_management" placeholder="Agency or manager name" />
+              <label for="f-current-mgmt"><span class="t-en">Who are they?</span><span class="t-es" lang="es">¿Quién es?</span></label>
+              <input id="f-current-mgmt" type="text" name="current_management" placeholder="Agency or manager name" data-en-placeholder="Agency or manager name" data-es-placeholder="Nombre de tu agencia o manager" />
             </div>
             <div class="form-field">
-              <label for="f-why-switch"><span class="t-en">Why do you want to switch to FERAL?</span><span class="t-es">¿Por qué quieres cambiarte a FERAL?</span></label>
-              <textarea id="f-why-switch" name="why_switch" placeholder="What's missing from your current setup?" rows="3"></textarea>
+              <label for="f-why-switch"><span class="t-en">Why do you want to switch to FERAL?</span><span class="t-es" lang="es">¿Por qué quieres cambiarte a FERAL?</span></label>
+              <textarea id="f-why-switch" name="why_switch" placeholder="What's missing from your current setup?" data-en-placeholder="What's missing from your current setup?" data-es-placeholder="¿Qué le falta a tu situación actual?" rows="3"></textarea>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 6: Inspiration -->
           <div class="form-step" data-step="6">
-            <p class="step-question"><span class="t-en">Who do you take inspiration from?</span><span class="t-es">¿De quién te inspiras?</span></p>
+            <p class="step-question"><span class="t-en">Who do you take inspiration from?</span><span class="t-es" lang="es">¿De quién te inspiras?</span></p>
             <div class="form-field">
-              <label for="f-inspiration"><span class="t-en">Creators, brands, people</span><span class="t-es">Creadoras, marcas, personas</span></label>
-              <textarea id="f-inspiration" name="inspiration" placeholder="Other creators you admire, brands you love, people who motivate you." rows="3" required></textarea>
+              <label for="f-inspiration"><span class="t-en">Creators, brands, people</span><span class="t-es" lang="es">Creadoras, marcas, personas</span></label>
+              <textarea id="f-inspiration" name="inspiration" placeholder="Other creators you admire, brands you love, people who motivate you." data-en-placeholder="Other creators you admire, brands you love, people who motivate you." data-es-placeholder="Otras creadoras que admiras, marcas que amas, personas que te motivan." rows="3" required></textarea>
             </div>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
           <!-- Step 7: Impact -->
           <div class="form-step" data-step="7">
-            <p class="step-question"><span class="t-en">Why do you think you would make an impact at FERAL?</span><span class="t-es">¿Por qué crees que tendrías impacto en FERAL?</span></p>
+            <p class="step-question"><span class="t-en">Why do you think you would make an impact at FERAL?</span><span class="t-es" lang="es">¿Por qué crees que tendrías impacto en FERAL?</span></p>
             <div class="form-field">
-              <label for="f-impact"><span class="t-en">Tell us</span><span class="t-es">Cuéntanos</span></label>
-              <textarea id="f-impact" name="impact" placeholder="What drives you, what makes you different, and what you want to build." rows="4" required></textarea>
+              <label for="f-impact"><span class="t-en">Tell us</span><span class="t-es" lang="es">Cuéntanos</span></label>
+              <textarea id="f-impact" name="impact" placeholder="What drives you, what makes you different, and what you want to build." data-en-placeholder="What drives you, what makes you different, and what you want to build." data-es-placeholder="Qué te impulsa, qué te hace diferente y qué quieres construir." rows="4" required></textarea>
             </div>
+            <p class="consent-note"><span class="t-en">By submitting, you agree to our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span><span class="t-es" lang="es">Al enviar, aceptas nuestra <a href="privacy.html">Política de Privacidad</a> y nuestros <a href="terms.html">Términos del Servicio</a>.</span></p>
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
-              <button type="submit" class="step-btn step-btn-next"><span class="t-en">Submit Application</span><span class="t-es">Enviar aplicación</span></button>
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="submit" class="step-btn step-btn-next"><span class="t-en">Submit Application</span><span class="t-es" lang="es">Enviar aplicación</span></button>
             </div>
           </div>
         </div>
@@ -850,20 +895,10 @@
           <div class="success-check">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
           </div>
-          <h2 class="success-title"><span class="t-en">Application received.</span><span class="t-es">Aplicación recibida.</span></h2>
-          <p class="success-text"><span class="t-en">We review every application personally. Expect to hear from us within 48 hours.</span><span class="t-es">Revisamos cada aplicación personalmente. Espera saber de nosotros en 48 horas.</span></p>
+          <h2 class="success-title"><span class="t-en">Application received.</span><span class="t-es" lang="es">Aplicación recibida.</span></h2>
+          <p class="success-text"><span class="t-en">We review every application personally. Expect to hear from us within 48 hours.</span><span class="t-es" lang="es">Revisamos cada aplicación personalmente. Espera saber de nosotros en 48 horas.</span></p>
         </div>
       </form>
-    </div>
-  </div>
-
-  <!-- Progress Bar -->
-  <div class="progress-bar" id="progress-bar">
-    <div class="progress-inner">
-      <div class="progress-track">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
-      <span class="progress-text" id="progress-text">Question 1 of 8</span>
     </div>
   </div>
 
@@ -980,8 +1015,12 @@
       const total = visible.length;
       const pct = ((currentVisible + 1) / total) * 100;
       progressFill.style.width = pct + "%";
-      progressText.textContent = `Question ${currentVisible + 1} of ${total}`;
+      progressText.textContent = t(`Question ${currentVisible + 1} of ${total}`, `Pregunta ${currentVisible + 1} de ${total}`);
     }
+
+    // Re-localize the progress text whenever the language toggle fires.
+    document.addEventListener("feralLangChanged", updateProgress);
+    document.addEventListener("feralLangChanged", clearStepError);
 
     // Email must look like name@domain.tld (not merely contain an @).
     const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1150,8 +1189,9 @@
       const form = this;
       const data = new FormData(form);
       const submitBtn = form.querySelector('[type="submit"]');
+      const originalHTML = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
+      submitBtn.textContent = t("Sending...", "Enviando...");
 
       fetch(form.action, {
         method: "POST",
@@ -1160,6 +1200,8 @@
       })
       .then(res => {
         if (res.ok) {
+          // Application received: fire the pixel conversion (ads + organic).
+          if (window.fbq) fbq('track', 'CompleteRegistration');
           // Ads funnel: lead has been emailed; now route by qualification.
           if (ADS_MODE) {
             const qualified = isQualifiedLead();
@@ -1167,12 +1209,18 @@
             window.location.href = qualified ? "book-call.html" : "not-qualified.html";
             return;
           }
-          // Organic funnel: unchanged inline "application received" screen.
+          // Organic funnel: qualified applicants go straight to booking.
+          if (isQualifiedLead()) {
+            try { sessionStorage.setItem("feral_q", "pass"); } catch (err) {}
+            window.location.href = "book-call.html";
+            return;
+          }
+          // Organic, unqualified: inline "application received" screen.
           document.getElementById("steps-container").style.display = "none";
           document.getElementById("success-state").classList.add("visible");
           document.getElementById("progress-bar").style.display = "none";
           document.querySelector(".apply-tagline").style.display = "none";
-          document.querySelector(".apply-title").textContent = "Thank you.";
+          document.querySelector(".apply-title").textContent = t("Thank you.", "Gracias.");
           document.querySelector(".apply-subtitle").style.display = "none";
         } else {
           throw new Error("Submit failed");
@@ -1180,8 +1228,8 @@
       })
       .catch(() => {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Submit Application";
-        alert("Something went wrong. Please try again.");
+        submitBtn.innerHTML = originalHTML;
+        showStepError({ el: null, msg: t("Something went wrong sending your application. Please try again.", "Algo salió mal al enviar tu solicitud. Inténtalo de nuevo.") });
       });
     });
 
