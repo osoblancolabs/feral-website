@@ -66,16 +66,6 @@
     applyParallax();
   }
 
-  // ——— Pearlescent overlay: shift gradient with scroll ———
-  const pearlOverlay = document.getElementById('pearl-overlay');
-  function updatePearlScroll() {
-    const pct = Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) || 0, 1);
-    document.documentElement.style.setProperty('--scroll-pct', pct);
-  }
-  window.addEventListener('scroll', updatePearlScroll, { passive: true });
-  window.addEventListener('resize', updatePearlScroll);
-  updatePearlScroll();
-
   // ——— Scroll reveal (CTA containers never scroll-gated) ———
   const revealEls = document.querySelectorAll('.reveal');
   const observerOptions = {
