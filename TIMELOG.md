@@ -12,3 +12,4 @@
 | Imagery risk review (hero + apply collage + video check) | 2026-07-04 ~00:25 | 2026-07-04 00:28 | ~15 min |
 | Homepage polish v2 (full-bleed video hero + splash + parallax + cursor + about photo + card colors, 10 items) | 2026-07-04 16:26 MST | 2026-07-04 16:50 MST | ~25 min (build + headless verify + deploy + live verify) |
 | Homepage polish v3 (uncropped hero + liquid-glass cards + instant glow + remove elevated boxes + true-black bg) | 2026-07-04 16:55 MST | 2026-07-04 17:05 MST | ~10 min (root-caused transition-delay leak + pearl-overlay wash; build + verify + deploy + live verify) |
+| Hero copy swap (Unleash Your Untamed Side + new sub-hero w/ 40 6-figure earners) | 2026-07-04 17:10 MST | 2026-07-04 17:15 MST | ~5 min (edit + verify + deploy) |
