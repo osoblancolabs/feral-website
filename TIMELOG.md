@@ -11,4 +11,4 @@
 | Fix stayferal.net UX/UI audit findings (16 findings + minors: pixel on home/apply, apply→booking flow, privacy/terms, animation overhaul, stats reconciliation, brand vocab scrub, contrast, nav, footer, mobile menu, video hero) | 2026-07-04 00:20 MST | 2026-07-04 13:26 MST | ~13 hrs elapsed (multi-workflow: understand → plan → 5-agent implement → adversarial verify → deploy; incl. usage-limit pause ~1:10pm reset) |
 | Imagery risk review (hero + apply collage + video check) | 2026-07-04 ~00:25 | 2026-07-04 00:28 | ~15 min |
 | Homepage polish v2 (full-bleed video hero + splash + parallax + cursor + about photo + card colors, 10 items) | 2026-07-04 16:26 MST | 2026-07-04 16:50 MST | ~25 min (build + headless verify + deploy + live verify) |
-| Homepage polish v3 (uncropped hero + liquid-glass cards + instant glow + remove elevated boxes + true-black bg) | 2026-07-04 16:55 MST | — | — |
+| Homepage polish v3 (uncropped hero + liquid-glass cards + instant glow + remove elevated boxes + true-black bg) | 2026-07-04 16:55 MST | 2026-07-04 17:05 MST | ~10 min (root-caused transition-delay leak + pearl-overlay wash; build + verify + deploy + live verify) |
