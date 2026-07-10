@@ -1004,6 +1004,14 @@
     // Multi-step form logic
     let currentStep = 0;
     let hasManagement = null;
+    // Lead-capture handle (set once lead-capture.js has loaded). Fire-and-forget:
+    // every call is guarded so it never blocks the FormSubmit submit or routing.
+    let feralLead = null;
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.FeralLead) {
+        feralLead = window.FeralLead.attachToApplyForm(document.getElementById("apply-form"));
+      }
+    });
 
     const allSteps = document.querySelectorAll(".form-step");
     const progressFill = document.getElementById("progress-fill");
@@ -1123,6 +1131,10 @@
       }
       clearStepError();
 
+      // Leaving the Instagram step (data-step 1) with name + email present:
+      // stream a partial lead so we capture drop-offs before the full submit.
+      if (currentStep === 1 && feralLead) feralLead.sendPartial();
+
       let target = currentStep + 1;
       while (target < allSteps.length) {
         const cond = allSteps[target].dataset.conditional;
@@ -1216,6 +1228,8 @@
         if (res.ok) {
           // Application received: fire the pixel conversion (ads + organic).
           if (window.fbq) fbq('track', 'CompleteRegistration');
+          // Stream the complete lead to Aria BEFORE any redirect (keepalive covers navigation).
+          if (feralLead) feralLead.sendComplete();
           // Ads funnel: lead has been emailed; now route by qualification.
           if (ADS_MODE) {
             const qualified = isQualifiedLead();
@@ -1249,6 +1263,7 @@
 
     updateProgress();
   </script>
+  <script src="assets/lead-capture.js" defer></script>
   <script src="lang-toggle.js" defer></script>
 </body>
 </html>
