@@ -6,7 +6,10 @@
    data-en-placeholder / data-es-placeholder on inputs and
    data-en / data-es on <option> elements. */
 
-html[lang="en"] .t-es { display: none; }
+/* Default to English: Spanish strings are hidden until the visitor opts into
+   Spanish via the toggle (which sets html[lang="es"]). */
+.t-es { display: none; }
+html[lang="es"] .t-es { display: inline; }
 html[lang="es"] .t-en { display: none; }
 
 .lang-switch {
