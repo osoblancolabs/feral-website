@@ -14,4 +14,4 @@
 | Homepage polish v3 (uncropped hero + liquid-glass cards + instant glow + remove elevated boxes + true-black bg) | 2026-07-04 16:55 MST | 2026-07-04 17:05 MST | ~10 min (root-caused transition-delay leak + pearl-overlay wash; build + verify + deploy + live verify) |
 | Hero copy swap (Unleash Your Untamed Side + new sub-hero w/ 40 6-figure earners) | 2026-07-04 17:10 MST | 2026-07-04 17:15 MST | ~5 min (edit + verify + deploy) |
 | Sub-hero exact line breaks (5 lines) + heart cursor halved to 11px | 2026-07-04 17:20 MST | 2026-07-04 17:25 MST | ~5 min |
-| Lead pipeline Track A (FormSubmit CC, lead-capture.js partial+complete→Aria, default-English + kill auto-translate, iPhone hero framing, gated Lead Magnet bank) | 2026-07-10 14:50 MST | | in progress |
+| Lead pipeline Track A (FormSubmit CC, lead-capture.js partial+complete→Aria, default-English + kill auto-translate, iPhone hero framing, gated Lead Magnet bank) | 2026-07-10 14:50 MST | 2026-07-10 14:56 MST | ~6 min (6 tasks, 6 commits; static site, curl/grep/node --check verify) |

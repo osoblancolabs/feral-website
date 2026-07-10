@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta name="google" content="notranslate">
+  <meta http-equiv="content-language" content="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add("js");</script>
+  <title>Playbooks | FERAL</title>
+  <meta name="description" content="Free creator playbooks from FERAL — the growth and monetization systems our creators use across Instagram, YouTube, TikTok, and X." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://stayferal.net/playbooks" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Playbooks | FERAL" />
+  <meta property="og:description" content="Free creator playbooks — the growth and monetization systems our creators use." />
+  <meta property="og:url" content="https://stayferal.net/playbooks" />
+  <meta property="og:site_name" content="FERAL." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lang-toggle.css" />
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1686435738851819');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1686435738851819&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+  <style>
+    .pb-main { padding-top: 96px; }
+
+    .pb-hero {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+    .pb-eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin: 0 0 0.9rem;
+    }
+    .pb-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+    }
+    .pb-sub {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      line-height: 1.6;
+      margin: 0 auto;
+      max-width: 560px;
+    }
+
+    .pb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 5rem;
+    }
+
+    .pb-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-pearl);
+      border-radius: 16px;
+      padding: 1.75rem;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+    }
+    .pb-card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-3px);
+    }
+    .pb-card h2 {
+      font-family: var(--font-heading);
+      font-size: 1.28rem;
+      font-weight: 600;
+      margin: 0 0 0.6rem;
+      color: var(--text);
+    }
+    .pb-card-blurb {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      line-height: 1.55;
+      margin: 0 0 1.5rem;
+      flex: 1;
+    }
+
+    .pb-card .btn { align-self: flex-start; }
+
+    /* Inline email gate */
+    .pb-gate {
+      display: none;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 0.25rem;
+    }
+    .pb-card.open .pb-gate { display: flex; }
+    .pb-card.open .pb-get { display: none; }
+    .pb-card.done .pb-gate { display: none; }
+
+    .pb-gate input {
+      background: var(--surface);
+      border: 1px solid var(--border-pearl);
+      border-radius: 8px;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.92rem;
+      color: var(--text);
+      font-family: var(--font-sans);
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .pb-gate input:focus { border-color: var(--accent); }
+    .pb-gate input::placeholder { color: rgba(163, 163, 163, 0.5); }
+    .pb-honey { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    /* Revealed slot */
+    .pb-slot { display: none; margin-top: 0.25rem; }
+    .pb-card.done .pb-slot { display: block; }
+    .pb-slot-msg {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .pb-slot-msg strong { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .pb-main { padding-top: 80px; }
+      .pb-grid { padding-bottom: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="header">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html" class="logo" aria-label="FERAL. – Home">
+        <img src="assets/feral-logotype-overlay.png" alt="FERAL." width="1075" height="211" />
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link-pearl"><span class="t-en">Home</span><span class="t-es" lang="es">Inicio</span></a></li>
+        <li><a href="apply.html" class="nav-cta nav-link-pearl"><span class="t-en">Join Us</span><span class="t-es" lang="es">Únete</span></a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main-content" class="pb-main">
+    <section class="pb-hero">
+      <p class="pb-eyebrow">Playbooks</p>
+      <h1 class="pb-title">Creator Playbooks</h1>
+      <p class="pb-sub">The systems our creators use to grow and monetize. Free — grab the ones you need.</p>
+    </section>
+
+    <section class="pb-grid" id="playbooks-grid" aria-label="Playbooks"></section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo" aria-label="FERAL. – Home">
+        <img src="assets/feral-logotype-overlay.png" alt="FERAL." width="1075" height="211" />
+      </a>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html"><span class="t-en">Home</span><span class="t-es" lang="es">Inicio</span></a>
+        <a href="apply.html"><span class="t-en">Join Us</span><span class="t-es" lang="es">Únete</span></a>
+      </nav>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="privacy.html"><span class="t-en">Privacy Policy</span><span class="t-es" lang="es">Política de Privacidad</span></a>
+        <a href="terms.html"><span class="t-en">Terms of Service</span><span class="t-es" lang="es">Términos del Servicio</span></a>
+        <a href="mailto:Kiefer@feralagency.net"><span class="t-en">Contact</span><span class="t-es" lang="es">Contacto</span></a>
+      </nav>
+      <p class="footer-copy">© <span id="year"></span> FERAL. <span class="t-en">All rights reserved.</span><span class="t-es" lang="es">Todos los derechos reservados.</span></p>
+    </div>
+  </footer>
+
+  <script src="assets/lead-capture.js" defer></script>
+  <script>
+    // Config-driven playbook bank. file:null renders a "coming soon" slot.
+    // To activate a playbook, drop the PDF in assets/playbooks/ and set
+    // file:"assets/playbooks/<slug>.pdf".
+    var PLAYBOOKS = [
+      { slug: "vertical-blueprints", title: "Vertical Blueprints", blurb: "Content frameworks by niche — what to post, in what order, and why it converts.", file: null },
+      { slug: "instagram-playbook",  title: "Instagram Playbook",  blurb: "Turn Reels and Stories into followers, DMs, and paying fans.", file: null },
+      { slug: "youtube-playbook",    title: "YouTube Playbook",    blurb: "Long-form and Shorts that build a durable audience and recurring revenue.", file: null },
+      { slug: "tiktok-playbook",     title: "TikTok Playbook",     blurb: "Hook, hold, and route TikTok attention to the rest of your platforms.", file: null },
+      { slug: "x-playbook",          title: "X Playbook",          blurb: "Grow on X and turn posts and replies into real, trackable traffic.", file: null }
+    ];
+
+    (function () {
+      var grid = document.getElementById("playbooks-grid");
+
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+      }
+
+      PLAYBOOKS.forEach(function (pb) {
+        var card = document.createElement("article");
+        card.className = "pb-card";
+        card.dataset.slug = pb.slug;
+
+        var slot = pb.file
+          ? '<a class="btn btn-primary" href="' + esc(pb.file) + '" download>Download PDF</a>'
+          : '<p class="pb-slot-msg"><strong>You\'re in.</strong> We\'ll email it the moment it\'s ready.</p>';
+
+        card.innerHTML =
+          '<h2>' + esc(pb.title) + '</h2>' +
+          '<p class="pb-card-blurb">' + esc(pb.blurb) + '</p>' +
+          '<button type="button" class="btn btn-primary pb-get">Get the playbook</button>' +
+          '<form class="pb-gate" novalidate>' +
+            '<input type="text" name="name" placeholder="Name" autocomplete="name" required />' +
+            '<input type="email" name="email" placeholder="Email" autocomplete="email" required />' +
+            '<input type="text" name="instagram" placeholder="Instagram (optional)" />' +
+            '<input type="text" name="_honey" class="pb-honey" tabindex="-1" autocomplete="off" aria-hidden="true" />' +
+            '<button type="submit" class="btn btn-primary">Send it to me</button>' +
+          '</form>' +
+          '<div class="pb-slot">' + slot + '</div>';
+
+        grid.appendChild(card);
+
+        var getBtn = card.querySelector(".pb-get");
+        var form = card.querySelector(".pb-gate");
+
+        getBtn.addEventListener("click", function () {
+          card.classList.add("open");
+          var first = form.querySelector('input[name="name"]');
+          if (first) first.focus();
+        });
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var name = (form.elements.name.value || "").trim();
+          var email = (form.elements.email.value || "").trim();
+          var instagram = (form.elements.instagram.value || "").trim();
+          var honey = (form.elements._honey.value || "").trim();
+
+          if (!name || !email) return;
+
+          // Honeypot: bots that fill it get the reveal but nothing is sent.
+          if (!honey) {
+            if (window.FeralLead) {
+              window.FeralLead.capture({
+                source: "magnet:" + pb.slug,
+                submit_status: "complete",
+                name: name,
+                email: email,
+                instagram: instagram || undefined,
+                magnet: pb.slug
+              });
+            }
+            if (window.fbq) fbq("track", "Lead", { content_name: "playbook:" + pb.slug });
+          }
+
+          card.classList.remove("open");
+          card.classList.add("done");
+        });
+      });
+
+      var y = document.getElementById("year");
+      if (y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
+  <script src="lang-toggle.js" defer></script>
+</body>
+</html>
