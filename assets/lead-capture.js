@@ -12,7 +12,7 @@
   "use strict";
 
   var ARIA_INGEST_URL = "https://app.stayferal.net/api/webhooks/feral-lead";
-  var FERAL_LEAD_INGEST_TOKEN = "REPLACE_WITH_SHARED_TOKEN"; // public gate; matches Aria env
+  var FERAL_LEAD_INGEST_TOKEN = "feral_lead_10dd5ca10fcdbc037b9c6bff"; // public gate; matches Aria env
 
   // Low-level dispatch. useBeacon=true for partials (survives page unload),
   // fetch(keepalive) otherwise. Every failure is swallowed on purpose.
