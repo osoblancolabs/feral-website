@@ -980,6 +980,28 @@
           mode: 'no-cors',
           body: params
         });
+        // Also stream the application into Aria's leads pipeline (fire-and-forget;
+        // never blocks the Apps Script submit above).
+        if (window.FeralLead) {
+          window.FeralLead.capture({
+            source: 'creative_director',
+            submit_status: 'complete',
+            name: (data.get('full_name') || '').toString().trim(),
+            email: (data.get('email') || '').toString().trim(),
+            phone: (data.get('phone') || '').toString().trim(),
+            instagram: (data.get('instagram_handle') || '').toString().trim(),
+            country: (data.get('location') || '').toString().trim(),
+            formData: {
+              portfolio_url: (data.get('portfolio_url') || '').toString(),
+              loom_url: (data.get('loom_url') || '').toString(),
+              experience_years: (data.get('experience_years') || '').toString(),
+              best_win: (data.get('best_win') || '').toString(),
+              why_feral: (data.get('why_feral') || '').toString(),
+              start_date: (data.get('start_date') || '').toString(),
+              compensation: (data.get('compensation') || '').toString()
+            }
+          });
+        }
         // Opaque response — we trust the POST landed. Apps Script appends the row.
         document.getElementById('ct-form-body').style.display = 'none';
         document.getElementById('ct-success').classList.add('visible');
@@ -1012,6 +1034,7 @@
       }, 1000);
     })();
   </script>
+  <script src="assets/lead-capture.js" defer></script>
   <script src="lang-toggle.js" defer></script>
 </body>
 </html>

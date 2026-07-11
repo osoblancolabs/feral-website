@@ -526,6 +526,7 @@
 
   <footer class="ax-foot">© <span id="year"></span> FERAL. All rights reserved.</footer>
 
+  <script src="assets/lead-capture.js" defer></script>
   <script src="lang-toggle.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -639,6 +640,31 @@
 
       try {
         await fetch(form.action, { method: 'POST', mode: 'no-cors', body: params });
+        // Also stream the creator application into Aria's leads pipeline
+        // (fire-and-forget; never blocks the Apps Script submit above).
+        if (window.FeralLead) {
+          window.FeralLead.capture({
+            source: 'ascension',
+            submit_status: 'complete',
+            name: (data.get('full_name') || '').toString().trim(),
+            email: (data.get('email') || '').toString().trim(),
+            phone: (data.get('phone') || '').toString().trim(),
+            instagram: (data.get('instagram') || '').toString().trim(),
+            country: (data.get('country') || '').toString().trim(),
+            earnings: (data.get('monthly_earnings') || '').toString(),
+            formData: {
+              city: (data.get('city') || '').toString(),
+              tiktok: (data.get('tiktok') || '').toString(),
+              youtube: (data.get('youtube') || '').toString(),
+              x_handle: (data.get('x_handle') || '').toString(),
+              has_onlyfans: (data.get('has_onlyfans') || '').toString(),
+              years_creating: (data.get('years_creating') || '').toString(),
+              constraint_other: (data.get('constraint_other') || '').toString(),
+              why_feral: (data.get('why_feral') || '').toString(),
+              start_today: (data.get('start_today') || '').toString()
+            }
+          });
+        }
         document.getElementById('ax-form-body').style.display = 'none';
         document.getElementById('ax-success').classList.add('visible');
         document.getElementById('ax-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
