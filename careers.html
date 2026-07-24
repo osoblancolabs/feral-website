@@ -438,6 +438,28 @@
           </div>
         </div>
 
+        <!-- Step 3b: Portfolio — shown only for portfolio-based roles (Creative Director, Editor, Content Designer) -->
+        <div class="form-step" data-step="portfolio" data-conditional="role-portfolio">
+          <p class="step-question"><span class="t-en">Share your work.</span><span class="t-es">Muéstranos tu trabajo.</span></p>
+          <div class="form-field">
+            <label for="f-portfolio"><span class="t-en">Portfolio or website</span><span class="t-es">Portafolio o sitio web</span></label>
+            <input id="f-portfolio" type="text" name="portfolio" placeholder="https://yourportfolio.com" />
+          </div>
+          <div class="form-field">
+            <label for="f-work-samples"><span class="t-en">Drive link to example work</span><span class="t-es">Enlace de Drive con trabajo de ejemplo</span></label>
+            <input id="f-work-samples" type="text" name="work_samples" placeholder="https://drive.google.com/..." />
+          </div>
+          <div class="form-field">
+            <label for="f-work-links"><span class="t-en">Pages or accounts you&#39;ve worked on</span><span class="t-es">Páginas o cuentas en las que has trabajado</span></label>
+            <textarea id="f-work-links" name="work_links" placeholder="Instagram handles, TikToks, brand pages — one per line." rows="3"></textarea>
+          </div>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin:0.25rem 0 0;"><span class="t-en">Share at least one — a portfolio, a Drive link, or pages you&#39;ve worked on.</span><span class="t-es">Comparte al menos uno — un portafolio, un enlace de Drive o páginas en las que hayas trabajado.</span></p>
+          <div class="step-nav">
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+          </div>
+        </div>
+
         <!-- Step 4: Experience -->
         <div class="form-step" data-step="3">
           <p class="step-question"><span class="t-en">Tell us about your experience.</span><span class="t-es">Cuéntanos sobre tu experiencia.</span></p>
@@ -517,10 +539,34 @@
     const progressFill = document.getElementById("progress-fill");
     const progressText = document.getElementById("progress-text");
 
+    // Roles that must submit a portfolio / example work.
+    const PORTFOLIO_ROLES = ["creative-director", "editor", "of-creative-director"];
+    // A conditional step is hidden until its trigger condition is met.
+    function stepIsHidden(step) {
+      const cond = step.dataset.conditional;
+      const role = (document.getElementById("f-role") || {}).value || "";
+      if (cond === "role-portfolio" && PORTFOLIO_ROLES.indexOf(role) === -1) return true;
+      return false;
+    }
+    function getVisibleSteps() {
+      return Array.prototype.filter.call(allSteps, function (s) { return !stepIsHidden(s); });
+    }
+    // Hidden conditional steps must not participate in native validation or FormData,
+    // so disable their controls; re-enable when shown.
+    function syncConditionalInputs() {
+      allSteps.forEach(function (s) {
+        var disable = stepIsHidden(s);
+        s.querySelectorAll("input, select, textarea").forEach(function (el) { el.disabled = disable; });
+      });
+    }
+
     function updateProgress() {
-      const pct = ((currentStep + 1) / totalSteps) * 100;
+      const visible = getVisibleSteps();
+      const idx = visible.indexOf(allSteps[currentStep]);
+      const total = visible.length;
+      const pct = ((idx + 1) / total) * 100;
       progressFill.style.width = pct + "%";
-      progressText.textContent = `Question ${currentStep + 1} of ${totalSteps}`;
+      progressText.textContent = `Question ${idx + 1} of ${total}`;
     }
 
     function validateCurrentStep() {
@@ -529,6 +575,12 @@
       for (const inp of inputs) {
         if (!inp.value.trim()) return false;
         if (inp.type === "email" && !inp.value.includes("@")) return false;
+      }
+      // Creative Director portfolio step: require at least one link / sample.
+      if (step.querySelector("#f-portfolio")) {
+        const provided = ["#f-portfolio", "#f-work-samples", "#f-work-links"]
+          .some(function (sel) { return ((step.querySelector(sel) || {}).value || "").trim() !== ""; });
+        if (!provided) return false;
       }
       return true;
     }
@@ -555,13 +607,24 @@
             setTimeout(() => inp.style.borderColor = "", 1500);
           }
         });
+        // Portfolio step needs at least one link; flag all three when empty.
+        if (step.querySelector("#f-portfolio")) {
+          step.querySelectorAll("#f-portfolio, #f-work-samples, #f-work-links").forEach(inp => {
+            inp.style.borderColor = "#e07a7a";
+            setTimeout(() => inp.style.borderColor = "", 1500);
+          });
+        }
         return;
       }
-      if (currentStep < totalSteps - 1) goToStep(currentStep + 1);
+      let target = currentStep + 1;
+      while (target < allSteps.length && stepIsHidden(allSteps[target])) target++;
+      if (target < allSteps.length) goToStep(target);
     }
 
     function prevStep() {
-      if (currentStep > 0) goToStep(currentStep - 1);
+      let target = currentStep - 1;
+      while (target >= 0 && stepIsHidden(allSteps[target])) target--;
+      if (target >= 0) goToStep(target);
     }
 
     document.addEventListener("keydown", function(e) {
@@ -604,7 +667,17 @@
       });
     });
 
+    // Re-evaluate the conditional Creative Director step whenever the role changes.
+    const roleSelect = document.getElementById("f-role");
+    if (roleSelect) {
+      roleSelect.addEventListener("change", function () {
+        syncConditionalInputs();
+        updateProgress();
+      });
+    }
+
     updateProgress();
+    syncConditionalInputs();
   </script>
   <script src="lang-toggle.js" defer></script>
 </body>
