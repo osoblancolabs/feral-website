@@ -302,6 +302,26 @@
       margin-top: 0.25rem;
     }
 
+    /* Stacked variant for questions with 3+ options / longer labels. */
+    .toggle-group-stack {
+      flex-direction: column;
+    }
+
+    .toggle-group-stack .toggle-btn {
+      width: 100%;
+      position: relative;
+    }
+
+    /* Non-color affordance so the selected option reads as selected without relying on hue. */
+    .toggle-group-stack .toggle-btn.selected::before {
+      content: "✓";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 700;
+    }
+
     .toggle-btn {
       flex: 1;
       padding: 0.85rem 1.5rem;
@@ -825,11 +845,26 @@
             </div>
           </div>
 
-          <!-- Step 4: Earnings -->
+          <!-- Step 4: OnlyFans account status (drives the earnings step + qualification) -->
           <div class="form-step" data-step="3">
-            <p class="step-question"><span class="t-en">What are you currently earning?</span><span class="t-es" lang="es">¿Cuánto estás ganando actualmente?</span></p>
+            <p class="step-question"><span class="t-en">Do you have an OnlyFans account already, or are you looking to start?</span><span class="t-es" lang="es">¿Ya tienes una cuenta de OnlyFans o estás buscando empezar?</span></p>
+            <div class="toggle-group toggle-group-stack" role="group" aria-label="OnlyFans account status">
+              <button type="button" class="toggle-btn" data-value="already" aria-pressed="false" onclick="selectOfStatus(this, 'already')"><span class="t-en">I already have one</span><span class="t-es" lang="es">Ya tengo una</span></button>
+              <button type="button" class="toggle-btn" data-value="want_start" aria-pressed="false" onclick="selectOfStatus(this, 'want_start')"><span class="t-en">I want to start</span><span class="t-es" lang="es">Quiero empezar</span></button>
+              <button type="button" class="toggle-btn" data-value="dont_start" aria-pressed="false" onclick="selectOfStatus(this, 'dont_start')"><span class="t-en">I don&#39;t want to start an OnlyFans page</span><span class="t-es" lang="es">No quiero empezar una página de OnlyFans</span></button>
+            </div>
+            <input type="hidden" name="onlyfans_status" id="f-of-status" />
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" id="of-status-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
+            </div>
+          </div>
+
+          <!-- Step 5: OnlyFans earnings (only shown when the applicant already has an account) -->
+          <div class="form-step" data-step="4" data-conditional="earnings-already">
+            <p class="step-question"><span class="t-en">What are you currently earning on OnlyFans?</span><span class="t-es" lang="es">¿Cuánto estás ganando actualmente en OnlyFans?</span></p>
             <div class="form-field">
-              <label for="f-earnings"><span class="t-en">Current Monthly Earnings</span><span class="t-es" lang="es">Ingresos mensuales actuales</span></label>
+              <label for="f-earnings"><span class="t-en">Current OnlyFans Monthly Earnings</span><span class="t-es" lang="es">Ingresos mensuales actuales de OnlyFans</span></label>
               <select id="f-earnings" name="earnings" required>
                 <option value="" disabled selected data-en="Select range" data-es="Selecciona un rango">Select range</option>
                 <option value="0-1k" data-en="$0 - $1,000" data-es="$0 - $1,000">$0 - $1,000</option>
@@ -847,56 +882,12 @@
             </div>
           </div>
 
-          <!-- Step 5: Current management -->
-          <div class="form-step" data-step="4">
-            <p class="step-question"><span class="t-en">Do you currently have management or representation?</span><span class="t-es" lang="es">¿Tienes management o representación actualmente?</span></p>
-            <div class="toggle-group">
-              <button type="button" class="toggle-btn" data-value="yes" onclick="selectManagement(this, true)"><span class="t-en">Yes</span><span class="t-es" lang="es">Sí</span></button>
-              <button type="button" class="toggle-btn" data-value="no" onclick="selectManagement(this, false)"><span class="t-en">No</span><span class="t-es" lang="es">No</span></button>
-            </div>
-            <input type="hidden" name="has_management" id="f-management" />
-            <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" id="mgmt-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
-            </div>
-          </div>
-
-          <!-- Step 5b: If yes - who + why switch (conditional) -->
-          <div class="form-step" data-step="5" data-conditional="management-yes">
-            <p class="step-question"><span class="t-en">Tell us about your current management.</span><span class="t-es" lang="es">Cuéntanos sobre tu management actual.</span></p>
-            <div class="form-field">
-              <label for="f-current-mgmt"><span class="t-en">Who are they?</span><span class="t-es" lang="es">¿Quién es?</span></label>
-              <input id="f-current-mgmt" type="text" name="current_management" placeholder="Agency or manager name" data-en-placeholder="Agency or manager name" data-es-placeholder="Nombre de tu agencia o manager" />
-            </div>
-            <div class="form-field">
-              <label for="f-why-switch"><span class="t-en">Why do you want to switch to FERAL?</span><span class="t-es" lang="es">¿Por qué quieres cambiarte a FERAL?</span></label>
-              <textarea id="f-why-switch" name="why_switch" placeholder="What's missing from your current setup?" data-en-placeholder="What's missing from your current setup?" data-es-placeholder="¿Qué le falta a tu situación actual?" rows="3"></textarea>
-            </div>
-            <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
-            </div>
-          </div>
-
-          <!-- Step 6: Inspiration -->
-          <div class="form-step" data-step="6">
+          <!-- Step 6: Inspiration (final step — application submits here) -->
+          <div class="form-step" data-step="5">
             <p class="step-question"><span class="t-en">Who do you take inspiration from?</span><span class="t-es" lang="es">¿De quién te inspiras?</span></p>
             <div class="form-field">
               <label for="f-inspiration"><span class="t-en">Creators, brands, people</span><span class="t-es" lang="es">Creadoras, marcas, personas</span></label>
               <textarea id="f-inspiration" name="inspiration" placeholder="Other creators you admire, brands you love, people who motivate you." data-en-placeholder="Other creators you admire, brands you love, people who motivate you." data-es-placeholder="Otras creadoras que admiras, marcas que amas, personas que te motivan." rows="3" required></textarea>
-            </div>
-            <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
-            </div>
-          </div>
-
-          <!-- Step 7: Impact -->
-          <div class="form-step" data-step="7">
-            <p class="step-question"><span class="t-en">Why do you think you would make an impact at FERAL?</span><span class="t-es" lang="es">¿Por qué crees que tendrías impacto en FERAL?</span></p>
-            <div class="form-field">
-              <label for="f-impact"><span class="t-en">Tell us</span><span class="t-es" lang="es">Cuéntanos</span></label>
-              <textarea id="f-impact" name="impact" placeholder="What drives you, what makes you different, and what you want to build." data-en-placeholder="What drives you, what makes you different, and what you want to build." data-es-placeholder="Qué te impulsa, qué te hace diferente y qué quieres construir." rows="4" required></textarea>
             </div>
             <p class="consent-note"><span class="t-en">By submitting, you agree to our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span><span class="t-es" lang="es">Al enviar, aceptas nuestra <a href="privacy.html">Política de Privacidad</a> y nuestros <a href="terms.html">Términos del Servicio</a>.</span></p>
             <div class="step-nav">
@@ -1005,7 +996,7 @@
 
     // Multi-step form logic
     let currentStep = 0;
-    let hasManagement = null;
+    let ofStatus = null; // "already" | "want_start" | "dont_start" — drives earnings visibility + qualification
     // Lead-capture handle (set once lead-capture.js has loaded). Fire-and-forget:
     // every call is guarded so it never blocks the FormSubmit submit or routing.
     let feralLead = null;
@@ -1019,14 +1010,26 @@
     const progressFill = document.getElementById("progress-fill");
     const progressText = document.getElementById("progress-text");
 
+    // A conditional step is hidden until its trigger condition is met.
+    function stepIsHidden(step) {
+      const cond = step.dataset.conditional;
+      if (cond === "earnings-already" && ofStatus !== "already") return true;
+      return false;
+    }
+
     function getVisibleSteps() {
       const steps = [];
-      allSteps.forEach(s => {
-        const cond = s.dataset.conditional;
-        if (cond === "management-yes" && !hasManagement) return;
-        steps.push(s);
-      });
+      allSteps.forEach(s => { if (!stepIsHidden(s)) steps.push(s); });
       return steps;
+    }
+
+    // Hidden conditional steps must not participate in native form validation or
+    // the submitted FormData, so disable their controls; re-enable when shown.
+    function syncConditionalInputs() {
+      allSteps.forEach(s => {
+        const disable = stepIsHidden(s);
+        s.querySelectorAll("input, select, textarea").forEach(el => { el.disabled = disable; });
+      });
     }
 
     function getVisibleStepIndex(step) {
@@ -1067,8 +1070,8 @@
           return { el: inp, msg: t("Please enter a valid email address, like you@email.com.", "Ingresa un correo válido, por ejemplo tu@correo.com.") };
         }
       }
-      if (currentStep === 4 && hasManagement === null) {
-        return { el: null, msg: t("Please choose Yes or No to continue.", "Elige Sí o No para continuar.") };
+      if (step.querySelector("#f-of-status") && !ofStatus) {
+        return { el: null, msg: t("Please choose an option to continue.", "Elige una opción para continuar.") };
       }
       return null;
     }
@@ -1119,7 +1122,10 @@
       next.classList.remove("slide-in-right", "slide-in-left");
       next.classList.add("active", direction > 0 ? "slide-in-right" : "slide-in-left");
 
-      const firstInput = next.querySelector("input, textarea, select");
+      // Prefer a focusable control; on toggle-only steps (of-status, management)
+      // the sole input is type=hidden, so fall back to the first answer button so
+      // keyboard / screen-reader users land on an interactive, announced control.
+      const firstInput = next.querySelector("input:not([type=hidden]), textarea, select, .toggle-btn");
       if (firstInput) setTimeout(() => firstInput.focus(), 100);
 
       updateProgress();
@@ -1138,14 +1144,7 @@
       if (currentStep === 1 && feralLead) feralLead.sendPartial();
 
       let target = currentStep + 1;
-      while (target < allSteps.length) {
-        const cond = allSteps[target].dataset.conditional;
-        if (cond === "management-yes" && !hasManagement) {
-          target++;
-          continue;
-        }
-        break;
-      }
+      while (target < allSteps.length && stepIsHidden(allSteps[target])) target++;
 
       if (target < allSteps.length) {
         goToStep(target);
@@ -1154,25 +1153,27 @@
 
     function prevStep() {
       let target = currentStep - 1;
-      while (target >= 0) {
-        const cond = allSteps[target].dataset.conditional;
-        if (cond === "management-yes" && !hasManagement) {
-          target--;
-          continue;
-        }
-        break;
-      }
+      while (target >= 0 && stepIsHidden(allSteps[target])) target--;
       if (target >= 0) {
         goToStep(target);
       }
     }
 
-    function selectManagement(btn, value) {
-      hasManagement = value;
-      document.getElementById("f-management").value = value ? "yes" : "no";
-      btn.parentElement.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("selected"));
+    function selectOfStatus(btn, value) {
+      ofStatus = value;
+      document.getElementById("f-of-status").value = value;
+      btn.parentElement.querySelectorAll(".toggle-btn").forEach(b => { b.classList.remove("selected"); b.setAttribute("aria-pressed", "false"); });
       btn.classList.add("selected");
-      document.getElementById("mgmt-next").disabled = false;
+      btn.setAttribute("aria-pressed", "true");
+      document.getElementById("of-status-next").disabled = false;
+      // Earnings only applies to applicants who already have an account. Clear any
+      // prior value when the answer changes so a skipped earnings step never leaks
+      // a stale figure into the emailed lead or the Aria lead stream.
+      if (value !== "already") {
+        const earn = document.getElementById("f-earnings");
+        if (earn) earn.value = "";
+      }
+      syncConditionalInputs();
       updateProgress();
     }
 
@@ -1192,17 +1193,26 @@
     const JUNK_IG = ["na", "n/a", "none", "null", "n.a", "-", "."];
 
     function isQualifiedLead() {
-      // 1) Reported earnings >= $1,000/mo (the "0-1k" bracket is disqualified)
-      const earnings = (document.getElementById("f-earnings").value || "").trim();
-      const earningsOk = earnings !== "" && earnings !== "0-1k";
+      const ofStatusVal = (document.getElementById("f-of-status").value || "").trim();
 
-      // 2) Country is United States or Canada
+      // Hard disqualifier: applicants who don't want an OnlyFans page are not a fit.
+      if (ofStatusVal === "dont_start") return false;
+
+      // Country must be United States or Canada.
       const country = (document.getElementById("f-country").value || "").trim();
       const countryOk = country === "United States" || country === "Canada";
 
-      // 3) Valid Instagram handle (strip leading @ / spaces, check IG handle format)
+      // Valid Instagram handle (strip leading @ / spaces, check IG handle format).
       let ig = (document.getElementById("f-instagram").value || "").trim().replace(/^@+/, "").replace(/\s+/g, "");
       const igOk = /^[a-zA-Z0-9._]{1,30}$/.test(ig) && JUNK_IG.indexOf(ig.toLowerCase()) === -1;
+
+      // Earnings only gate applicants who already have an account. Those looking to
+      // start have no OnlyFans earnings yet, so they qualify on country + IG alone.
+      let earningsOk = true;
+      if (ofStatusVal === "already") {
+        const earnings = (document.getElementById("f-earnings").value || "").trim();
+        earningsOk = earnings !== "" && earnings !== "0-1k";
+      }
 
       return earningsOk && countryOk && igOk;
     }
@@ -1233,16 +1243,25 @@
           // Stream the complete lead to Aria BEFORE any redirect (keepalive covers navigation).
           if (feralLead) feralLead.sendComplete();
           // Ads funnel: lead has been emailed; now route by qualification.
+          const qualified = isQualifiedLead();
+          const hardDecline = (document.getElementById("f-of-status").value || "").trim() === "dont_start";
+          // Ads funnel: route strictly by qualification.
           if (ADS_MODE) {
-            const qualified = isQualifiedLead();
             try { sessionStorage.setItem("feral_q", qualified ? "pass" : "fail"); } catch (err) {}
             window.location.href = qualified ? "book-call.html" : "not-qualified.html";
             return;
           }
           // Organic funnel: qualified applicants go straight to booking.
-          if (isQualifiedLead()) {
+          if (qualified) {
             try { sessionStorage.setItem("feral_q", "pass"); } catch (err) {}
             window.location.href = "book-call.html";
+            return;
+          }
+          // Organic applicants who don't want an OnlyFans page get the disqualified
+          // landing page; everyone else unqualified sees the inline screen below.
+          if (hardDecline) {
+            try { sessionStorage.setItem("feral_q", "fail"); } catch (err) {}
+            window.location.href = "not-qualified.html";
             return;
           }
           // Organic, unqualified: inline "application received" screen.
@@ -1264,6 +1283,7 @@
     });
 
     updateProgress();
+    syncConditionalInputs();
   </script>
   <script src="assets/lead-capture.js" defer></script>
   <script src="lang-toggle.js" defer></script>

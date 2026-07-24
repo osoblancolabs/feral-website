@@ -42,8 +42,7 @@
   // Fields we read off the apply form, by input name.
   var APPLY_FIELDS = [
     "name", "email", "phone", "instagram", "country",
-    "earnings", "has_management", "current_management",
-    "why_switch", "inspiration", "impact", "_honey"
+    "onlyfans_status", "earnings", "inspiration", "_honey"
   ];
 
   function readForm(formEl) {
