@@ -586,34 +586,6 @@
     }
     .form-status.error { color: #e07a7a; }
 
-    /* Success state */
-    .ct-success {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 1rem 0;
-    }
-    .ct-success.visible { display: flex; }
-    .ct-success-check {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: rgba(184, 169, 201, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-    .ct-success-check svg { width: 32px; height: 32px; stroke: var(--accent); }
-    .ct-success h2 {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0 0 0.5rem;
-    }
-    .ct-success p { color: var(--text-muted); max-width: 380px; margin: 0; }
-
     /* Closing CTA */
     .ct-close {
       text-align: center;
@@ -858,14 +830,6 @@
               <button type="submit" class="ct-btn ct-btn-primary ct-form-submit" id="ct-submit"><span class="t-en">Submit application</span><span class="t-es">Enviar postulación</span></button>
               <p class="form-status" id="ct-status" aria-live="polite"></p>
             </form>
-          </div>
-
-          <div class="ct-success" id="ct-success" aria-live="polite">
-            <div class="ct-success-check">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-            </div>
-            <h2><span class="t-en">Application received.</span><span class="t-es">Postulación recibida.</span></h2>
-            <p><span class="t-en">We read every application personally. If there&#39;s a fit, you&#39;ll hear from us within a few days.</span><span class="t-es">Leemos cada aplicación personalmente. Si encajas, sabrás de nosotros en pocos días.</span></p>
           </div>
         </div>
       </div>
