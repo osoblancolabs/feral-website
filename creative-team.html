@@ -1020,13 +1020,11 @@
           });
         }
         // Opaque response — we trust the POST landed. Apps Script appends the row.
-        // Meta Pixel conversion for the Creative Director ads: application submitted.
-        // Success is inline (no new page), so fire only the event — PageView already
-        // fired on load from the base pixel in <head>.
-        if (window.fbq) fbq('track', 'SubmitApplication');
-        document.getElementById('ct-form-body').style.display = 'none';
-        document.getElementById('ct-success').classList.add('visible');
-        document.getElementById('ct-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Redirect to the Application Received page, which carries the Creative
+        // Director ads pixel's SubmitApplication conversion — so PageView (landing)
+        // and SubmitApplication (post-submit) fire on SEPARATE pages, not both here.
+        // The Aria lead capture above uses fetch(keepalive), so it survives this nav.
+        window.location.href = '/creative-team-received';
       } catch (err) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit application';
