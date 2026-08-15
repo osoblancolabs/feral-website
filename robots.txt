@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Sent directly to creators, not for search
+Disallow: /playbook
+Disallow: /playbook.html
+Disallow: /assets/feral-30-day-playbook.html

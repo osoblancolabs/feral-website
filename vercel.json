@@ -9,6 +9,27 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/apply", "destination": "/apply.html" },
-    { "source": "/playbooks", "destination": "/playbooks.html" }
+    { "source": "/playbooks", "destination": "/playbooks.html" },
+    { "source": "/playbook", "destination": "/playbook.html" }
+  ],
+  "headers": [
+    {
+      "source": "/playbook",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
+    },
+    {
+      "source": "/playbook.html",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
+    },
+    {
+      "source": "/assets/feral-30-day-playbook.html",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"feral-30-day-playbook.html\""
+        }
+      ]
+    }
   ]
 }
