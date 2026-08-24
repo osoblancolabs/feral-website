@@ -54,9 +54,15 @@ body.cta-unlocked .book-header-cta { opacity: 1; transform: none; pointer-events
 
 /* EN/ES toggle: move to top-left, just below the header / Book-a-call button
    (scoped to /book; other pages keep the default top-right). */
-.book-body .lang-switch { top: 4.75rem; left: 1.25rem; right: auto; }
+/* `bottom: auto` is load-bearing. At <=768px lang-toggle.css sets
+   `top: auto; bottom: 0.9rem`, and `.book-body .lang-switch` (two classes)
+   outranks `.lang-switch` (one) on `top` regardless of media query — so top AND
+   bottom were both set and the fixed pill stretched to the full column height,
+   painting a black bar down the left of /book, /book-call and /not-qualified on
+   every phone. Fixed 2026-08-24. */
+.book-body .lang-switch { top: 4.75rem; bottom: auto; left: 1.25rem; right: auto; }
 @media (max-width: 600px) {
-  .book-body .lang-switch { top: 4.25rem; left: 0.9rem; right: auto; }
+  .book-body .lang-switch { top: 4.25rem; bottom: auto; left: 0.9rem; right: auto; }
 }
 
 /* ---- Shared section scaffolding ---------------------------- */
@@ -197,12 +203,30 @@ body.cta-unlocked .book-header-cta { opacity: 1; transform: none; pointer-events
   border-radius: 50%; background: #0a0a0a; border: 1px solid var(--border-pearl, rgba(184, 169, 201, 0.25));
   color: var(--accent, #b8a9c9); font-size: 1.05rem; z-index: 2;
 }
+/* "Full breakdown" — a real button, not an underlined word. Bordered pearl that
+   fills on hover, so it reads as clickable at a glance while staying visually
+   below the pearl-filled Book-a-call CTA. */
 .book-dossier-link {
-  font-family: var(--font-heading, "DM Sans", sans-serif); font-size: 0.8rem; text-transform: uppercase;
-  letter-spacing: 0.11em; color: var(--accent, #b8a9c9); text-decoration: none;
-  border-bottom: 1px solid rgba(184, 169, 201, 0.32); padding-bottom: 2px; transition: border-color 0.25s ease;
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-heading, "DM Sans", sans-serif);
+  font-size: 0.88rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--text, #f5f5f5); text-decoration: none;
+  padding: 0.8rem 1.6rem; border-radius: 4px;
+  border: 1px solid var(--accent, #b8a9c9);
+  background: rgba(184, 169, 201, 0.1);
+  box-shadow: 0 0 18px rgba(184, 169, 201, 0.12);
+  transition: background 0.25s var(--ease-out, ease), color 0.25s var(--ease-out, ease),
+    transform 0.2s var(--ease-out, ease), box-shadow 0.3s var(--ease-out, ease);
 }
-.book-dossier-link:hover { border-color: var(--accent, #b8a9c9); }
+.book-dossier-link .bl-arrow { transition: transform 0.25s var(--ease-out, ease); }
+.book-dossier-link:hover {
+  background: var(--btn-pearl, #e8d4da); color: #0a0a0a;
+  transform: translateY(-2px); box-shadow: 0 0 30px rgba(184, 169, 201, 0.35);
+}
+.book-dossier-link:hover .bl-arrow { transform: translateX(4px); }
+@media (max-width: 600px) {
+  .book-dossier-link { display: flex; justify-content: center; width: 100%; }
+}
 
 /* ---- Booking ----------------------------------------------- */
 .book-booking { max-width: 920px; }
@@ -319,4 +343,6 @@ body.cta-unlocked .book-header-cta { opacity: 1; transform: none; pointer-events
   .book-cta.is-unlocked .book-cta-go { animation: none; }
   .book-marquee-col { transform: none !important; } /* disable parallax */
   .book-cta-bar { transition: none; }
+  .book-dossier-link:hover { transform: none; }
+  .book-dossier-link:hover .bl-arrow { transform: none; }
 }

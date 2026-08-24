@@ -40,9 +40,11 @@
   }
 
   // Fields we read off the apply form, by input name.
+  // `tiktok` / `twitter` / `youtube` / `start_timing` were added 2026-08-24 with
+  // the four-social step; `inspiration` was retired in the same change.
   var APPLY_FIELDS = [
-    "name", "email", "phone", "instagram", "country",
-    "onlyfans_status", "earnings", "inspiration", "_honey"
+    "name", "email", "phone", "instagram", "tiktok", "twitter", "youtube",
+    "country", "onlyfans_status", "earnings", "start_timing", "_honey"
   ];
 
   function readForm(formEl) {
@@ -80,10 +82,17 @@
     }
 
     // Complete: full form. fetch(keepalive) so it fires even as we redirect away.
-    function sendComplete() {
+    // `extra` carries anything the form computed rather than collected — the
+    // qualification verdict (disqualified / dq_reason) and the funnel variant.
+    function sendComplete(extra) {
       var fields = readForm(formEl);
       fields.source = "apply";
       fields.submit_status = "complete";
+      if (extra && typeof extra === "object") {
+        for (var k in extra) {
+          if (Object.prototype.hasOwnProperty.call(extra, k)) fields[k] = extra[k];
+        }
+      }
       post(fields, false);
     }
 

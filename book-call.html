@@ -38,6 +38,12 @@
        'feral_booking_confirmed' event fires when Calendly confirms a booking.
          • dataLayer events:  'feral_book_call', 'feral_booking_confirmed' (GTM)
          • DOM events:         'feral:book-call', 'feral:booking-confirmed'
+
+       The Meta 'Lead' conversion is fired in the body script below, for AD
+       TRAFFIC ONLY (2026-08-24). Organic applicants reach this page too, and a
+       conversion event trains Meta's delivery model whether or not it ever
+       bills a campaign — so organic pushes 'feral_book_call_organic' instead,
+       which must never be mapped to an ad conversion.
        ============================================================ -->
   <!-- Meta Pixel Code -->
   <script>
@@ -51,7 +57,6 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '1686435738851819');
   fbq('track', 'PageView');
-  fbq('track', 'Lead');
   </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1686435738851819&ev=PageView&noscript=1"
@@ -91,12 +96,21 @@
       if (y) y.textContent = new Date().getFullYear();
 
       // Only run for a genuinely qualified visitor.
-      try { if (sessionStorage.getItem("feral_q") !== "pass") return; } catch (e) { return; }
+      var isAds = false;
+      try {
+        if (sessionStorage.getItem("feral_q") !== "pass") return;
+        isAds = sessionStorage.getItem("feral_src") === "book";
+      } catch (e) { return; }
 
-      // Qualified lead reached the booking page (conditioned conversion).
+      // Qualified lead reached the booking page (conditioned conversion). The
+      // Meta 'Lead' conversion is for ad traffic only — see the head comment.
+      if (isAds && window.fbq) fbq('track', 'Lead');
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: "feral_book_call", source: "qualified_booking_page" });
-      try { document.dispatchEvent(new CustomEvent("feral:book-call", { detail: { source: "qualified" } })); } catch (e) {}
+      window.dataLayer.push({
+        event: isAds ? "feral_book_call" : "feral_book_call_organic",
+        source: isAds ? "qualified_booking_page" : "qualified_booking_page_organic",
+      });
+      try { document.dispatchEvent(new CustomEvent("feral:book-call", { detail: { source: isAds ? "qualified" : "qualified_organic" } })); } catch (e) {}
 
       // When the booking is completed, send the invitee to the branded confirmation page.
       // Preferred path: the Calendly event type's "Redirect to an external site" setting

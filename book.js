@@ -1,6 +1,6 @@
 /* ============================================================
    book.js — /book ads landing page behavior
-   - 30s timer gate that reveals the Book-a-call CTA
+   - 10s timer gate that reveals the Book-a-call CTA
    - CTAs navigate to the application form (apply.html?src=book)
    - soft top-of-funnel signal on CTA click (NOT the optimized conversion)
    - on-scroll reveals
@@ -40,14 +40,14 @@
     });
   }
 
-  // Timer gate — counts down from 30s. Timestamp-based so it stays
+  // Timer gate — counts down from 10s. Timestamp-based so it stays
   // accurate (and still finishes) if the tab is backgrounded/throttled.
   (function () {
     var wrap = document.getElementById("book-cta");
     var timerEl = document.getElementById("book-timer");
     var bar = document.getElementById("book-timer-bar");
     if (!wrap || !timerEl) return;
-    var TOTAL = 30;
+    var TOTAL = 10;
     var start = Date.now();
     var timer;
     function fmt(s) { return "0:" + String(s).padStart(2, "0"); }

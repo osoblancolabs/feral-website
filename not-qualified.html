@@ -5,8 +5,8 @@
   <meta http-equiv="content-language" content="en">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-en="FERAL | Thank you" data-es="FERAL | Gracias">FERAL | Thank you</title>
-  <meta name="description" content="Thank you for your interest in FERAL." />
+  <title data-en="FERAL | Your 30-Day Creator Playbook" data-es="FERAL | Tu Playbook de 30 días">FERAL | Your 30-Day Creator Playbook</title>
+  <meta name="description" content="Grow your following first. The FERAL 30-Day Creator Playbook, free." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" href="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,7 +20,10 @@
        AD PIXEL  —  ads manager: paste base pixel code below.
        This is the NOT-QUALIFIED page. No optimized conversion fires here.
        A non-optimized 'feral_lead_unqualified' event is pushed for your own
-       analytics only — do NOT map an ad conversion to it.
+       analytics only — do NOT map an ad conversion to it. It is fired for ad
+       traffic only (the anti-pixel that teaches the platform who to exclude);
+       organic applicants push 'feral_lead_unqualified_organic' instead so the
+       two audiences never mix.
        ============================================================ -->
   <!-- Meta Pixel Code -->
   <script>
@@ -44,19 +47,76 @@
     .nq-wrap {
       min-height: calc(100vh - 70px);
       display: flex; align-items: center; justify-content: center;
-      padding: 4rem 1.5rem;
+      padding: 3.5rem 1.5rem 4.5rem;
     }
-    .nq-card {
-      max-width: 560px; text-align: center;
-    }
+    .nq-card { max-width: 620px; text-align: center; }
     .nq-card h1 {
       font-family: var(--font-heading, "DM Sans", sans-serif);
       font-size: clamp(1.7rem, 3.6vw, 2.4rem); font-weight: 600;
       letter-spacing: -0.025em; line-height: 1.12; margin: 0 0 1.1rem;
     }
-    .nq-card p {
+    .nq-card > p {
       color: var(--text-muted, #b8b8b8); line-height: 1.6;
-      font-size: 1.02rem; margin: 0 auto; max-width: 46ch;
+      font-size: 1.02rem; margin: 0 auto; max-width: 48ch;
+    }
+
+    /* The playbook is the reason this page exists now — give it the weight. */
+    .nq-playbook {
+      margin: 2.75rem 0 0; padding: 2.25rem 1.75rem 2rem;
+      border: 1px solid var(--border-pearl, rgba(184, 169, 201, 0.18));
+      border-radius: 16px;
+      background:
+        radial-gradient(120% 100% at 50% 0%, rgba(184, 169, 201, 0.13), transparent 62%),
+        rgba(184, 169, 201, 0.04);
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+    }
+    .nq-playbook .book-eyebrow { margin-bottom: 0.7rem; }
+    .nq-playbook h2 {
+      font-family: var(--font-heading, "DM Sans", sans-serif);
+      font-size: clamp(1.35rem, 2.8vw, 1.75rem); font-weight: 600;
+      letter-spacing: -0.02em; line-height: 1.18; margin: 0 0 0.9rem;
+    }
+    .nq-playbook p {
+      color: var(--text-muted, #b8b8b8); line-height: 1.6; font-size: 0.98rem;
+      margin: 0 auto 1.5rem; max-width: 44ch;
+    }
+    .nq-list {
+      list-style: none; margin: 0 auto 1.75rem; padding: 0;
+      max-width: 30ch; text-align: left;
+      display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .nq-list li {
+      position: relative; padding-left: 1.5rem;
+      color: var(--text, #f5f5f5); font-size: 0.95rem; line-height: 1.45;
+    }
+    .nq-list li::before {
+      content: "\2192"; position: absolute; left: 0; top: 0;
+      color: var(--accent, #b8a9c9);
+    }
+    .nq-playbook .btn { min-width: 260px; }
+    .nq-download {
+      display: block; margin-top: 1.1rem;
+      font-size: 0.82rem; letter-spacing: 0.04em;
+      color: var(--text-muted, #b8b8b8); text-decoration: none;
+      border-bottom: 1px solid rgba(184, 169, 201, 0.28);
+      padding-bottom: 2px; width: fit-content; margin-inline: auto;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+    .nq-download:hover { color: var(--text, #f5f5f5); border-color: var(--accent, #b8a9c9); }
+    /* Type selector included on purpose: `.nq-card > p` above sets margin:0 and
+       would otherwise win on specificity and collapse this gap. */
+    .nq-card > p.nq-again {
+      margin: 2.25rem auto 0; max-width: 46ch;
+      color: var(--text-muted, #b8b8b8); font-size: 0.92rem; line-height: 1.6;
+    }
+    .nq-playbook .btn:focus-visible,
+    .nq-download:focus-visible {
+      outline: 2px solid var(--accent, #b8a9c9); outline-offset: 3px; border-radius: 4px;
+    }
+    @media (max-width: 600px) {
+      .nq-playbook { padding: 1.9rem 1.25rem 1.6rem; }
+      .nq-playbook .btn { min-width: 0; width: 100%; }
+      .nq-list { max-width: none; }
     }
   </style>
 </head>
@@ -75,8 +135,34 @@
         <span class="book-eyebrow"><span class="t-en">Thank you for applying</span><span class="t-es">Gracias por postularte</span></span>
         <h1><span class="t-en">We've reviewed your application.</span><span class="t-es">Hemos revisado tu aplicación.</span></h1>
         <p>
-          <span class="t-en">We regret to inform you that there are no available spots on the FERAL MEDIA team at the moment. We encourage you to check back with us in 2&ndash;3 months.</span>
-          <span class="t-es">Lamentamos informarte que no hay cupos disponibles en el equipo de FERAL MEDIA en este momento. Te animamos a contactarnos nuevamente en 2&ndash;3 meses.</span>
+          <span class="t-en">There are no spots on the FERAL roster for you right now. We take on creators who already have an audience to work with, so the fastest thing you can do is grow that audience. Here is exactly how we do it.</span>
+          <span class="t-es">Ahora mismo no hay cupos en el roster de FERAL para ti. Trabajamos con creadoras que ya tienen una audiencia, así que lo más rápido que puedes hacer es hacerla crecer. Así es exactamente como lo hacemos nosotros.</span>
+        </p>
+
+        <section class="nq-playbook" aria-labelledby="nq-playbook-title">
+          <span class="book-eyebrow"><span class="t-en">Yours free</span><span class="t-es">Gratis para ti</span></span>
+          <h2 id="nq-playbook-title"><span class="t-en">The FERAL 30-Day Creator Playbook</span><span class="t-es">El Playbook de Creadora de 30 Días de FERAL</span></h2>
+          <p>
+            <span class="t-en">The same 30-day plan we run with every creator we sign. Follow it and you build the following that gets you on a call with us.</span>
+            <span class="t-es">El mismo plan de 30 días que seguimos con cada creadora que firmamos. Síguelo y construyes el público que te consigue una llamada con nosotros.</span>
+          </p>
+          <ul class="nq-list">
+            <li><span class="t-en">Account setup, bio and link funnel</span><span class="t-es">Configuración de cuenta, bio y embudo de enlaces</span></li>
+            <li><span class="t-en">20 content verticals that actually convert</span><span class="t-es">20 verticales de contenido que convierten</span></li>
+            <li><span class="t-en">314 reference reels to model</span><span class="t-es">314 reels de referencia para modelar</span></li>
+            <li><span class="t-en">The day-by-day posting cadence</span><span class="t-es">La cadencia de publicación día a día</span></li>
+          </ul>
+          <a href="playbook.html" class="btn btn-primary" id="nq-playbook-cta">
+            <span class="t-en">Open the 30-Day Playbook</span><span class="t-es">Abrir el Playbook de 30 Días</span>
+          </a>
+          <a href="assets/feral-30-day-playbook.html" class="nq-download" download>
+            <span class="t-en">Or download it to keep offline</span><span class="t-es">O descárgalo para tenerlo sin conexión</span>
+          </a>
+        </section>
+
+        <p class="nq-again">
+          <span class="t-en">Once you're past 10K followers and earning on OnlyFans, apply again. We'll be here.</span>
+          <span class="t-es">Cuando pases los 10K seguidores y estés generando ingresos en OnlyFans, vuelve a postularte. Aquí estaremos.</span>
         </p>
       </div>
     </div>
@@ -84,17 +170,48 @@
 
   <footer class="book-foot">&copy; <span id="year"></span> FERAL. <span class="t-en">All rights reserved.</span><span class="t-es">Todos los derechos reservados.</span></footer>
 
+  <!-- Loaded BEFORE the inline block below: that block calls window.FeralLead
+       synchronously, so lead-capture.js has to have executed already. -->
+  <script src="assets/lead-capture.js"></script>
   <script>
     (function () {
       var y = document.getElementById("year");
       if (y) y.textContent = new Date().getFullYear();
-      // Non-optimized analytics signal only (do not map an ad conversion to this).
+
+      // Was this applicant sent here from the ads funnel? apply.html stamps it at
+      // submit so the anti-pixel and the organic signal never mix (organic events
+      // still train Meta's delivery model even though they never bill a campaign).
+      function ss(key) {
+        try { return sessionStorage.getItem(key); } catch (e) { return null; }
+      }
+      var isAds = ss("feral_src") === "book";
+
+      // Non-optimized analytics signal only (do NOT map an ad conversion to this).
+      if (ss("feral_q") === "fail") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: isAds ? "feral_lead_unqualified" : "feral_lead_unqualified_organic",
+        });
+      }
+
+      // Backstop: mark this lead DQ in Aria on arrival.
+      // apply.html already sends `disqualified` with the completed submission, so
+      // this is the belt-and-braces for a reload / a direct hit with a live
+      // session. The ingest upserts on email|phone, so a repeat is a no-op.
       try {
-        if (sessionStorage.getItem("feral_q") === "fail") {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: "feral_lead_unqualified" });
+        var raw = sessionStorage.getItem("feral_dq_lead");
+        if (raw && window.FeralLead) {
+          var lead = JSON.parse(raw);
+          if (lead && (lead.email || lead.phone)) {
+            lead.source = lead.source || "apply";
+            lead.submit_status = "complete";
+            lead.disqualified = true;
+            lead.landed_dq_page = true;
+            window.FeralLead.capture(lead);
+          }
+          sessionStorage.removeItem("feral_dq_lead");
         }
-      } catch (e) {}
+      } catch (e) { /* never block the page */ }
     })();
   </script>
   <script src="lang-toggle.js" defer></script>

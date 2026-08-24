@@ -229,6 +229,40 @@
       line-height: 1.4;
     }
 
+    /* Context that has to be read before the answer is given (the socials step
+       explains the 10K bar and the playbook that follows a DQ). */
+    .step-note {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      background: rgba(184, 169, 201, 0.06);
+      border: 1px solid var(--border-pearl);
+      border-left: 2px solid var(--accent);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin: 0 0 1.1rem;
+    }
+
+    .step-hint {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin: 0.75rem 0 0;
+    }
+
+    /* Four social handles, two up on desktop and stacked on narrow screens. */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem 1rem;
+    }
+
+    @media (max-width: 520px) {
+      .social-grid { grid-template-columns: 1fr; }
+    }
+
+    .form-field-stacked { margin-top: 1rem; }
+
     .form-field {
       display: flex;
       flex-direction: column;
@@ -555,6 +589,12 @@
        AD PIXEL — application page. Base pixel + PageView only.
        'CompleteRegistration' fires from the form's success handler
        below (never 'Lead' here — that fires on book-call.html only).
+
+       AD TRAFFIC ONLY (2026-08-24). This form serves both /book (ads) and
+       /apply (organic). An organic conversion never bills a campaign, but it
+       DOES train Meta's delivery model and seeds any audience built from the
+       event — so organic fires 'FeralApplicationOrganic' instead, which must
+       never be mapped to an ad conversion.
        ============================================================ -->
   <!-- Meta Pixel Code -->
   <script>
@@ -601,7 +641,7 @@
           <div class="progress-track">
             <div class="progress-fill" id="progress-fill"></div>
           </div>
-          <span class="progress-text" id="progress-text"><span class="t-en">Question 1 of 8</span><span class="t-es" lang="es">Pregunta 1 de 8</span></span>
+          <span class="progress-text" id="progress-text"><span class="t-en">Question 1 of 6</span><span class="t-es" lang="es">Pregunta 1 de 6</span></span>
         </div>
       </div>
 
@@ -614,36 +654,35 @@
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="steps-container" id="steps-container">
 
-          <!-- Step 1: Name + Email -->
+          <!-- Step 1: OnlyFans account status (drives the earnings step + qualification) -->
           <div class="form-step active" data-step="0">
-            <p class="step-question"><span class="t-en">Let&#39;s start with the basics.</span><span class="t-es" lang="es">Empecemos por lo básico.</span></p>
-            <div class="form-row">
-              <div class="form-field">
-                <label for="f-name"><span class="t-en">Name</span><span class="t-es" lang="es">Nombre</span></label>
-                <input id="f-name" type="text" name="name" placeholder="Your name" data-en-placeholder="Your name" data-es-placeholder="Tu nombre" required autocomplete="name" />
-              </div>
-              <div class="form-field">
-                <label for="f-email"><span class="t-en">Email</span><span class="t-es" lang="es">Correo</span></label>
-                <input id="f-email" type="email" name="email" placeholder="you@email.com" data-en-placeholder="you@email.com" data-es-placeholder="tu@email.com" required autocomplete="email" />
-              </div>
+            <p class="step-question"><span class="t-en">Do you have an OnlyFans account already, or are you looking to start?</span><span class="t-es" lang="es">¿Ya tienes una cuenta de OnlyFans o estás buscando empezar?</span></p>
+            <div class="toggle-group toggle-group-stack" role="group" aria-label="OnlyFans account status">
+              <button type="button" class="toggle-btn" data-value="already" aria-pressed="false" onclick="selectOfStatus(this, 'already')"><span class="t-en">I already have one</span><span class="t-es" lang="es">Ya tengo una</span></button>
+              <button type="button" class="toggle-btn" data-value="want_start" aria-pressed="false" onclick="selectOfStatus(this, 'want_start')"><span class="t-en">I want to start</span><span class="t-es" lang="es">Quiero empezar</span></button>
+              <button type="button" class="toggle-btn" data-value="dont_start" aria-pressed="false" onclick="selectOfStatus(this, 'dont_start')"><span class="t-en">I don&#39;t want to start an OnlyFans page</span><span class="t-es" lang="es">No quiero empezar una página de OnlyFans</span></button>
             </div>
+            <input type="hidden" name="onlyfans_status" id="f-of-status" />
             <div class="step-nav">
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
+              <button type="button" class="step-btn step-btn-next" id="of-status-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
             </div>
           </div>
 
-          <!-- Step 2: Phone + Instagram -->
-          <div class="form-step" data-step="1">
-            <p class="step-question"><span class="t-en">How can we reach you?</span><span class="t-es" lang="es">¿Cómo te contactamos?</span></p>
-            <div class="form-row">
-              <div class="form-field">
-                <label for="f-phone"><span class="t-en">Phone</span><span class="t-es" lang="es">Teléfono</span></label>
-                <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" data-en-placeholder="+1 (555) 000-0000" data-es-placeholder="+1 (555) 000-0000" required autocomplete="tel" />
-              </div>
-              <div class="form-field">
-                <label for="f-instagram"><span class="t-en">Instagram</span><span class="t-es" lang="es">Instagram</span></label>
-                <input id="f-instagram" type="text" name="instagram" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" required />
-              </div>
+          <!-- Step 2: OnlyFans earnings (only shown when the applicant already has an account) -->
+          <div class="form-step" data-step="1" data-conditional="earnings-already">
+            <p class="step-question"><span class="t-en">What are you currently earning on OnlyFans?</span><span class="t-es" lang="es">¿Cuánto estás ganando actualmente en OnlyFans?</span></p>
+            <div class="form-field">
+              <label for="f-earnings"><span class="t-en">Current OnlyFans Monthly Earnings</span><span class="t-es" lang="es">Ingresos mensuales actuales de OnlyFans</span></label>
+              <select id="f-earnings" name="earnings" required>
+                <option value="" disabled selected data-en="Select range" data-es="Selecciona un rango">Select range</option>
+                <option value="0-1k" data-en="$0 - $1,000" data-es="$0 - $1,000">$0 - $1,000</option>
+                <option value="1k-5k" data-en="$1,000 - $5,000" data-es="$1,000 - $5,000">$1,000 - $5,000</option>
+                <option value="5k-10k" data-en="$5,000 - $10,000" data-es="$5,000 - $10,000">$5,000 - $10,000</option>
+                <option value="10k-25k" data-en="$10,000 - $25,000" data-es="$10,000 - $25,000">$10,000 - $25,000</option>
+                <option value="25k-50k" data-en="$25,000 - $50,000" data-es="$25,000 - $50,000">$25,000 - $50,000</option>
+                <option value="50k-100k" data-en="$50,000 - $100,000" data-es="$50,000 - $100,000">$50,000 - $100,000</option>
+                <option value="100k+" data-en="$100,000+" data-es="$100,000+">$100,000+</option>
+              </select>
             </div>
             <div class="step-nav">
               <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
@@ -651,8 +690,57 @@
             </div>
           </div>
 
-          <!-- Step 3: Country -->
+          <!-- Step 3: Social accounts. At least one is required — an applicant with
+               no social presence cannot book a call and is routed to the playbook. -->
           <div class="form-step" data-step="2">
+            <p class="step-question"><span class="t-en">Enter your social accounts here</span><span class="t-es" lang="es">Ingresa tus redes sociales aquí</span></p>
+            <p class="step-note">
+              <span class="t-en">We will review your social accounts before reaching out. If you do not have at least 10K followers on social media, you can follow our 30-Day Creator Playbook that you will get access to at the end of this form to grow your followers first.</span>
+              <span class="t-es" lang="es">Revisaremos tus redes sociales antes de contactarte. Si no tienes al menos 10K seguidores en redes sociales, puedes seguir nuestro Playbook de Creadora de 30 Días, al que tendrás acceso al final de este formulario, para hacer crecer tus seguidores primero.</span>
+            </p>
+            <div class="social-grid">
+              <div class="form-field">
+                <label for="f-instagram">Instagram</label>
+                <input id="f-instagram" type="text" name="instagram" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" autocomplete="off" />
+              </div>
+              <div class="form-field">
+                <label for="f-tiktok">TikTok</label>
+                <input id="f-tiktok" type="text" name="tiktok" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" autocomplete="off" />
+              </div>
+              <div class="form-field">
+                <label for="f-twitter">X</label>
+                <input id="f-twitter" type="text" name="twitter" placeholder="@yourhandle" data-en-placeholder="@yourhandle" data-es-placeholder="@tuusuario" autocomplete="off" />
+              </div>
+              <div class="form-field">
+                <label for="f-youtube">YouTube</label>
+                <input id="f-youtube" type="text" name="youtube" placeholder="@yourchannel" data-en-placeholder="@yourchannel" data-es-placeholder="@tucanal" autocomplete="off" />
+              </div>
+            </div>
+            <p class="step-hint"><span class="t-en">Fill in every account you have. At least one is required.</span><span class="t-es" lang="es">Completa todas las cuentas que tengas. Al menos una es obligatoria.</span></p>
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
+            </div>
+          </div>
+
+          <!-- Step 4: Start timing -->
+          <div class="form-step" data-step="3">
+            <p class="step-question"><span class="t-en">When do you want to start?</span><span class="t-es" lang="es">¿Cuándo quieres empezar?</span></p>
+            <div class="toggle-group toggle-group-stack" role="group" aria-label="When do you want to start">
+              <button type="button" class="toggle-btn" data-value="right_away" aria-pressed="false" onclick="selectStartTiming(this, 'right_away')"><span class="t-en">Right away</span><span class="t-es" lang="es">De inmediato</span></button>
+              <button type="button" class="toggle-btn" data-value="in_a_week" aria-pressed="false" onclick="selectStartTiming(this, 'in_a_week')"><span class="t-en">In a week</span><span class="t-es" lang="es">En una semana</span></button>
+              <button type="button" class="toggle-btn" data-value="in_a_month" aria-pressed="false" onclick="selectStartTiming(this, 'in_a_month')"><span class="t-en">In a month</span><span class="t-es" lang="es">En un mes</span></button>
+              <button type="button" class="toggle-btn" data-value="sometime_future" aria-pressed="false" onclick="selectStartTiming(this, 'sometime_future')"><span class="t-en">Sometime in the future</span><span class="t-es" lang="es">En algún momento más adelante</span></button>
+            </div>
+            <input type="hidden" name="start_timing" id="f-start-timing" />
+            <div class="step-nav">
+              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
+              <button type="button" class="step-btn step-btn-next" id="start-timing-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
+            </div>
+          </div>
+
+          <!-- Step 5: Country (second-last question) -->
+          <div class="form-step" data-step="4">
             <p class="step-question"><span class="t-en">Where are you based?</span><span class="t-es" lang="es">¿Dónde vives?</span></p>
             <div class="form-field">
               <label for="f-country"><span class="t-en">Country of Residence</span><span class="t-es" lang="es">País de residencia</span></label>
@@ -845,49 +933,23 @@
             </div>
           </div>
 
-          <!-- Step 4: OnlyFans account status (drives the earnings step + qualification) -->
-          <div class="form-step" data-step="3">
-            <p class="step-question"><span class="t-en">Do you have an OnlyFans account already, or are you looking to start?</span><span class="t-es" lang="es">¿Ya tienes una cuenta de OnlyFans o estás buscando empezar?</span></p>
-            <div class="toggle-group toggle-group-stack" role="group" aria-label="OnlyFans account status">
-              <button type="button" class="toggle-btn" data-value="already" aria-pressed="false" onclick="selectOfStatus(this, 'already')"><span class="t-en">I already have one</span><span class="t-es" lang="es">Ya tengo una</span></button>
-              <button type="button" class="toggle-btn" data-value="want_start" aria-pressed="false" onclick="selectOfStatus(this, 'want_start')"><span class="t-en">I want to start</span><span class="t-es" lang="es">Quiero empezar</span></button>
-              <button type="button" class="toggle-btn" data-value="dont_start" aria-pressed="false" onclick="selectOfStatus(this, 'dont_start')"><span class="t-en">I don&#39;t want to start an OnlyFans page</span><span class="t-es" lang="es">No quiero empezar una página de OnlyFans</span></button>
-            </div>
-            <input type="hidden" name="onlyfans_status" id="f-of-status" />
-            <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" id="of-status-next" onclick="nextStep()" disabled><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
-            </div>
-          </div>
-
-          <!-- Step 5: OnlyFans earnings (only shown when the applicant already has an account) -->
-          <div class="form-step" data-step="4" data-conditional="earnings-already">
-            <p class="step-question"><span class="t-en">What are you currently earning on OnlyFans?</span><span class="t-es" lang="es">¿Cuánto estás ganando actualmente en OnlyFans?</span></p>
-            <div class="form-field">
-              <label for="f-earnings"><span class="t-en">Current OnlyFans Monthly Earnings</span><span class="t-es" lang="es">Ingresos mensuales actuales de OnlyFans</span></label>
-              <select id="f-earnings" name="earnings" required>
-                <option value="" disabled selected data-en="Select range" data-es="Selecciona un rango">Select range</option>
-                <option value="0-1k" data-en="$0 - $1,000" data-es="$0 - $1,000">$0 - $1,000</option>
-                <option value="1k-5k" data-en="$1,000 - $5,000" data-es="$1,000 - $5,000">$1,000 - $5,000</option>
-                <option value="5k-10k" data-en="$5,000 - $10,000" data-es="$5,000 - $10,000">$5,000 - $10,000</option>
-                <option value="10k-25k" data-en="$10,000 - $25,000" data-es="$10,000 - $25,000">$10,000 - $25,000</option>
-                <option value="25k-50k" data-en="$25,000 - $50,000" data-es="$25,000 - $50,000">$25,000 - $50,000</option>
-                <option value="50k-100k" data-en="$50,000 - $100,000" data-es="$50,000 - $100,000">$50,000 - $100,000</option>
-                <option value="100k+" data-en="$100,000+" data-es="$100,000+">$100,000+</option>
-              </select>
-            </div>
-            <div class="step-nav">
-              <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es" lang="es">Atrás</span></button>
-              <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es" lang="es">Continuar</span></button>
-            </div>
-          </div>
-
-          <!-- Step 6: Inspiration (final step — application submits here) -->
+          <!-- Step 6: Contact — name, email and phone on one page. Final step; the
+               application submits here. -->
           <div class="form-step" data-step="5">
-            <p class="step-question"><span class="t-en">Who do you take inspiration from?</span><span class="t-es" lang="es">¿De quién te inspiras?</span></p>
-            <div class="form-field">
-              <label for="f-inspiration"><span class="t-en">Creators, brands, people</span><span class="t-es" lang="es">Creadoras, marcas, personas</span></label>
-              <textarea id="f-inspiration" name="inspiration" placeholder="Other creators you admire, brands you love, people who motivate you." data-en-placeholder="Other creators you admire, brands you love, people who motivate you." data-es-placeholder="Otras creadoras que admiras, marcas que amas, personas que te motivan." rows="3" required></textarea>
+            <p class="step-question"><span class="t-en">Last step. How do we reach you?</span><span class="t-es" lang="es">Último paso. ¿Cómo te contactamos?</span></p>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="f-name"><span class="t-en">Name</span><span class="t-es" lang="es">Nombre</span></label>
+                <input id="f-name" type="text" name="name" placeholder="Your name" data-en-placeholder="Your name" data-es-placeholder="Tu nombre" required autocomplete="name" />
+              </div>
+              <div class="form-field">
+                <label for="f-email"><span class="t-en">Email</span><span class="t-es" lang="es">Correo</span></label>
+                <input id="f-email" type="email" name="email" placeholder="you@email.com" data-en-placeholder="you@email.com" data-es-placeholder="tu@correo.com" required autocomplete="email" />
+              </div>
+            </div>
+            <div class="form-field form-field-stacked">
+              <label for="f-phone"><span class="t-en">Phone</span><span class="t-es" lang="es">Teléfono</span></label>
+              <input id="f-phone" type="tel" name="phone" placeholder="+1 (555) 000-0000" data-en-placeholder="+1 (555) 000-0000" data-es-placeholder="+1 (555) 000-0000" required autocomplete="tel" />
             </div>
             <p class="consent-note"><span class="t-en">By submitting, you agree to our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span><span class="t-es" lang="es">Al enviar, aceptas nuestra <a href="privacy.html">Política de Privacidad</a> y nuestros <a href="terms.html">Términos del Servicio</a>.</span></p>
             <div class="step-nav">
@@ -997,6 +1059,7 @@
     // Multi-step form logic
     let currentStep = 0;
     let ofStatus = null; // "already" | "want_start" | "dont_start" — drives earnings visibility + qualification
+    let startTiming = null; // "right_away" | "in_a_week" | "in_a_month" | "sometime_future"
     // Lead-capture handle (set once lead-capture.js has loaded). Fire-and-forget:
     // every call is guarded so it never blocks the FormSubmit submit or routing.
     let feralLead = null;
@@ -1073,6 +1136,21 @@
       if (step.querySelector("#f-of-status") && !ofStatus) {
         return { el: null, msg: t("Please choose an option to continue.", "Elige una opción para continuar.") };
       }
+      if (step.querySelector("#f-start-timing") && !startTiming) {
+        return { el: null, msg: t("Please choose an option to continue.", "Elige una opción para continuar.") };
+      }
+      // Socials: no single field is required, but the step is not complete until
+      // at least one real handle is in. This is also a qualification rule — an
+      // applicant with no social presence is routed to the playbook, not a call.
+      if (step.querySelector("#f-instagram") && filledSocials().length === 0) {
+        return {
+          el: document.getElementById("f-instagram"),
+          msg: t(
+            "Add at least one social account to continue.",
+            "Agrega al menos una red social para continuar.",
+          ),
+        };
+      }
       return null;
     }
 
@@ -1139,10 +1217,6 @@
       }
       clearStepError();
 
-      // Leaving the Instagram step (data-step 1) with name + email present:
-      // stream a partial lead so we capture drop-offs before the full submit.
-      if (currentStep === 1 && feralLead) feralLead.sendPartial();
-
       let target = currentStep + 1;
       while (target < allSteps.length && stepIsHidden(allSteps[target])) target++;
 
@@ -1177,6 +1251,51 @@
       updateProgress();
     }
 
+    function selectStartTiming(btn, value) {
+      startTiming = value;
+      document.getElementById("f-start-timing").value = value;
+      btn.parentElement.querySelectorAll(".toggle-btn").forEach(b => { b.classList.remove("selected"); b.setAttribute("aria-pressed", "false"); });
+      btn.classList.add("selected");
+      btn.setAttribute("aria-pressed", "true");
+      document.getElementById("start-timing-next").disabled = false;
+      clearStepError();
+    }
+
+    // ----- Socials -------------------------------------------------
+    // Junk that people type to get past a field they don't want to answer. A
+    // handle made only of these is not a social account.
+    const JUNK_HANDLE = ["na", "n/a", "none", "null", "n.a", "no", "nope", "-", ".", "x", "@"];
+    const SOCIAL_FIELDS = [
+      { id: "f-instagram", label: "Instagram" },
+      { id: "f-tiktok", label: "TikTok" },
+      { id: "f-twitter", label: "X" },
+      { id: "f-youtube", label: "YouTube" },
+    ];
+
+    /**
+     * Does this value name a real account? Accepts a handle or a full profile
+     * URL. Deliberately loose for TikTok / X / YouTube — their handle rules
+     * differ from Instagram's, and a strict pattern would disqualify real
+     * applicants. It only has to be more than a throwaway character.
+     */
+    function isRealHandle(raw) {
+      const v = (raw || "").trim().replace(/^@+/, "").replace(/\/+$/, "");
+      if (!v) return false;
+      if (JUNK_HANDLE.indexOf(v.toLowerCase()) !== -1) return false;
+      if (/^https?:\/\//i.test(v) || /\.[a-z]{2,}\//i.test(v)) return v.length >= 8;
+      return /^[a-zA-Z0-9._-]{2,}$/.test(v);
+    }
+
+    /** The social platforms this applicant actually gave us. */
+    function filledSocials() {
+      const out = [];
+      for (const f of SOCIAL_FIELDS) {
+        const el = document.getElementById(f.id);
+        if (el && isRealHandle(el.value)) out.push(f.label);
+      }
+      return out;
+    }
+
     // Handle enter key to advance
     document.addEventListener("keydown", function(e) {
       if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
@@ -1189,33 +1308,51 @@
     // Only traffic arriving from the /book ads page (apply.html?src=book)
     // runs through qualification. Organic submissions keep the inline
     // "application received" screen below, unchanged.
-    const ADS_MODE = new URLSearchParams(window.location.search).get("src") === "book";
-    const JUNK_IG = ["na", "n/a", "none", "null", "n.a", "-", "."];
+    // Ad traffic vs organic. `src=book` is what /book stamps on its CTAs; an
+    // fbclid covers an ad that points straight at the form. This drives the
+    // pixel split ONLY — routing and qualification are identical for both.
+    //
+    // Why split: Meta never bills an organic applicant to a campaign, so cost
+    // per lead and ROAS are already clean. But every conversion event on the
+    // pixel trains delivery and seeds any audience built from it, so organic
+    // conversions firing the same event name quietly teach the algorithm to
+    // chase the wrong people. Organic gets its own custom event that is never
+    // mapped to an ad conversion.
+    const QS = new URLSearchParams(window.location.search);
+    const ADS_MODE = QS.get("src") === "book" || !!QS.get("fbclid");
 
-    function isQualifiedLead() {
+    // Stamp it so book-call.html / not-qualified.html know which funnel this
+    // applicant came from after the redirect.
+    try { sessionStorage.setItem("feral_src", ADS_MODE ? "book" : "organic"); } catch (err) {}
+
+    /**
+     * Who gets to book a call (Kiefer, 2026-08-24). All four must hold:
+     *   1. Already has an OnlyFans page
+     *   2. Earning $1,000+/mo on it (the $0-$1,000 band does not qualify)
+     *   3. Based in the United States or Canada
+     *   4. At least one real social account
+     * Everyone else is routed to the 30-Day Creator Playbook.
+     */
+    function qualificationFailures() {
+      const fails = [];
       const ofStatusVal = (document.getElementById("f-of-status").value || "").trim();
 
-      // Hard disqualifier: applicants who don't want an OnlyFans page are not a fit.
-      if (ofStatusVal === "dont_start") return false;
+      if (ofStatusVal !== "already") fails.push("no_onlyfans");
 
-      // Country must be United States or Canada.
-      const country = (document.getElementById("f-country").value || "").trim();
-      const countryOk = country === "United States" || country === "Canada";
-
-      // Valid Instagram handle (strip leading @ / spaces, check IG handle format).
-      let ig = (document.getElementById("f-instagram").value || "").trim().replace(/^@+/, "").replace(/\s+/g, "");
-      const igOk = /^[a-zA-Z0-9._]{1,30}$/.test(ig) && JUNK_IG.indexOf(ig.toLowerCase()) === -1;
-
-      // Earnings only gate applicants who already have an account. Those looking to
-      // start have no OnlyFans earnings yet, so they qualify on country + IG alone.
-      let earningsOk = true;
-      if (ofStatusVal === "already") {
-        const earnings = (document.getElementById("f-earnings").value || "").trim();
-        earningsOk = earnings !== "" && earnings !== "0-1k";
+      const earnings = (document.getElementById("f-earnings").value || "").trim();
+      if (ofStatusVal === "already" && (earnings === "" || earnings === "0-1k")) {
+        fails.push("earnings_below_1k");
       }
 
-      return earningsOk && countryOk && igOk;
+      const country = (document.getElementById("f-country").value || "").trim();
+      if (country !== "United States" && country !== "Canada") fails.push("country_outside_us_ca");
+
+      if (filledSocials().length === 0) fails.push("no_social_account");
+
+      return fails;
     }
+
+    function isQualifiedLead() { return qualificationFailures().length === 0; }
 
     // Form submission
     document.getElementById("apply-form").addEventListener("submit", function(e) {
@@ -1238,39 +1375,52 @@
       })
       .then(res => {
         if (res.ok) {
-          // Application received: fire the pixel conversion (ads + organic).
-          if (window.fbq) fbq('track', 'CompleteRegistration');
-          // Stream the complete lead to Aria BEFORE any redirect (keepalive covers navigation).
-          if (feralLead) feralLead.sendComplete();
-          // Ads funnel: lead has been emailed; now route by qualification.
-          const qualified = isQualifiedLead();
-          const hardDecline = (document.getElementById("f-of-status").value || "").trim() === "dont_start";
-          // Ads funnel: route strictly by qualification.
-          if (ADS_MODE) {
-            try { sessionStorage.setItem("feral_q", qualified ? "pass" : "fail"); } catch (err) {}
-            window.location.href = qualified ? "book-call.html" : "not-qualified.html";
-            return;
+          const fails = qualificationFailures();
+          const qualified = fails.length === 0;
+
+          // Application received. Ad traffic fires the standard conversion;
+          // organic fires a custom event that is never an optimization target.
+          if (window.fbq) {
+            if (ADS_MODE) fbq('track', 'CompleteRegistration');
+            else fbq('trackCustom', 'FeralApplicationOrganic');
           }
-          // Organic funnel: qualified applicants go straight to booking.
-          if (qualified) {
-            try { sessionStorage.setItem("feral_q", "pass"); } catch (err) {}
-            window.location.href = "book-call.html";
-            return;
+
+          // Stream the complete lead to Aria BEFORE any redirect (keepalive
+          // covers the navigation). The qualification verdict rides along so a
+          // disqualified applicant is marked DQ in the marketing panel the
+          // moment the lead lands, with no one having to work it first.
+          if (feralLead) {
+            feralLead.sendComplete({
+              disqualified: !qualified,
+              dq_reason: qualified ? "" : fails.join(","),
+              landing_variant: ADS_MODE ? "book" : "organic",
+              socials: filledSocials().join(", "),
+            });
           }
-          // Organic applicants who don't want an OnlyFans page get the disqualified
-          // landing page; everyone else unqualified sees the inline screen below.
-          if (hardDecline) {
-            try { sessionStorage.setItem("feral_q", "fail"); } catch (err) {}
-            window.location.href = "not-qualified.html";
-            return;
-          }
-          // Organic, unqualified: inline "application received" screen.
-          document.getElementById("steps-container").style.display = "none";
-          document.getElementById("success-state").classList.add("visible");
-          document.getElementById("progress-bar").style.display = "none";
-          document.querySelector(".apply-tagline").style.display = "none";
-          document.querySelector(".apply-title").textContent = t("Thank you.", "Gracias.");
-          document.querySelector(".apply-subtitle").style.display = "none";
+
+          try {
+            sessionStorage.setItem("feral_q", qualified ? "pass" : "fail");
+            // Backstop payload for the DQ page: if the keepalive submit above is
+            // dropped mid-navigation, /not-qualified re-posts it on arrival. The
+            // ingest upserts on email|phone, so a repeat is a no-op.
+            if (qualified) {
+              sessionStorage.removeItem("feral_dq_lead");
+            } else {
+              sessionStorage.setItem("feral_dq_lead", JSON.stringify({
+                name: (document.getElementById("f-name").value || "").trim(),
+                email: (document.getElementById("f-email").value || "").trim(),
+                phone: (document.getElementById("f-phone").value || "").trim(),
+                instagram: (document.getElementById("f-instagram").value || "").trim(),
+                country: (document.getElementById("f-country").value || "").trim(),
+                dq_reason: fails.join(","),
+                landing_variant: ADS_MODE ? "book" : "organic",
+              }));
+            }
+          } catch (err) {}
+
+          // One rule for both funnels: qualified books, everyone else gets the
+          // playbook. Ads and organic differ only in which pixel event fired.
+          window.location.href = qualified ? "book-call.html" : "not-qualified.html";
         } else {
           throw new Error("Submit failed");
         }
@@ -1281,6 +1431,22 @@
         showStepError({ el: null, msg: t("Something went wrong sending your application. Please try again.", "Algo salió mal al enviar tu solicitud. Inténtalo de nuevo.") });
       });
     });
+
+    // Contact is the LAST question now, so the old "partial after step 2" capture
+    // is gone. Fire it as soon as a usable name + email are in, before they reach
+    // Submit — lead-capture's pagehide net then covers an abandon after that.
+    (function () {
+      const email = document.getElementById("f-email");
+      const name = document.getElementById("f-name");
+      if (!email || !name) return;
+      function maybePartial() {
+        if (!feralLead) return;
+        if (!name.value.trim() || !EMAIL_RE.test(email.value.trim())) return;
+        feralLead.sendPartial();
+      }
+      email.addEventListener("blur", maybePartial);
+      name.addEventListener("blur", maybePartial);
+    })();
 
     updateProgress();
     syncConditionalInputs();
