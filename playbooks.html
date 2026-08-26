@@ -50,64 +50,80 @@
     }
     .pb-eyebrow {
       font-family: var(--font-heading);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      margin: 0 0 0.9rem;
+      letter-spacing: 0.24em;
+      color: var(--pearl);
+      margin: 0 0 1.1rem;
     }
     .pb-title {
       font-family: var(--font-heading);
       font-size: clamp(2.2rem, 5vw, 3.2rem);
-      font-weight: 600;
-      line-height: 1.12;
-      letter-spacing: -0.02em;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
       margin: 0 0 1rem;
+      text-wrap: balance;
     }
     .pb-sub {
-      color: var(--text-muted);
+      color: var(--muted);
       font-size: 1.02rem;
-      line-height: 1.6;
+      line-height: 1.7;
       margin: 0 auto;
       max-width: 560px;
     }
 
     .pb-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 1.25rem;
       max-width: 1100px;
       margin: 0 auto;
       padding: 1rem 1.5rem 5rem;
+      counter-reset: pb;
     }
 
     .pb-card {
       display: flex;
       flex-direction: column;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-pearl);
-      border-radius: 16px;
+      min-width: 0;
+      position: relative;
+      overflow: hidden;
+      counter-increment: pb;
+      background: var(--panel-wash);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       padding: 1.75rem;
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+      transition: border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+    }
+    .pb-card::before {
+      content: "0" counter(pb);
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--pearl-deep);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 1.25rem;
     }
     .pb-card:hover {
-      border-color: var(--accent-dim);
+      border-color: var(--line-strong);
       transform: translateY(-3px);
     }
     .pb-card h2 {
       font-family: var(--font-heading);
       font-size: 1.28rem;
-      font-weight: 600;
+      font-weight: 500;
+      letter-spacing: -0.015em;
       margin: 0 0 0.6rem;
       color: var(--text);
     }
     .pb-card-blurb {
-      color: var(--text-muted);
+      color: var(--muted);
       font-size: 0.94rem;
-      line-height: 1.55;
+      line-height: 1.65;
       margin: 0 0 1.5rem;
       flex: 1;
     }
@@ -126,9 +142,9 @@
     .pb-card.done .pb-gate { display: none; }
 
     .pb-gate input {
-      background: var(--surface);
-      border: 1px solid var(--border-pearl);
-      border-radius: 8px;
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       padding: 0.7rem 0.9rem;
       font-size: 0.92rem;
       color: var(--text);
@@ -137,8 +153,8 @@
       width: 100%;
       transition: border-color 0.2s;
     }
-    .pb-gate input:focus { border-color: var(--accent); }
-    .pb-gate input::placeholder { color: rgba(163, 163, 163, 0.5); }
+    .pb-gate input:focus { border-color: var(--pearl); }
+    .pb-gate input::placeholder { color: var(--dim); }
     .pb-honey { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
     /* Revealed slot */
@@ -150,7 +166,7 @@
       line-height: 1.5;
       margin: 0;
     }
-    .pb-slot-msg strong { color: var(--accent); }
+    .pb-slot-msg strong { color: var(--pearl); }
 
     @media (max-width: 600px) {
       .pb-main { padding-top: 80px; }
@@ -178,7 +194,7 @@
   <main id="main-content" class="pb-main">
     <section class="pb-hero">
       <p class="pb-eyebrow">Playbooks</p>
-      <h1 class="pb-title">Creator Playbooks</h1>
+      <h1 class="pb-title">Creator <span class="g">Playbooks</span></h1>
       <p class="pb-sub">The systems our creators use to grow and monetize. Free — grab the ones you need.</p>
     </section>
 
@@ -291,6 +307,7 @@
       if (y) y.textContent = new Date().getFullYear();
     })();
   </script>
+  <script src="script.js"></script>
   <script src="lang-toggle.js" defer></script>
 </body>
 </html>

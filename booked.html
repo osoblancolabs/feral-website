@@ -43,6 +43,33 @@
   <!-- End Meta Pixel Code -->
 
   <style>
+    /* ——— Locked design-system overrides (2026-08-26). Page-local because
+       book.css is shared with /book, which is outside this restyle.
+       Flat black paper, hairline var(--line) borders, 2px radius,
+       DM Sans 500 display, no glass. ——— */
+    .book-body { --text-muted: var(--muted); }
+    .book-grain { display: none; }
+    .book-header {
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .book-eyebrow { font-weight: 500; letter-spacing: 0.24em; color: var(--pearl); }
+    .book-foot { color: var(--dim); border-top: 1px solid var(--line); }
+    /* Language pill: system radius + full-contrast labels. Position rules stay
+       in book.css (the 2026-08-24 mobile tall-bar fix) — do not set
+       top/bottom/left/right here. */
+    .lang-switch {
+      border-radius: var(--radius);
+      border-color: var(--line-strong);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lang-switch button { color: var(--muted); }
+    .lang-switch button.is-active { background: var(--pearl); color: #0a0a0a; }
+
     .bk-wrap {
       min-height: calc(100vh - 70px);
       display: flex; align-items: center; justify-content: center;
@@ -50,39 +77,45 @@
     }
     .bk-card { max-width: 620px; width: 100%; text-align: center; }
     .bk-check {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: rgba(184, 169, 201, 0.15);
+      width: 56px; height: 56px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel-wash);
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.5rem;
     }
-    .bk-check svg { width: 32px; height: 32px; stroke: var(--accent, #b8a9c9); }
+    .bk-check svg { width: 26px; height: 26px; stroke: var(--pearl); }
     .bk-title {
-      font-family: var(--font-heading, "DM Sans", sans-serif);
-      font-size: clamp(1.7rem, 3.6vw, 2.4rem); font-weight: 600;
-      letter-spacing: -0.025em; line-height: 1.12; margin: 0 0 1.75rem;
+      font-family: var(--font-heading);
+      font-size: clamp(1.7rem, 3.6vw, 2.4rem); font-weight: 500;
+      letter-spacing: -0.03em; line-height: 1.12; margin: 0 0 1.75rem;
+      text-wrap: balance;
     }
+    /* The author display value would otherwise override the `hidden` attribute
+       and paint an empty framed panel before Calendly passes the time. */
+    .bk-time[hidden] { display: none; }
     .bk-time {
       display: inline-flex; flex-direction: column; gap: 0.4rem;
       margin: 0 auto 2rem; padding: 1.25rem 2rem;
-      border: 1px solid var(--border-pearl, rgba(184, 169, 201, 0.18));
-      border-radius: 14px; background: rgba(184, 169, 201, 0.06);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel-wash);
     }
-    .bk-time-label {
-      font-family: var(--font-heading, "DM Sans", sans-serif);
-      text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.16em;
-      color: var(--accent, #b8a9c9);
+    .bk-time-label,
+    .bk-next-label {
+      font-family: var(--font-heading); font-weight: 500;
+      text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.22em;
+      color: var(--pearl);
     }
     .bk-time-value {
-      font-family: var(--font-heading, "DM Sans", sans-serif);
-      font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em;
+      font-family: var(--font-heading);
+      font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 500;
+      letter-spacing: -0.02em; color: var(--text);
+      font-variant-numeric: tabular-nums;
     }
     .bk-next { max-width: 48ch; margin: 0 auto; }
-    .bk-next-label {
-      display: block; font-family: var(--font-heading, "DM Sans", sans-serif);
-      text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.16em;
-      color: var(--accent, #b8a9c9); margin-bottom: 0.6rem;
-    }
-    .bk-next p { color: var(--text-muted, #b8b8b8); line-height: 1.6; font-size: 1.02rem; margin: 0; }
+    .bk-next-label { display: block; margin-bottom: 0.6rem; }
+    .bk-next p { color: var(--muted); line-height: 1.65; font-size: 1.02rem; margin: 0; }
   </style>
 </head>
 <body class="book-body">
@@ -102,8 +135,8 @@
         </div>
         <span class="book-eyebrow"><span class="t-en">You're booked</span><span class="t-es">Estás agendada</span></span>
         <h1 class="bk-title">
-          <span class="t-en">Thank you<span id="bk-name-en"></span>. Your call is confirmed.</span>
-          <span class="t-es">Gracias<span id="bk-name-es"></span>. Tu llamada está confirmada.</span>
+          <span class="t-en">Thank you<span id="bk-name-en"></span>. Your call is <span class="g">confirmed</span>.</span>
+          <span class="t-es">Gracias<span id="bk-name-es"></span>. Tu llamada está <span class="g">confirmada</span>.</span>
         </h1>
 
         <div class="bk-time" id="bk-time" hidden>

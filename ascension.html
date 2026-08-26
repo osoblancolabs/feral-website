@@ -15,6 +15,38 @@
   <link rel="stylesheet" href="lang-toggle.css" />
   <style>
     /* Ascension-specific overrides — page lives on top of styles.css */
+
+    /* Header: this page doesn't run script.js's .scrolled toggle, so it is
+       always solid — ink bg + hairline, like apply-ascension's header. */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 1.5rem;
+      background: rgba(0, 0, 0, 0.94);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .asc-header-tag {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.4;
+    }
+    @media (min-width: 1440px) {
+      /* Clear the fixed language toggle pinned to the top-right corner */
+      .asc-header-tag { margin-right: 7.5rem; }
+    }
+    @media (max-width: 480px) {
+      .asc-header-tag { font-size: 0.62rem; letter-spacing: 0.12em; }
+    }
+
     .asc-page { padding-top: 2rem; }
     .asc-hero {
       text-align: center;
@@ -24,37 +56,39 @@
     }
     .asc-eyebrow {
       font-family: var(--font-heading);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent, #b8a9c9);
+      letter-spacing: 0.24em;
+      color: var(--pearl);
       margin: 0 0 1rem;
     }
     .asc-title {
       font-family: var(--font-heading);
       font-size: clamp(2rem, 5vw, 3.25rem);
-      font-weight: 600;
+      font-weight: 500;
       line-height: 1.1;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       margin: 0 0 1rem;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+      min-width: 0;
     }
     .asc-sub {
-      color: var(--text-muted, #a3a3a3);
+      color: var(--muted);
       max-width: 640px;
       margin: 0 auto 2.5rem;
-      line-height: 1.55;
+      line-height: 1.7;
     }
 
     /* VSL embed */
     .asc-vsl {
       max-width: 920px;
       margin: 0 auto;
-      border-radius: 12px;
+      border-radius: var(--radius);
       overflow: hidden;
-      border: 1px solid rgba(184, 169, 201, 0.12);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
-      background: #0a0a0a;
+      border: 1px solid var(--line);
+      background: var(--ink-2);
     }
     .asc-vsl-ratio {
       position: relative;
@@ -72,18 +106,20 @@
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
-      color: rgba(245, 245, 245, 0.55);
+      color: var(--muted);
       font-size: 0.95rem;
       background:
         radial-gradient(circle at 50% 40%, rgba(184, 169, 201, 0.1), transparent 60%),
-        #0a0a0a;
+        var(--ink-2);
     }
     .asc-vsl-placeholder svg { width: 64px; height: 64px; opacity: 0.55; }
     .asc-vsl-placeholder .tag {
+      font-family: var(--font-heading);
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       font-size: 0.72rem;
-      color: rgba(184, 169, 201, 0.85);
+      color: var(--pearl);
     }
 
     /* APPLY button gate */
@@ -99,21 +135,23 @@
       align-items: center;
       gap: 0.75rem;
       padding: 1rem 2rem;
-      border-radius: 4px;
-      border: 1px solid rgba(184, 169, 201, 0.15);
-      background: rgba(255, 255, 255, 0.02);
-      color: rgba(245, 245, 245, 0.55);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel-wash);
+      color: var(--muted);
       font-family: var(--font-heading);
-      font-size: 0.95rem;
-      letter-spacing: 0.04em;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
     .asc-cta-locked .timer {
       font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
       padding: 0.22rem 0.55rem;
-      border-radius: 4px;
-      background: rgba(0, 0, 0, 0.35);
-      color: rgba(184, 169, 201, 0.95);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--ink);
+      color: var(--pearl);
       letter-spacing: 0.05em;
       font-variant-numeric: tabular-nums;
       min-width: 3.6rem;
@@ -121,48 +159,39 @@
     }
     .asc-cta-apply {
       display: none;
-      min-width: 280px;
+      min-width: min(280px, 100%);
       text-decoration: none;
+    }
+    @media (max-width: 480px) {
+      .asc-cta-locked {
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        padding: 0.95rem 1.1rem;
+        white-space: nowrap;
+      }
     }
     .asc-cta-wrap.is-unlocked .asc-cta-locked { display: none; }
     .asc-cta-wrap.is-unlocked .asc-cta-apply { display: inline-block; }
 
-    /* Section frame */
+    /* Section frame — system rhythm: .section-head → .section-title → .section-intro */
     .asc-section {
       max-width: 1200px;
       margin: 0 auto;
       padding: 5rem 1.5rem;
     }
-    .asc-section-head {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 3rem;
-    }
-    .asc-section-head h2 {
-      font-family: var(--font-heading);
-      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin: 0 0 0.75rem;
-    }
-    .asc-section-head p {
-      color: var(--text-muted, #a3a3a3);
-      line-height: 1.55;
-      margin: 0;
-    }
 
     /* Case study grid reuses .result-card from styles.css */
 
     /* FAQ */
-    .asc-faq { max-width: 800px; margin: 0 auto; }
+    .asc-faq { max-width: 800px; margin: 0; border-top: 1px solid var(--line); }
     .asc-faq-item {
-      border-bottom: 1px solid rgba(184, 169, 201, 0.12);
+      border-bottom: 1px solid var(--line);
     }
     .asc-faq-q {
       width: 100%;
       background: transparent;
       border: 0;
-      color: var(--text, #f5f5f5);
+      color: var(--text);
       font-family: var(--font-heading);
       font-size: 1.05rem;
       font-weight: 500;
@@ -170,13 +199,14 @@
       padding: 1.4rem 0;
       display: flex;
       align-items: center;
+      gap: 1rem;
       justify-content: space-between;
       cursor: pointer;
       letter-spacing: -0.005em;
     }
     .asc-faq-q .ic {
       font-size: 1.4rem;
-      color: rgba(184, 169, 201, 0.85);
+      color: var(--pearl);
       font-weight: 300;
       transition: transform 0.25s ease;
     }
@@ -185,7 +215,7 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.35s ease;
-      color: var(--text-muted, #a3a3a3);
+      color: var(--muted);
       line-height: 1.65;
     }
     .asc-faq-a-inner { padding: 0 0 1.4rem; font-size: 0.98rem; }
@@ -196,10 +226,9 @@
       position: relative;
       padding: 5rem 0;
     }
-    .asc-collage-intro {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 3rem;
+    .asc-collage-head {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 0 1.5rem;
     }
     .asc-collage-frame {
@@ -223,9 +252,9 @@
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 6px;
-      border: 1px solid rgba(184, 169, 201, 0.08);
-      background: #0a0a0a;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--ink-2);
     }
 
     /* Sticky middle button that stays visible while screenshots scroll behind */
@@ -238,49 +267,43 @@
       z-index: 30;
       margin-top: -3rem;
     }
-    .asc-collage-sticky a {
+    .asc-collage-sticky a.btn {
       pointer-events: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1.1rem 2.4rem;
-      font-family: var(--font-heading);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 6px;
-      color: #0a0a0a;
-      background: linear-gradient(135deg, rgba(184, 169, 201, 0.95) 0%, rgba(212, 184, 196, 0.9) 50%, rgba(200, 190, 210, 0.95) 100%);
-      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.55), 0 0 32px rgba(184, 169, 201, 0.35);
-      transition: transform 0.25s ease;
+      /* Dark drop so the pearl fill separates from the receipts scrolling under it */
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 24px rgba(184, 169, 201, 0.22);
     }
-    .asc-collage-sticky a:hover { transform: translateY(-2px); }
 
     /* Closing CTA below the collage */
     .asc-close {
       text-align: center;
       padding: 5rem 1.5rem 7rem;
     }
+    .asc-close .kicker {
+      display: block;
+      margin-bottom: 1rem;
+    }
     .asc-close h2 {
       font-family: var(--font-heading);
       font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
       margin: 0 0 1rem;
+      text-wrap: balance;
     }
     .asc-close p {
-      color: var(--text-muted, #a3a3a3);
+      color: var(--muted);
       max-width: 560px;
       margin: 0 auto 2rem;
+      line-height: 1.7;
     }
 
     /* Footer link to legacy index */
     .asc-foot {
-      border-top: 1px solid rgba(184, 169, 201, 0.12);
+      border-top: 1px solid var(--line);
       padding: 2rem 1.5rem;
       text-align: center;
       font-size: 0.8rem;
-      color: var(--text-muted, #a3a3a3);
+      color: var(--dim);
     }
   </style>
 </head>
@@ -290,7 +313,7 @@
     <a href="index.html" class="logo" aria-label="FERAL home">
       <img src="assets/feral-logotype-overlay.png" alt="FERAL." width="1075" height="211" />
     </a>
-    <span style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted, #a3a3a3);"><span class="t-en">Ascension Application</span><span class="t-es">Solicitud Ascension</span></span>
+    <span class="asc-header-tag"><span class="t-en">Ascension Application</span><span class="t-es">Solicitud Ascension</span></span>
   </header>
 
   <main class="asc-page" id="main">
@@ -298,7 +321,7 @@
     <!-- HERO + VSL ====================================================== -->
     <section class="asc-hero">
       <p class="asc-eyebrow">FERAL Ascension</p>
-      <h1 class="asc-title"><span class="t-en">Build a seven-figure brand in a year.</span><span class="t-es">Construye una marca millonaria en un año.</span></h1>
+      <h1 class="asc-title"><span class="t-en">Build a <span class="g">seven-figure brand</span> in a year.</span><span class="t-es">Construye una <span class="g">marca millonaria</span> en un año.</span></h1>
       <p class="asc-sub"><span class="t-en">Watch the video, then apply. Real team, real systems, real results.</span><span class="t-es">Mira el video y postula. Equipo real, sistemas reales, resultados reales.</span></p>
 
       <div class="asc-vsl">
@@ -327,10 +350,12 @@
 
     <!-- CASE STUDIES ==================================================== -->
     <section class="asc-section" id="case-studies">
-      <div class="asc-section-head">
-        <h2><span class="t-en">Case studies</span><span class="t-es">Casos de éxito</span></h2>
-        <p><span class="t-en">Real creators we've worked with. Click any card for the full breakdown.</span><span class="t-es">Creadoras reales con las que hemos trabajado. Haz clic en cualquier tarjeta para ver el caso completo.</span></p>
+      <div class="section-head">
+        <span class="kicker"><span class="t-en">Proof</span><span class="t-es" lang="es">Pruebas</span></span>
+        <span class="section-index">01 / 04</span>
       </div>
+      <h2 class="section-title"><span class="t-en">Case studies</span><span class="t-es">Casos de éxito</span></h2>
+      <p class="section-intro"><span class="t-en">Real creators we've worked with. Click any card for the full breakdown.</span><span class="t-es">Creadoras reales con las que hemos trabajado. Haz clic en cualquier tarjeta para ver el caso completo.</span></p>
 
       <div class="results-grid">
 
@@ -571,10 +596,12 @@
 
     <!-- FAQ ============================================================= -->
     <section class="asc-section" id="faq">
-      <div class="asc-section-head">
-        <h2><span class="t-en">Real questions, real answers</span><span class="t-es">Preguntas reales, respuestas reales</span></h2>
-        <p><span class="t-en">Everything serious creators ask before applying.</span><span class="t-es">Todo lo que las creadoras serias preguntan antes de postular.</span></p>
+      <div class="section-head">
+        <span class="kicker">FAQ</span>
+        <span class="section-index">02 / 04</span>
       </div>
+      <h2 class="section-title"><span class="t-en">Real questions, real answers</span><span class="t-es">Preguntas reales, respuestas reales</span></h2>
+      <p class="section-intro"><span class="t-en">Everything serious creators ask before applying.</span><span class="t-es">Todo lo que las creadoras serias preguntan antes de postular.</span></p>
 
       <div class="asc-faq">
 
@@ -643,9 +670,13 @@
 
     <!-- LONG SCROLLING SUCCESS COLLAGE =================================== -->
     <section class="asc-collage-section" id="receipts">
-      <div class="asc-collage-intro">
-        <h2 style="font-family: var(--font-heading); font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin: 0 0 0.75rem;"><span class="t-en">The receipts</span><span class="t-es">Los resultados</span></h2>
-        <p style="color: var(--text-muted, #a3a3a3); margin: 0;"><span class="t-en">Scroll. Every screenshot below is a real result for a real creator we represent.</span><span class="t-es">Desplázate. Cada captura es un resultado real de una creadora real que representamos.</span></p>
+      <div class="asc-collage-head">
+        <div class="section-head">
+          <span class="kicker"><span class="t-en">Screenshots</span><span class="t-es" lang="es">Capturas</span></span>
+          <span class="section-index">03 / 04</span>
+        </div>
+        <h2 class="section-title"><span class="t-en">The receipts</span><span class="t-es">Los resultados</span></h2>
+        <p class="section-intro"><span class="t-en">Scroll. Every screenshot below is a real result for a real creator we represent.</span><span class="t-es">Desplázate. Cada captura es un resultado real de una creadora real que representamos.</span></p>
       </div>
 
       <div class="asc-collage-frame">
@@ -720,13 +751,14 @@
         </div>
 
         <div class="asc-collage-sticky">
-          <a href="apply-ascension.html"><span class="t-en">Apply now</span><span class="t-es">Postular ahora</span></a>
+          <a href="apply-ascension.html" class="btn btn-primary"><span class="t-en">Apply now</span><span class="t-es">Postular ahora</span></a>
         </div>
       </div>
     </section>
 
     <!-- CLOSING CTA ===================================================== -->
     <section class="asc-close">
+      <span class="kicker"><span class="t-en">04 / 04 — Apply</span><span class="t-es" lang="es">04 / 04 — Postula</span></span>
       <h2><span class="t-en">If you've read this far, apply.</span><span class="t-es">Si llegaste hasta aquí, postula.</span></h2>
       <p><span class="t-en">We're picky about who's in. If you can execute, the team behind you has already built creators into seven-figure brands. The application is below.</span><span class="t-es">Somos selectivos con quién entra. Si puedes ejecutar, el equipo detrás de ti ya ha convertido creadoras en marcas millonarias. La aplicación está abajo.</span></p>
       <a href="apply-ascension.html" class="btn btn-primary"><span class="t-en">Apply to Ascension</span><span class="t-es">Postular a Ascension</span></a>

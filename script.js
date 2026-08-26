@@ -227,6 +227,7 @@
       navLinks.classList.toggle('open', open);
       navToggle.classList.toggle('open', open);
       navToggle.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('nav-lock', open);
     };
     navToggle.addEventListener('click', () => {
       setNavOpen(!navLinks.classList.contains('open'));

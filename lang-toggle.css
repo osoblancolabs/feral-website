@@ -19,30 +19,29 @@ html[lang="es"] .t-en { display: none; }
   z-index: 9999;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(184, 169, 201, 0.25);
-  border-radius: 6px;
+  border: 1px solid var(--line-strong, rgba(184, 169, 201, 0.34));
+  border-radius: var(--radius, 2px);
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #000000;
   font-family: "DM Sans", system-ui, sans-serif;
 }
 
 .lang-switch button {
   background: transparent;
-  color: rgba(245, 245, 245, 0.6);
+  color: var(--muted, #c9c5ce);
   border: 0;
   padding: 0.45rem 0.8rem;
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   font-family: inherit;
 }
 
 .lang-switch button.is-active {
-  background: rgba(184, 169, 201, 0.95);
+  background: var(--btn-pearl, linear-gradient(135deg, #cbbede 0%, #e3cdd6 50%, #d5cbe0 100%));
   color: #0a0a0a;
 }
 

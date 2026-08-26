@@ -30,6 +30,47 @@
   <link rel="stylesheet" href="lang-toggle.css" />
   <link rel="stylesheet" href="book.css" />
 
+  <style>
+    /* ——— Locked design-system overrides (2026-08-26). Page-local because
+       book.css is shared with /book, which is outside this restyle.
+       Flat black paper, hairline var(--line) borders, 2px radius,
+       DM Sans 500 display, no glass. ——— */
+    .book-body { --text-muted: var(--muted); }
+    .book-grain { display: none; }
+    .book-header {
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .book-eyebrow { font-weight: 500; letter-spacing: 0.24em; color: var(--pearl); }
+    .book-section-head h2 {
+      font-weight: 500;
+      letter-spacing: -0.03em;
+    }
+    .book-section-head p { color: var(--muted); line-height: 1.65; }
+    .book-embed {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: none;
+      /* #0a0a0a matches the Calendly iframe's background_color param */
+      background: #0a0a0a;
+    }
+    .book-foot { color: var(--dim); border-top: 1px solid var(--line); }
+    /* Language pill: system radius + full-contrast labels. Position rules stay
+       in book.css (the 2026-08-24 mobile tall-bar fix) — do not set
+       top/bottom/left/right here. */
+    .lang-switch {
+      border-radius: var(--radius);
+      border-color: var(--line-strong);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lang-switch button { color: var(--muted); }
+    .lang-switch button.is-active { background: var(--pearl); color: #0a0a0a; }
+  </style>
+
   <!-- ============================================================
        AD PIXEL  —  ads manager: paste base pixel code below.
        This is the QUALIFIED booking page. The optimized conversion
@@ -76,7 +117,7 @@
     <section class="book-section book-booking" id="booking">
       <div class="book-section-head book-booking-head">
         <span class="book-eyebrow"><span class="t-en">You're in</span><span class="t-es">Estás dentro</span></span>
-        <h2><span class="t-en">Book your call</span><span class="t-es">Reserva tu llamada</span></h2>
+        <h2><span class="t-en">Book your <span class="g">call</span></span><span class="t-es">Reserva tu <span class="g">llamada</span></span></h2>
         <p><span class="t-en">Pick a time that works. We'll review your account and map the path to scale.</span><span class="t-es">Elige un horario. Revisamos tu cuenta y trazamos el plan para escalar.</span></p>
       </div>
       <div class="book-embed">

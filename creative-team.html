@@ -11,49 +11,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/themes/dark.css" />
   <style>
-    :root {
-      --bg: #000000;
-      --bg-elevated: #0a0a0a;
-      --surface: #111111;
-      --text: #f5f5f5;
-      --text-muted: #a3a3a3;
-      --accent: #b8a9c9;
-      --accent-dim: rgba(184, 169, 201, 0.35);
-      --border-pearl: rgba(184, 169, 201, 0.12);
-      --pearl-pink: rgba(212, 184, 196, 0.5);
-      --pearl-lavender: rgba(184, 169, 201, 0.45);
-      --banner-text-gradient: linear-gradient(120deg, #7d6b9a 0%, #9d8fb5 22%, #b8a9c9 40%, #e8b4c4 60%, #e2d9dc 78%, #c9a0b0 92%, #9d8fb5 100%);
-      --stat-card-gradient: linear-gradient(135deg, rgba(125, 107, 154, 0.22) 0%, rgba(184, 169, 201, 0.18) 35%, rgba(232, 180, 196, 0.2) 65%, rgba(184, 169, 201, 0.18) 100%);
-      --btn-pearl: linear-gradient(135deg, rgba(184, 169, 201, 0.95) 0%, rgba(212, 184, 196, 0.9) 50%, rgba(200, 190, 210, 0.95) 100%);
-      --btn-hover-bg: #1a1520;
-      --btn-hover-text: #e8dcee;
-      --btn-hover-border: rgba(184, 169, 201, 0.4);
-      --font-heading: "DM Sans", system-ui, sans-serif;
-      --font-sans: "Inter", system-ui, sans-serif;
-      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: var(--font-sans);
-      font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.6;
-      color: var(--text);
-      background: var(--bg);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    img { max-width: 100%; height: auto; display: block; }
-    a { color: inherit; text-decoration: none; transition: color 0.2s var(--ease-out); }
-    a:hover { color: var(--accent); }
+    /* Creative Director funnel — page-local layer over styles.css tokens */
 
     /* Header */
     .ct-header {
@@ -62,23 +24,28 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-pearl);
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .ct-header-logo { display: flex; align-items: center; gap: 0.5rem; }
-    .ct-header-logo img { width: 36px; height: 36px; border-radius: 50%; }
+    .ct-header-logo { display: flex; align-items: center; }
+    .ct-header-logo img { height: 26px; width: auto; border-radius: 0; }
     .ct-header-tag {
       font-family: var(--font-heading);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
+      letter-spacing: 0.2em;
+      color: var(--pearl);
+    }
+    /* Clear the fixed EN/ES toggle, which sits top-right inside the header band at full desktop width */
+    @media (min-width: 1440px) {
+      .ct-header-tag { margin-right: 7.5rem; }
     }
 
     /* Page container */
@@ -90,11 +57,6 @@
       margin: 0 auto;
       padding: 0 1.5rem;
     }
-    .ct-container-wide {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
 
     /* Hero */
     .ct-hero {
@@ -103,43 +65,34 @@
     }
     .ct-eyebrow {
       font-family: var(--font-heading);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      margin: 0 0 1rem;
+      letter-spacing: 0.24em;
+      color: var(--pearl);
+      margin: 0 0 1.1rem;
     }
     .ct-title {
       font-family: var(--font-heading);
       font-size: clamp(2.25rem, 5.5vw, 3.5rem);
-      font-weight: 600;
+      font-weight: 500;
       line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin: 0 0 1rem;
-      background: linear-gradient(135deg, #f5f5f5 0%, #b8a9c9 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .ct-subtitle {
-      font-size: clamp(1rem, 1.6vw, 1.15rem);
-      color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.55;
-      font-weight: 300;
+      letter-spacing: -0.03em;
+      margin: 0 0 2rem;
+      color: var(--text);
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+      min-width: 0;
     }
 
-    /* VSL embed — responsive 16:9 */
+    /* VSL embed — responsive 16:9, flat hairline frame */
     .ct-vsl {
       max-width: 880px;
       margin: 0 auto;
-      border-radius: 12px;
+      border-radius: var(--radius);
       overflow: hidden;
-      border: 1px solid var(--border-pearl);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 32px rgba(184, 169, 201, 0.08);
-      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      background: var(--ink-2);
     }
     .ct-vsl-ratio {
       position: relative;
@@ -147,27 +100,13 @@
       padding-bottom: 56.25%; /* 16:9 */
       height: 0;
     }
-    .ct-vsl-ratio iframe,
-    .ct-vsl-placeholder {
+    .ct-vsl-ratio iframe {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
       border: 0;
     }
-    .ct-vsl-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(184, 169, 201, 0.08), transparent 60%),
-        var(--bg-elevated);
-    }
-    .ct-vsl-placeholder svg { width: 56px; height: 56px; opacity: 0.6; }
 
     /* VSL CTA — Apply Now button with live countdown */
     .ct-vsl-cta {
@@ -176,26 +115,20 @@
       display: flex;
       justify-content: center;
     }
-    .ct-vsl-cta .ct-btn {
+    .ct-vsl-cta .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.85rem;
-      text-decoration: none;
-      min-width: 320px;
       justify-content: center;
+      gap: 0.85rem;
+      min-width: min(320px, 100%);
+      max-width: 100%;
     }
-    .ct-vsl-cta .ct-cta-label {
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      font-size: 0.95rem;
-    }
-    .ct-vsl-cta .ct-cta-timer {
+    .ct-cta-timer {
       font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       font-weight: 500;
       padding: 0.22rem 0.6rem;
-      border-radius: 4px;
+      border-radius: var(--radius);
       background: rgba(10, 10, 10, 0.18);
       color: inherit;
       letter-spacing: 0.05em;
@@ -203,240 +136,98 @@
       min-width: 3.6rem;
       text-align: center;
     }
-    .ct-vsl-cta .ct-btn:hover .ct-cta-timer {
-      background: rgba(255, 255, 255, 0.12);
+    .btn:hover .ct-cta-timer {
+      background: rgba(10, 10, 10, 0.28);
     }
-    .ct-vsl-cta .ct-btn.is-expired .ct-cta-timer { display: none; }
+    .btn.is-expired .ct-cta-timer { display: none; }
 
-    /* Section base */
+    /* Section base — hairline frame above each direct section title */
     .ct-section {
-      padding: 5rem 0;
+      padding: 4.5rem 0;
     }
     .ct-section-title {
       font-family: var(--font-heading);
-      font-size: clamp(1.75rem, 3.5vw, 2.25rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin: 0 0 0.75rem;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin: 0 0 0.9rem;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+    .ct-container > .ct-section-title {
+      border-top: 1px solid var(--line);
+      padding-top: 1.4rem;
     }
     .ct-section-intro {
       font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 620px;
+      color: var(--muted);
+      max-width: 62ch;
       margin: 0 0 2.5rem;
-      line-height: 1.55;
+      line-height: 1.7;
     }
 
-    /* Proof — result cards (ported from index.html) */
-    .ct-proof-caption {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .ct-proof-caption .ct-section-title { margin-bottom: 0.75rem; }
-    .ct-proof-caption .ct-section-intro { margin-left: auto; margin-right: auto; }
-
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-    .result-card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-pearl);
-      border-radius: 8px;
-      padding: 1.75rem;
-      transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
-      display: flex;
-      flex-direction: column;
-    }
-    .result-card:hover {
-      border-color: var(--accent-dim);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(184, 169, 201, 0.08);
-    }
-    .result-card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .result-card-name h3 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin: 0;
-      letter-spacing: -0.01em;
-    }
-    .result-card-timeline {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 0.2rem;
-    }
-    .result-card-badge {
-      flex-shrink: 0;
-      font-family: var(--font-heading);
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 0.3rem 0.65rem;
-      border-radius: 4px;
-      background: var(--stat-card-gradient);
-      border: 1px solid var(--border-pearl);
-      color: var(--accent);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-    .result-card-headline {
-      font-family: var(--font-heading);
-      font-size: 1.05rem;
-      font-weight: 600;
-      background: var(--banner-text-gradient);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1.1rem;
-      line-height: 1.3;
-    }
-    .result-card-metrics {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.1rem;
-      padding: 0.85rem;
-      border-radius: 6px;
-      background: rgba(184, 169, 201, 0.04);
-      border: 1px solid rgba(184, 169, 201, 0.08);
-    }
-    .result-metric { flex: 1; text-align: center; }
-    .result-metric-label {
-      display: block;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.2rem;
-    }
-    .result-metric-value {
-      font-family: var(--font-heading);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-    .result-metric-before { color: var(--text-muted); }
-    .result-metric-after { color: var(--text); }
-    .result-metric-arrow {
-      width: 16px;
-      height: 1px;
-      background: var(--accent-dim);
-      position: relative;
-      flex-shrink: 0;
-    }
-    .result-metric-arrow::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: -3px;
-      width: 6px;
-      height: 6px;
-      border-right: 1px solid var(--accent);
-      border-top: 1px solid var(--accent);
-      transform: rotate(45deg);
-    }
-    .result-card-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
-    }
-    .result-stat {
-      text-align: center;
-      padding: 0.65rem 0.4rem;
-      border-radius: 6px;
-      background: rgba(184, 169, 201, 0.03);
-    }
-    .result-stat-value {
-      display: block;
-      font-family: var(--font-heading);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--accent);
-    }
-    .result-stat-label {
-      display: block;
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 0.2rem;
-    }
-    .result-card-toggle {
-      margin-top: auto;
-      font-family: var(--font-heading);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--accent);
-      align-self: flex-start;
-      padding-top: 0.25rem;
-      letter-spacing: 0.01em;
-    }
-    .result-card-toggle:hover { color: var(--text); }
-
-    /* Role + qualifications */
+    /* Role + qualifications — numbered hairline rows, carousel rhythm */
     .ct-role-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 3rem;
       align-items: start;
     }
     @media (max-width: 768px) {
       .ct-role-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
+    .ct-role-block { min-width: 0; }
     .ct-role-block h3 {
       font-family: var(--font-heading);
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin: 0 0 1rem;
-      letter-spacing: -0.01em;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--pearl);
+      margin: 0 0 0.4rem;
     }
     .ct-role-list {
       list-style: none;
       margin: 0;
       padding: 0;
+      counter-reset: role;
     }
     .ct-role-list li {
-      position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 0.85rem;
+      display: grid;
+      grid-template-columns: 2.4rem minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+      counter-increment: role;
+      padding: 1.05rem 0;
+      margin: 0;
       font-size: 1rem;
       color: var(--text);
-      line-height: 1.55;
+      line-height: 1.6;
+      border-top: 1px solid var(--line);
     }
     .ct-role-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.55em;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
+      content: "0" counter(role);
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--pearl-deep);
+      font-variant-numeric: tabular-nums;
+      padding-top: 0.2em;
     }
-    .ct-role-prose p {
-      color: var(--text-muted);
-      margin: 0 0 1rem;
-      font-size: 1.02rem;
-      line-height: 1.65;
+    .ct-role-list li:last-child {
+      border-bottom: 1px solid var(--line);
     }
 
-    /* Form */
+    /* Form — flat panel, hairline frame */
     .ct-form-shell {
       max-width: 720px;
       margin: 0 auto;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-pearl);
-      border-radius: 12px;
+      background: var(--panel-wash);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       padding: 2.5rem;
     }
     @media (max-width: 600px) {
@@ -445,12 +236,12 @@
     .ct-form-title {
       font-family: var(--font-heading);
       font-size: 1.5rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
+      font-weight: 500;
+      letter-spacing: -0.02em;
       margin: 0 0 0.5rem;
     }
     .ct-form-sub {
-      color: var(--text-muted);
+      color: var(--muted);
       font-size: 0.95rem;
       margin: 0 0 2rem;
     }
@@ -461,72 +252,80 @@
       margin-bottom: 1.1rem;
     }
     .form-field label {
-      font-size: 0.76rem;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .form-field label .opt-label {
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: var(--dim);
     }
     .form-field-required label::after {
       content: ' *';
-      color: var(--accent);
+      color: var(--pearl);
     }
     .form-field input,
     .form-field textarea,
     .form-field select {
-      background: var(--surface);
-      border: 1px solid var(--border-pearl);
-      border-radius: 8px;
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       padding: 0.85rem 1rem;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text);
       font-family: var(--font-sans);
-      transition: border-color 0.2s var(--ease-out);
+      transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
       outline: none;
       width: 100%;
     }
     .form-field input::placeholder,
     .form-field textarea::placeholder {
-      color: rgba(163, 163, 163, 0.5);
+      color: var(--dim);
     }
     .form-field input:focus,
     .form-field textarea:focus,
     .form-field select:focus {
-      border-color: var(--accent);
+      border-color: var(--pearl);
+      box-shadow: 0 0 0 1px var(--pearl);
     }
     .form-field input.error,
     .form-field textarea.error,
     .form-field select.error {
-      border-color: #e07a7a;
+      border-color: var(--red);
     }
     .form-field select {
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c9c5ce' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem center;
       padding-right: 2.5rem;
       cursor: pointer;
     }
-    .form-field select option { background: var(--surface); color: var(--text); }
+    .form-field select option { background: var(--ink-2); color: var(--text); }
     .form-field textarea {
       resize: vertical;
       min-height: 100px;
     }
     .form-help {
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      font-size: 0.8rem;
+      color: var(--muted);
       margin: 0.15rem 0 0;
     }
     .form-error-msg {
-      font-size: 0.78rem;
-      color: #e07a7a;
+      font-size: 0.8rem;
+      color: var(--red);
       margin: 0.15rem 0 0;
       display: none;
     }
     .form-field.has-error .form-error-msg { display: block; }
     .form-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
     }
     .form-row .form-field { margin-bottom: 1.1rem; }
@@ -535,45 +334,12 @@
     }
     .char-count {
       font-size: 0.72rem;
-      color: var(--text-muted);
+      color: var(--dim);
       text-align: right;
       margin-top: 0.2rem;
     }
-    .char-count.over { color: #e07a7a; }
+    .char-count.over { color: var(--red); }
 
-    /* Primary submit button — matches site .btn-primary */
-    .ct-btn {
-      display: inline-block;
-      position: relative;
-      overflow: hidden;
-      padding: 0.95rem 2rem;
-      font-family: var(--font-sans);
-      font-size: 0.95rem;
-      font-weight: 500;
-      border-radius: 4px;
-      border: 1px solid var(--border-pearl);
-      cursor: pointer;
-      transition: transform 0.2s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.4s var(--ease-out), color 0.4s var(--ease-out);
-      text-align: center;
-      letter-spacing: 0.01em;
-    }
-    .ct-btn-primary {
-      background: var(--btn-pearl);
-      color: #0a0a0a;
-      box-shadow: 0 0 20px rgba(184, 169, 201, 0.2);
-    }
-    .ct-btn-primary:hover {
-      background: var(--btn-hover-bg);
-      color: var(--btn-hover-text);
-      border-color: var(--btn-hover-border);
-      box-shadow: 0 0 32px rgba(184, 169, 201, 0.25);
-      transform: translateY(-2px);
-    }
-    .ct-btn-primary:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      transform: none;
-    }
     .ct-form-submit {
       width: 100%;
       margin-top: 0.5rem;
@@ -582,16 +348,17 @@
       margin-top: 1rem;
       font-size: 0.9rem;
       text-align: center;
-      color: var(--text-muted);
+      color: var(--muted);
+      min-height: 1.5em;
     }
-    .form-status.error { color: #e07a7a; }
+    .form-status.error { color: var(--red); }
 
     /* Closing CTA */
     .ct-close {
       text-align: center;
-      padding: 5rem 0 7rem;
+      padding: 4.5rem 0 7rem;
     }
-    .ct-close .ct-section-title { margin-bottom: 1.5rem; }
+    .ct-close .ct-section-title { margin-bottom: 1rem; }
     .ct-close .ct-section-intro {
       margin-left: auto;
       margin-right: auto;
@@ -600,29 +367,34 @@
 
     /* Footer */
     .ct-footer {
-      border-top: 1px solid var(--border-pearl);
+      border-top: 1px solid var(--line);
       padding: 2rem 1.5rem;
       text-align: center;
     }
     .ct-footer-copy {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size: 0.82rem;
+      color: var(--dim);
       margin: 0;
+    }
+    @media (max-width: 768px) {
+      /* The EN/ES toggle is bottom-fixed on small screens; keep the copyright line clear of it */
+      .ct-footer { padding-bottom: 4rem; }
     }
 
     /* Mobile spacing */
     @media (max-width: 600px) {
-      .ct-section { padding: 4rem 0; }
+      .ct-section { padding: 3.5rem 0; }
       .ct-hero { padding: 2.5rem 0 2rem; }
-      .ct-close { padding: 4rem 0 5rem; }
-      .ct-container, .ct-container-wide { padding: 0 1rem; }
+      .ct-close { padding: 3.5rem 0 5rem; }
+      .ct-container { padding: 0 1rem; }
     }
 
     /* Flatpickr — pearl accent match */
-    .flatpickr-input[readonly] { cursor: pointer; background: var(--surface); }
+    .flatpickr-input[readonly] { cursor: pointer; background: var(--ink-2); }
     .flatpickr-calendar {
       background: var(--bg-elevated) !important;
-      border: 1px solid var(--border-pearl) !important;
+      border: 1px solid var(--line) !important;
+      border-radius: var(--radius) !important;
       box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5) !important;
       font-family: var(--font-sans) !important;
     }
@@ -639,7 +411,7 @@
     .flatpickr-months .flatpickr-month,
     .flatpickr-current-month .flatpickr-monthDropdown-months,
     .flatpickr-current-month input.cur-year { color: var(--text) !important; }
-    .flatpickr-weekdays, span.flatpickr-weekday { color: var(--text-muted) !important; }
+    .flatpickr-weekdays, span.flatpickr-weekday { color: var(--muted) !important; }
   </style>
   <link rel="stylesheet" href="lang-toggle.css" />
   <!-- Meta Pixel Code (Creative Director ads — pixel 1624529662588157) -->
@@ -663,7 +435,7 @@
 <body>
   <header class="ct-header">
     <a href="index.html" class="ct-header-logo" aria-label="FERAL home">
-      <img src="assets/FERAL_Logo-8b2aae8b-50e4-473b-b02b-e14a69e61763.png" alt="FERAL" />
+      <img src="assets/feral-logotype-overlay.png" alt="FERAL" width="1075" height="211" />
     </a>
     <span class="ct-header-tag"><span class="t-en">Now Hiring</span><span class="t-es">Contratando</span></span>
   </header>
@@ -674,7 +446,7 @@
     <section class="ct-hero">
       <div class="ct-container">
         <p class="ct-eyebrow"><span class="t-en">Now Hiring · Creative Director</span><span class="t-es">Contratando · Director Creativo</span></p>
-        <h1 class="ct-title"><span class="t-en">Lead creative for the agency behind million-dollar creators.</span><span class="t-es">Lidera la creatividad de la agencia detrás de creadoras millonarias.</span></h1>
+        <h1 class="ct-title"><span class="t-en">Lead creative for the agency behind <span class="g">million-dollar creators.</span></span><span class="t-es">Lidera la creatividad de la agencia detrás de <span class="g">creadoras millonarias.</span></span></h1>
         <div class="ct-vsl">
           <div class="ct-vsl-ratio">
             <iframe
@@ -687,7 +459,7 @@
           </div>
         </div>
         <div class="ct-vsl-cta">
-          <a href="#apply" id="ct-vsl-apply" class="ct-btn ct-btn-primary" aria-label="Apply now">
+          <a href="#apply" id="ct-vsl-apply" class="btn btn-primary" aria-label="Apply now">
             <span class="ct-cta-label"><span class="t-en">Apply Now</span><span class="t-es">Postular ahora</span></span>
             <span class="ct-cta-timer" id="ct-vsl-timer" aria-live="off">1:45</span>
           </a>
@@ -777,7 +549,7 @@
                   <p class="form-error-msg"><span class="t-en">Please enter your Instagram handle.</span><span class="t-es">Por favor escribe tu usuario de Instagram.</span></p>
                 </div>
                 <div class="form-field" data-field="portfolio_url">
-                  <label for="f-portfolio"><span class="t-en">Portfolio link</span><span class="t-es">Link de portafolio</span> <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
+                  <label for="f-portfolio"><span class="t-en">Portfolio link</span><span class="t-es">Link de portafolio</span> <span class="opt-label"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
                   <input id="f-portfolio" type="url" name="portfolio_url" placeholder="https://yourportfolio.com" data-en-placeholder="https://yourportfolio.com" data-es-placeholder="https://tuportafolio.com" />
                   <p class="form-error-msg"><span class="t-en">Please enter a valid URL (include https://).</span><span class="t-es">Por favor escribe una URL válida (incluye https://).</span></p>
                 </div>
@@ -818,16 +590,16 @@
 
               <div class="form-row">
                 <div class="form-field" data-field="start_date">
-                  <label for="f-start"><span class="t-en">Earliest start date</span><span class="t-es">Fecha de inicio más temprana</span> <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
+                  <label for="f-start"><span class="t-en">Earliest start date</span><span class="t-es">Fecha de inicio más temprana</span> <span class="opt-label"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
                   <input id="f-start" type="text" name="start_date" placeholder="Select a date" data-en-placeholder="Select a date" data-es-placeholder="Selecciona una fecha" autocomplete="off" readonly />
                 </div>
                 <div class="form-field" data-field="compensation">
-                  <label for="f-comp"><span class="t-en">Compensation expectations</span><span class="t-es">Expectativas de compensación</span> <span style="opacity:0.6; text-transform:none; letter-spacing:0; font-weight:400"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
+                  <label for="f-comp"><span class="t-en">Compensation expectations</span><span class="t-es">Expectativas de compensación</span> <span class="opt-label"><span class="t-en">(optional)</span><span class="t-es">(opcional)</span></span></label>
                   <input id="f-comp" type="text" name="compensation" placeholder="e.g. $140k/year or $12k/month" data-en-placeholder="e.g. $140k/year or $12k/month" data-es-placeholder="Ej. $140k/año o $12k/mes" />
                 </div>
               </div>
 
-              <button type="submit" class="ct-btn ct-btn-primary ct-form-submit" id="ct-submit"><span class="t-en">Submit application</span><span class="t-es">Enviar postulación</span></button>
+              <button type="submit" class="btn btn-primary ct-form-submit" id="ct-submit"><span class="t-en">Submit application</span><span class="t-es">Enviar postulación</span></button>
               <p class="form-status" id="ct-status" aria-live="polite"></p>
             </form>
           </div>
@@ -840,7 +612,7 @@
       <div class="ct-container">
         <h2 class="ct-section-title"><span class="t-en">Think this is you?</span><span class="t-es">¿Crees que eres tú?</span></h2>
         <p class="ct-section-intro"><span class="t-en">If the work above looks like a team you&#39;d want to lead, apply.</span><span class="t-es">Si el trabajo de arriba se ve como un equipo que querrías liderar, postula.</span></p>
-        <a href="#apply" class="ct-btn ct-btn-primary"><span class="t-en">Start your application</span><span class="t-es">Empieza tu postulación</span></a>
+        <a href="#apply" class="btn btn-primary"><span class="t-en">Start your application</span><span class="t-es">Empieza tu postulación</span></a>
       </div>
     </section>
   </main>
