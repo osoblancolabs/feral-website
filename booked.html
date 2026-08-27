@@ -23,24 +23,14 @@
          • dataLayer event:  'feral_booking_confirmed'  (GTM)
          • DOM event:         'feral:booking-confirmed'
        ============================================================ -->
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1686435738851819');
-  fbq('track', 'PageView');
-  fbq('track', 'Schedule');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1686435738851819&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
+  <!-- Attribution capture, then the pixel. ORDER MATTERS: attribution.js
+       decides the funnel from the path and stashes the ad parameters on first
+       touch; pixel.js reads the same path and refuses to load anything at all
+       on the organic funnel (/o/...). The <noscript> tracking image was removed
+       with the inline block: it cannot be gated from JavaScript, and a no-JS
+       visitor cannot complete this funnel anyway. -->
+  <script src="assets/attribution.js"></script>
+  <script src="assets/pixel.js"></script>
 
   <style>
     /* ——— Locked design-system overrides (2026-08-26). Page-local because
@@ -203,9 +193,21 @@
       // either Calendly passed the time, or the visitor came through the qualified flow.
       var passed = false;
       try { passed = sessionStorage.getItem("feral_q") === "pass"; } catch (e) {}
+      var isAds = false;
+      try { isAds = sessionStorage.getItem("feral_src") === "book"; } catch (e) {}
+
       if (startIso || passed) {
+        // Meta 'Schedule' used to fire unconditionally from <head>, before any
+        // of this branching ran, so every organic booking trained delivery on
+        // the wrong audience. It is now ads-only, and on the organic funnel
+        // window.fbq does not exist at all because pixel.js never loaded it.
+        if (isAds && window.fbq) fbq("track", "Schedule");
+
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "feral_booking_confirmed", source: startIso ? "calendly_redirect" : "post_booking" });
+        window.dataLayer.push({
+          event: isAds ? "feral_booking_confirmed" : "feral_booking_confirmed_organic",
+          source: startIso ? "calendly_redirect" : "post_booking",
+        });
         try { document.dispatchEvent(new CustomEvent("feral:booking-confirmed")); } catch (e) {}
       }
     })();

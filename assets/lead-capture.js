@@ -14,11 +14,42 @@
   var ARIA_INGEST_URL = "https://app.stayferal.net/api/webhooks/feral-lead";
   var FERAL_LEAD_INGEST_TOKEN = "feral_lead_10dd5ca10fcdbc037b9c6bff"; // public gate; matches Aria env
 
+  /* Ad attribution captured by assets/attribution.js on first touch: utm_*,
+   * fbclid, campaign_id, adset_id, ad_id, landing_variant.
+   *
+   * Merged in HERE rather than at each call site, so the partial beacon, the
+   * completed submit and the DQ page's backstop repost all carry it without
+   * three separate changes. Aria's ingest fills attribution only when the row
+   * has none, so whichever of those lands first sets it and the rest are no-ops.
+   *
+   * Returns a fresh object every time; never mutates window.FERAL_ATTR.
+   */
+  function attribution() {
+    var out = {};
+    try {
+      var a = window.FERAL_ATTR;
+      if (!a) return out;
+      var keys = [
+        "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
+        "fbclid", "campaign_id", "adset_id", "ad_id", "landing_variant"
+      ];
+      for (var i = 0; i < keys.length; i++) {
+        if (a[keys[i]]) out[keys[i]] = a[keys[i]];
+      }
+    } catch (e) { /* attribution is best-effort; the lead still submits */ }
+    return out;
+  }
+
   // Low-level dispatch. useBeacon=true for partials (survives page unload),
   // fetch(keepalive) otherwise. Every failure is swallowed on purpose.
+  //
+  // Key order matters: an explicit payload field beats the captured attribution,
+  // so a caller that computed its own landing_variant still wins.
   function post(payload, useBeacon) {
     try {
-      var body = JSON.stringify(Object.assign({ token: FERAL_LEAD_INGEST_TOKEN }, payload));
+      var body = JSON.stringify(
+        Object.assign({ token: FERAL_LEAD_INGEST_TOKEN }, attribution(), payload)
+      );
       if (useBeacon && navigator.sendBeacon) {
         navigator.sendBeacon(ARIA_INGEST_URL, new Blob([body], { type: "text/plain" }));
       } else {

@@ -1,4 +1,14 @@
 {
+  "redirects": [
+    { "source": "/o", "destination": "/o/book", "permanent": false },
+    { "source": "/o/", "destination": "/o/book", "permanent": false },
+    { "source": "/o/index.html", "destination": "/", "permanent": false },
+    { "source": "/o/index", "destination": "/", "permanent": false },
+    { "source": "/o/privacy.html", "destination": "/privacy", "permanent": false },
+    { "source": "/o/privacy", "destination": "/privacy", "permanent": false },
+    { "source": "/o/terms.html", "destination": "/terms", "permanent": false },
+    { "source": "/o/terms", "destination": "/terms", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/creative-team", "destination": "/creative-team.html" },
     { "source": "/creative-team-received", "destination": "/creative-team-received.html" },
@@ -10,7 +20,27 @@
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/apply", "destination": "/apply.html" },
     { "source": "/playbooks", "destination": "/playbooks.html" },
-    { "source": "/playbook", "destination": "/playbook.html" }
+    { "source": "/playbook", "destination": "/playbook.html" },
+
+    { "source": "/o/book", "destination": "/book.html" },
+    { "source": "/o/book.html", "destination": "/book.html" },
+    { "source": "/o/apply", "destination": "/apply.html" },
+    { "source": "/o/apply.html", "destination": "/apply.html" },
+    { "source": "/o/book-call", "destination": "/book-call.html" },
+    { "source": "/o/book-call.html", "destination": "/book-call.html" },
+    { "source": "/o/not-qualified", "destination": "/not-qualified.html" },
+    { "source": "/o/not-qualified.html", "destination": "/not-qualified.html" },
+    { "source": "/o/booked", "destination": "/booked.html" },
+    { "source": "/o/booked.html", "destination": "/booked.html" },
+    { "source": "/o/playbook", "destination": "/playbook.html" },
+    { "source": "/o/playbook.html", "destination": "/playbook.html" },
+    { "source": "/o/assets/:path*", "destination": "/assets/:path*" },
+    { "source": "/o/results/:path*", "destination": "/results/:path*" },
+    { "source": "/o/book.css", "destination": "/book.css" },
+    { "source": "/o/book.js", "destination": "/book.js" },
+    { "source": "/o/styles.css", "destination": "/styles.css" },
+    { "source": "/o/lang-toggle.css", "destination": "/lang-toggle.css" },
+    { "source": "/o/lang-toggle.js", "destination": "/lang-toggle.js" }
   ],
   "headers": [
     {
@@ -19,6 +49,10 @@
     },
     {
       "source": "/playbook.html",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
+    },
+    {
+      "source": "/o/:path*",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
     },
     {

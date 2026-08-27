@@ -577,23 +577,14 @@
        event — so organic fires 'FeralApplicationOrganic' instead, which must
        never be mapped to an ad conversion.
        ============================================================ -->
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1686435738851819');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1686435738851819&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
+  <!-- Attribution capture, then the pixel. ORDER MATTERS: attribution.js
+       decides the funnel from the path and stashes the ad parameters on first
+       touch; pixel.js reads the same path and refuses to load anything at all
+       on the organic funnel (/o/...). The <noscript> tracking image was removed
+       with the inline block: it cannot be gated from JavaScript, and a no-JS
+       visitor cannot complete this funnel anyway. -->
+  <script src="assets/attribution.js"></script>
+  <script src="assets/pixel.js"></script>
 </head>
 <body>
   <header class="apply-header">
@@ -1300,7 +1291,17 @@
     // chase the wrong people. Organic gets its own custom event that is never
     // mapped to an ad conversion.
     const QS = new URLSearchParams(window.location.search);
-    const ADS_MODE = QS.get("src") === "book" || !!QS.get("fbclid");
+
+    // assets/attribution.js already decided this, on first touch, from the URL
+    // PATH first. That ordering matters: both funnels share these six files, so
+    // book.html's CTA reads "apply.html?src=book" for organic visitors too. If
+    // `src` outranked the path, that one shared link would mark every organic
+    // applicant as paid. The fallback below only runs if attribution.js failed
+    // to load, and keeps the pre-2026-08-27 behaviour.
+    const ATTR = window.FERAL_ATTR || {};
+    const ADS_MODE = window.FERAL_ATTR
+      ? ATTR.landing_variant === "book"
+      : QS.get("src") === "book" || !!QS.get("fbclid");
 
     // Stamp it so book-call.html / not-qualified.html know which funnel this
     // applicant came from after the redirect.
