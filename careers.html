@@ -352,6 +352,12 @@
     }
   </style>
   <link rel="stylesheet" href="lang-toggle.css" />
+  <!-- Attribution first-touch capture. Must run BEFORE lead-capture.js reads
+       window.FERAL_ATTR at submit time. careers.html was the only staff form on
+       the site loading neither (measured 2026-09-07), so every careers applicant
+       reached Aria with no source, no campaign and no ad id — when they reached
+       Aria at all, which they did not: this form posted to email only. -->
+  <script src="assets/attribution.js"></script>
 </head>
 <body>
   <header class="apply-header">
@@ -427,6 +433,59 @@
               <option value="dev-ops" data-en="Dev Ops / Engineering" data-es="Dev Ops / Ingeniería">Dev Ops / Engineering</option>
               <option value="other" data-en="Other" data-es="Otro">Other</option>
             </select>
+          </div>
+          <div class="step-nav">
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+          </div>
+        </div>
+
+        <!-- Step 3c: Typing test — shown only for the two Sales Chat roles.
+             Ryan Gregory, 2026-08-19: every test happens before a human talks to
+             anyone.
+             WHAT IS AND IS NOT TRUSTED HERE. The readout below is a courtesy for
+             the applicant. The numbers it shows are NOT submitted: the form posts
+             the TYPED TEXT and the ELAPSED MILLISECONDS, and Aria recomputes both
+             figures against its own copy of the sample. So editing the readout, or
+             the two hidden inputs, changes nothing. Shortening the clock still
+             inflates speed — a static page cannot prove a timestamp — which is why
+             Aria refuses an implausible run and stores the text for a human to read. -->
+        <div class="form-step" data-step="typing" data-conditional="role-chat">
+          <p class="step-question"><span class="t-en">Type this, as fast and as accurately as you can.</span><span class="t-es">Escribe esto, lo más rápido y preciso que puedas.</span></p>
+          <!-- MUST match TYPING_SAMPLE in Aria's src/lib/chat-applicants/screening.ts
+               character for character. Accuracy is scored against Aria's copy; a
+               drift here scores every applicant against text they never saw. -->
+          <p id="typing-sample" style="font-size:0.95rem; line-height:1.7; color:var(--text-muted); margin:0 0 0.75rem; user-select:none;">hey there, thanks for subscribing. i post new content every day and i love hearing what you are into. tell me what you want to see next and i will make it for you.</p>
+          <div class="form-field">
+            <label for="f-typing"><span class="t-en">Type it here</span><span class="t-es">Escríbelo aquí</span></label>
+            <textarea id="f-typing" name="typing_typed" rows="4" placeholder="Start typing — the timer starts on your first keystroke." oncopy="return false" onpaste="return false" oncut="return false"></textarea>
+          </div>
+          <p id="typing-readout" style="font-size:0.85rem; color:var(--text-muted); margin:0.25rem 0 0;">0 wpm · 0% accuracy</p>
+          <input type="hidden" id="f-typing-elapsed" name="typing_elapsed_ms" value="" />
+          <!-- No name attribute: display + the advance gate only, never submitted. -->
+          <input type="hidden" id="f-wpm" value="" />
+          <input type="hidden" id="f-typing-accuracy" value="" />
+          <div class="step-nav">
+            <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
+            <button type="button" class="step-btn step-btn-next" onclick="nextStep()"><span class="t-en">Continue</span><span class="t-es">Continuar</span></button>
+          </div>
+        </div>
+
+        <!-- Step 3d: Written English — shown only for the two Sales Chat roles.
+             Graded in Aria against a rubric. The site never sees the score. -->
+        <div class="form-step" data-step="english" data-conditional="role-chat">
+          <p class="step-question"><span class="t-en">Two short answers, in English.</span><span class="t-es">Dos respuestas cortas, en inglés.</span></p>
+          <div class="form-field">
+            <!-- The quoted line MUST match SUBSCRIBER_MESSAGE in Aria's
+                 src/lib/chat-applicants/screening.ts, in both spans. The grader tells the
+                 model the applicant replied to THAT line; a drift here grades every reply
+                 against a message the applicant never saw. Step 8 checks it. -->
+            <label for="f-fan-reply"><span class="t-en">A subscriber messages: &quot;hey babe, been a long day. what are you up to?&quot; Write your reply.</span><span class="t-es">Un suscriptor escribe: &quot;hey babe, been a long day. what are you up to?&quot; Escribe tu respuesta.</span></label>
+            <textarea id="f-fan-reply" name="answer_fan_reply" rows="4" required minlength="80" placeholder="Write it exactly as you would send it."></textarea>
+          </div>
+          <div class="form-field">
+            <label for="f-why-chat"><span class="t-en">Why do you want to do this job?</span><span class="t-es">¿Por qué quieres este trabajo?</span></label>
+            <textarea id="f-why-chat" name="answer_why_chat" rows="4" required minlength="80" placeholder="A few honest sentences."></textarea>
           </div>
           <div class="step-nav">
             <button type="button" class="step-btn step-btn-back" onclick="prevStep()"><span class="t-en">Back</span><span class="t-es">Atrás</span></button>
@@ -537,11 +596,15 @@
 
     // Roles that must submit a portfolio / example work.
     const PORTFOLIO_ROLES = ["creative-director", "editor", "of-creative-director"];
+    // Roles that must pass the typing + written-English screen before anyone reads
+    // the application (Ryan Gregory, 2026-08-19).
+    const CHAT_ROLES = ["chat-agent", "chat-manager"];
     // A conditional step is hidden until its trigger condition is met.
     function stepIsHidden(step) {
       const cond = step.dataset.conditional;
       const role = (document.getElementById("f-role") || {}).value || "";
       if (cond === "role-portfolio" && PORTFOLIO_ROLES.indexOf(role) === -1) return true;
+      if (cond === "role-chat" && CHAT_ROLES.indexOf(role) === -1) return true;
       return false;
     }
     function getVisibleSteps() {
@@ -555,6 +618,46 @@
         s.querySelectorAll("input, select, textarea").forEach(function (el) { el.disabled = disable; });
       });
     }
+
+    // ── Typing test ──────────────────────────────────────────────────────────
+    // Timer starts on the first keystroke. The ONLY thing this block submits is
+    // #f-typing-elapsed (milliseconds); the readout numbers are for the applicant
+    // and carry no name attribute. Aria scores the typed text against its own copy
+    // of the sample, so nothing here needs to be trusted except the clock, which
+    // cannot be proven from a static page and is bounded server-side instead.
+    // Paste is blocked on the textarea.
+    (function () {
+      var box = document.getElementById("f-typing");
+      var readout = document.getElementById("typing-readout");
+      var sampleEl = document.getElementById("typing-sample");
+      var elapsedField = document.getElementById("f-typing-elapsed");
+      if (!box || !readout || !sampleEl || !elapsedField) return;
+      var sample = sampleEl.textContent.trim();
+      var startedAt = null;
+
+      function measure() {
+        var typed = box.value;
+        if (typed.length === 0) return { wpm: 0, accuracy: 0 };
+        var correct = 0;
+        for (var i = 0; i < typed.length && i < sample.length; i++) {
+          if (typed.charAt(i) === sample.charAt(i)) correct++;
+        }
+        var accuracy = Math.round((correct / typed.length) * 1000) / 10;
+        var minutes = (Date.now() - startedAt) / 60000;
+        // Guard the first few milliseconds: dividing by ~0 reports thousands of wpm.
+        var wpm = minutes > 0.02 ? Math.round(correct / 5 / minutes) : 0;
+        return { wpm: wpm, accuracy: accuracy };
+      }
+
+      box.addEventListener("input", function () {
+        if (startedAt === null) startedAt = Date.now();
+        var m = measure();
+        elapsedField.value = String(Date.now() - startedAt);
+        document.getElementById("f-wpm").value = String(m.wpm);
+        document.getElementById("f-typing-accuracy").value = String(m.accuracy);
+        readout.textContent = m.wpm + " wpm · " + m.accuracy + "% accuracy";
+      });
+    })();
 
     function updateProgress() {
       const visible = getVisibleSteps();
@@ -571,12 +674,27 @@
       for (const inp of inputs) {
         if (!inp.value.trim()) return false;
         if (inp.type === "email" && !inp.value.includes("@")) return false;
+        // minlength: the two English answers carry minlength="80". Native
+        // validation only runs on the final Submit, by which point the short box
+        // sits in a display:none step, so the browser refuses silently ("not
+        // focusable") and nothing leaves the page. Refuse here instead, on Continue.
+        if (inp.minLength > 0 && inp.value.trim().length < inp.minLength) return false;
       }
       // Creative Director portfolio step: require at least one link / sample.
       if (step.querySelector("#f-portfolio")) {
         const provided = ["#f-portfolio", "#f-work-samples", "#f-work-links"]
           .some(function (sel) { return ((step.querySelector(sel) || {}).value || "").trim() !== ""; });
         if (!provided) return false;
+      }
+      // Typing step: at least 80 characters and a running clock. This is a courtesy
+      // gate so nobody advances on one keystroke and then fails the screen without
+      // knowing why — it is NOT the security boundary. Aria applies the same 80-char
+      // floor and the plausibility band itself (TYPING_MIN_TYPED_CHARS,
+      // TYPING_MIN_ELAPSED_MS), against the text and clock actually submitted.
+      if (step.querySelector("#f-typing")) {
+        var typedLen = ((step.querySelector("#f-typing") || {}).value || "").trim().length;
+        var elapsedVal = parseInt((document.getElementById("f-typing-elapsed") || {}).value || "0", 10);
+        if (typedLen < 80 || !(elapsedVal > 0)) return false;
       }
       return true;
     }
@@ -598,7 +716,7 @@
       if (!validateCurrentStep()) {
         const step = allSteps[currentStep];
         step.querySelectorAll("input, textarea, select").forEach(inp => {
-          if (inp.required && !inp.value.trim()) {
+          if (inp.required && (!inp.value.trim() || (inp.minLength > 0 && inp.value.trim().length < inp.minLength))) {
             inp.style.borderColor = "#e07a7a";
             setTimeout(() => inp.style.borderColor = "", 1500);
           }
@@ -635,6 +753,47 @@
       if (!validateCurrentStep()) return;
 
       const form = this;
+      // Stream the application into Aria's leads pipeline FIRST and
+      // independently. Fire-and-forget: window.FeralLead.capture never throws
+      // and never blocks, so the FormSubmit email below is unaffected either
+      // way — and an email failure no longer costs Aria the application.
+      //
+      // Chat roles land under their own source so the applicant board and the
+      // screening gate can find them. Every other role lands under `careers`
+      // rather than `creative_director` on purpose — /creative-team owns that
+      // funnel and its cost-per-hire, and folding walk-ins in would move a
+      // number Kiefer measures.
+      if (window.FeralLead) {
+        var d = new FormData(form);
+        var pickedRole = (d.get("role") || "").toString();
+        var isChat = CHAT_ROLES.indexOf(pickedRole) !== -1;
+        var payload = {
+          source: isChat ? "chat_application" : "careers",
+          submit_status: "complete",
+          name: (d.get("name") || "").toString().trim(),
+          email: (d.get("email") || "").toString().trim(),
+          phone: (d.get("phone") || "").toString().trim(),
+          country: (d.get("country") || "").toString().trim(),
+          formData: {
+            role: pickedRole,
+            availability: (d.get("availability") || "").toString(),
+            timezone: (d.get("timezone") || "").toString(),
+            experience: (d.get("experience") || "").toString(),
+            why_feral: (d.get("why_feral") || "").toString(),
+            portfolio_url: (d.get("portfolio") || "").toString(),
+            work_samples: (d.get("work_samples") || "").toString(),
+            work_links: (d.get("work_links") || "").toString()
+          }
+        };
+        if (isChat) {
+          // The typed text and the clock — NOT a score. Aria measures both.
+          payload.formData.typing_typed = (d.get("typing_typed") || "").toString();
+          payload.formData.typing_elapsed_ms = (d.get("typing_elapsed_ms") || "").toString();
+          payload.formData.answer_fan_reply = (d.get("answer_fan_reply") || "").toString();
+          payload.formData.answer_why_chat = (d.get("answer_why_chat") || "").toString();
+        }
+        window.FeralLead.capture(payload);
+      }
       const submitBtn = form.querySelector('[type="submit"]');
       submitBtn.disabled = true;
       submitBtn.textContent = "Sending...";
@@ -675,6 +834,7 @@
     updateProgress();
     syncConditionalInputs();
   </script>
+  <script src="assets/lead-capture.js" defer></script>
   <script src="lang-toggle.js" defer></script>
 </body>
 </html>
