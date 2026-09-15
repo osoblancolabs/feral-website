@@ -28,6 +28,25 @@
 
   var PIXEL_ID = "1686435738851819";
 
+  // Feral Acquisition Pixel, added 2026-09-15. Initialised beside the original on
+  // the four booking-funnel pages only: /book (VSL), /apply (form), /book-call
+  // (booking), /booked (thank-you). Every fbq("track") on those pages then reaches
+  // both pixels. /not-qualified loads this file and keeps the original alone, and
+  // /o/... still returns above before anything loads.
+  var BOOKING_PIXEL_ID = "2313904392737421";
+  var BOOKING_PATHS = ["/book", "/apply", "/book-call", "/booked"];
+  function onBookingPage() {
+    try {
+      var path = String(w.location.pathname || "")
+        .replace(/\.html$/, "")
+        .replace(/\/$/, "");
+      for (var i = 0; i < BOOKING_PATHS.length; i++) {
+        if (path === BOOKING_PATHS[i]) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
   // Organic: nothing loads. Checked from the path directly rather than from
   // attribution.js's flag, so a page that forgot to load that script still
   // fails closed on /o/ instead of quietly pixeling organic traffic.
@@ -58,6 +77,7 @@
   })(w, d, "script", "https://connect.facebook.net/en_US/fbevents.js");
 
   w.fbq("init", PIXEL_ID);
+  if (onBookingPage()) w.fbq("init", BOOKING_PIXEL_ID);
   w.fbq("track", "PageView");
 
   // The <noscript> tracking pixel has to be in the markup to work at all, so it
