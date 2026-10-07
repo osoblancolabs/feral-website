@@ -157,6 +157,40 @@
     }
   })();
 
+  // VSL watch tracking ----------------------------------------
+  // Meta custom events VSL25, VSL50, VSL75 and VSL100, each once per page view,
+  // when the visitor has watched that share of the video's seconds. A second
+  // counts once and only through playback, so scrubbing ahead or rewatching adds
+  // nothing; muted viewing counts because the captions are burned in. Guarded on
+  // window.fbq like every pixel call: the organic funnel (/o/) has no pixel.
+  (function () {
+    if (!vsl) return;
+    var MARKS = [[0.25, "VSL25"], [0.5, "VSL50"], [0.75, "VSL75"], [0.99, "VSL100"]];
+    // "feral-vsl/v1" from the stream URL, so a new cut reports under its own name.
+    var video = (vsl.getAttribute("data-hls") || "").split("/").slice(-3, -1).join("/");
+    var seen = [];
+    var seenCount = 0;
+    var next = 0;
+    var last = null;                // position at the previous timeupdate; null after a seek
+    vsl.addEventListener("seeking", function () { last = null; });
+    vsl.addEventListener("timeupdate", function () {
+      var t = vsl.currentTime;
+      var d = vsl.duration;
+      if (!(d > 0) || !isFinite(d)) return;
+      if (last !== null && t >= last && t - last < 10) {
+        for (var s = Math.floor(last); s <= Math.floor(t); s++) {
+          if (!seen[s]) { seen[s] = 1; seenCount++; }
+        }
+      }
+      last = t;
+      var total = Math.ceil(d);
+      while (next < MARKS.length && seenCount >= MARKS[next][0] * total) {
+        if (typeof window.fbq === "function") window.fbq("trackCustom", MARKS[next][1], { video: video });
+        next++;
+      }
+    });
+  })();
+
   // Kiera's video (YouTube) pauses the VSL when it starts. The IFrame API
   // loads only when the video comes near the screen.
   (function () {

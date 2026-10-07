@@ -41,6 +41,10 @@
        The real (optimized) conversion 'feral_book_call' fires only on
        /book-call — i.e. only for QUALIFIED leads who passed the form gate.
        Map your ad conversion to 'feral_book_call' on the /book-call page.
+
+       VSL watch events (book.js, since 2026-10-06): custom events VSL25,
+       VSL50, VSL75 and VSL100, once each per page view, with
+       { video: "feral-vsl/v1" }. Paid funnel only; /o/ has no pixel.
        ============================================================ -->
   <!-- Attribution capture, then the pixel. ORDER MATTERS: attribution.js
        decides the funnel from the path and stashes the ad parameters on first
