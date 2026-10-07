@@ -118,6 +118,42 @@ body.cta-unlocked .book-header-cta { opacity: 1; transform: none; pointer-events
 }
 .book-vsl-ratio { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; }
 .book-vsl-ratio > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.book-vsl-ratio > video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+/* Sound button over the muted autoplay. The whole frame is the tap target;
+   the badge is the visible cue and copies .btn-primary. */
+.book-vsl-sound {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem; border: 0; background: rgba(0, 0, 0, 0.16); cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.book-vsl-sound[hidden] { display: none; }
+.book-vsl-sound-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 1rem 1.6rem; border-radius: var(--radius, 2px);
+  background: var(--btn-pearl); color: #0a0a0a;
+  font-family: var(--font-heading, "DM Sans", sans-serif);
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(184, 169, 201, 0.22);
+  animation: bookSoundPulse 2.4s var(--ease-out, ease) infinite;
+}
+.book-vsl-sound-badge svg { width: 1.2rem; height: 1.2rem; flex: none; }
+.book-vsl-sound:hover .book-vsl-sound-badge { background: var(--btn-pearl-bright); }
+.book-vsl-sound:focus-visible { outline: none; }
+.book-vsl-sound:focus-visible .book-vsl-sound-badge { outline: 2px solid var(--pearl, #b8a9c9); outline-offset: 3px; }
+@keyframes bookSoundPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+
+/* ---- Kiera case video: smaller than the hero VSL ------------ */
+.book-case-video { max-width: 640px; margin: 0 auto 3rem; }
+.book-case-video-title {
+  font-family: var(--font-heading, "DM Sans", sans-serif);
+  font-size: clamp(1.25rem, 2.6vw, 1.6rem); font-weight: 500; letter-spacing: -0.02em;
+  line-height: 1.2; margin: 0 0 1.1rem; text-align: center; text-wrap: balance;
+}
+/* The title breaks between its two halves, after "per month". A half wraps
+   inside itself only on the narrowest phones, and never splits an amount. */
+.book-case-video-title .half { display: inline-block; }
+.book-case-video-title .nw { white-space: nowrap; }
 .book-vsl-placeholder {
   position: absolute; inset: 0; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 0.85rem; color: var(--muted, #c9c5ce);
@@ -366,6 +402,7 @@ body.cta-unlocked .book-header-cta { opacity: 1; transform: none; pointer-events
   .book-cta.is-unlocked .book-cta-go { animation: none; }
   .book-marquee-col { transform: none !important; } /* disable parallax */
   .book-cta-bar { transition: none; }
+  .book-vsl-sound-badge { animation: none; }
   .book-dossier-link:hover { transform: none; }
   .book-dossier-link:hover .bl-arrow { transform: none; }
 }

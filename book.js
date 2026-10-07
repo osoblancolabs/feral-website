@@ -1,6 +1,7 @@
 /* ============================================================
    book.js — /book ads landing page behavior
    - 10s timer gate that reveals the Book-a-call CTA
+   - VSL player: HLS, muted autoplay, sound button, pauses Kiera's video
    - CTAs navigate to the application form (apply.html?src=book)
    - soft top-of-funnel signal on CTA click (NOT the optimized conversion)
    - on-scroll reveals
@@ -69,6 +70,119 @@
     }
     render();                       // paint accurate value immediately
     timer = setInterval(render, 250);
+  })();
+
+  // VSL player ------------------------------------------------
+  // The video is an HLS ladder on the Blob store. Browsers with built-in HLS
+  // (Safari, iOS, in-app browsers, Android Chrome) play the <source> as-is;
+  // the rest load the vendored hls.js. It autoplays muted with a sound button
+  // over it; the button restarts from 0:00 with sound and hands over to the
+  // native controls. If autoplay is refused, the native controls show at once.
+  var HLS_JS = "assets/vendor/hls.light-1.7.3.min.js";
+  var vsl = document.getElementById("book-vsl-video");
+  var caseVideo = null;             // YT.Player for Kiera's video, once ready
+
+  (function () {
+    if (!vsl) return;
+    var src = vsl.getAttribute("data-hls");
+    var source = vsl.querySelector("source");
+    var soundBtn = document.getElementById("book-vsl-sound");
+    var hlsStarted = false;
+
+    function handOverToControls() {
+      if (soundBtn) soundBtn.hidden = true;
+      vsl.controls = true;
+    }
+
+    function tryAutoplay() {
+      var p = vsl.play();
+      if (p && p.catch) p.catch(function (err) {
+        if (err && err.name === "NotAllowedError") {
+          vsl.muted = false;
+          handOverToControls();
+        }
+      });
+    }
+
+    function startHlsJs() {
+      if (hlsStarted) return;
+      hlsStarted = true;
+      var s = document.createElement("script");
+      s.src = HLS_JS;
+      s.onload = function () {
+        var Hls = window.Hls;
+        if (!Hls || !Hls.isSupported()) { handOverToControls(); return; }
+        var hls = new Hls({ capLevelToPlayerSize: true });
+        var recoveries = 0;           // fatal errors survived; give up after 3
+        hls.on(Hls.Events.ERROR, function (evt, data) {
+          if (!data.fatal) return;
+          if (++recoveries > 3) { hls.destroy(); handOverToControls(); return; }
+          if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
+          else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
+          else { hls.destroy(); handOverToControls(); }
+        });
+        hls.on(Hls.Events.MANIFEST_PARSED, tryAutoplay);
+        hls.loadSource(src);
+        hls.attachMedia(vsl);
+      };
+      s.onerror = handOverToControls;
+      document.head.appendChild(s);
+    }
+
+    vsl.addEventListener("playing", function () {
+      if (soundBtn && vsl.muted && !vsl.controls) soundBtn.hidden = false;
+    });
+
+    // Playing with sound pauses Kiera's video. "play" misses an unmute of a
+    // video that is already playing, so volume changes count too.
+    function pauseCaseVideo() {
+      if (!vsl.muted && !vsl.paused && caseVideo && caseVideo.pauseVideo) caseVideo.pauseVideo();
+    }
+    vsl.addEventListener("play", pauseCaseVideo);
+    vsl.addEventListener("volumechange", pauseCaseVideo);
+
+    if (soundBtn) soundBtn.addEventListener("click", function () {
+      vsl.muted = false;
+      try { vsl.currentTime = 0; } catch (e) {}
+      handOverToControls();
+      var p = vsl.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+
+    if (vsl.canPlayType("application/vnd.apple.mpegurl")) {
+      if (source) source.addEventListener("error", startHlsJs);
+      tryAutoplay();
+    } else {
+      startHlsJs();
+    }
+  })();
+
+  // Kiera's video (YouTube) pauses the VSL when it starts. The IFrame API
+  // loads only when the video comes near the screen.
+  (function () {
+    var frame = document.getElementById("book-case-yt");
+    if (!frame || !vsl) return;
+    function attach() {
+      window.onYouTubeIframeAPIReady = function () {
+        caseVideo = new window.YT.Player(frame, {
+          events: {
+            onStateChange: function (e) {
+              if (e.data === window.YT.PlayerState.PLAYING && !vsl.paused) vsl.pause();
+            }
+          }
+        });
+      };
+      var s = document.createElement("script");
+      s.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(s);
+    }
+    if (!("IntersectionObserver" in window)) { attach(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) { io.disconnect(); attach(); return; }
+      }
+    }, { rootMargin: "600px 0px" });
+    io.observe(frame);
   })();
 
   // On-scroll reveals -----------------------------------------

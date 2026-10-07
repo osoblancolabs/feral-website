@@ -21,3 +21,5 @@ Desktop.ini
 # Internal only — keep OUT of this PUBLIC repo (redaction notes, planning docs, redaction tooling)
 docs/
 scripts/
+.env*
+SECRETS.md

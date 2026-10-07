@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="lang-toggle.css" />
   <link rel="stylesheet" href="book.css" />
+  <!-- VSL host. Two hints: Safari's native player fetches without CORS, hls.js fetches with it. -->
+  <link rel="preconnect" href="https://a6najnbpyljqeoyk.public.blob.vercel-storage.com" />
+  <link rel="preconnect" href="https://a6najnbpyljqeoyk.public.blob.vercel-storage.com" crossorigin />
   <!-- Enable scroll-reveal hidden state only when JS is present (no flash, no-JS shows everything). -->
   <script>
     document.documentElement.classList.add("book-reveal-on");
@@ -74,9 +77,24 @@
         <span class="t-es">Mira cómo convertimos creadoras <em>ignoradas</em> en marcas de <em>siete&nbsp;cifras</em>.</span>
       </h1>
 
+      <!-- Main VSL: Emma's Growth Partner video, self-hosted as HLS on the
+           feral-website-media Blob store (store_A6nAjnbpyljQEOYK). Safari and
+           iOS play the <source> natively; book.js loads the vendored hls.js for
+           browsers without built-in HLS. It autoplays muted; the sound button
+           restarts it from 0:00 with sound. -->
       <div class="book-vsl book-rise book-rise-2">
         <div class="book-vsl-ratio">
-          <iframe src="https://www.youtube-nocookie.com/embed/P-RQi1fSxTY?rel=0&autoplay=1&mute=1&playsinline=1" title="FERAL VSL" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <video id="book-vsl-video" class="book-vsl-video" autoplay muted playsinline preload="auto"
+                 poster="assets/feral-vsl-poster.jpg" aria-label="FERAL VSL"
+                 data-hls="https://a6najnbpyljqeoyk.public.blob.vercel-storage.com/feral-vsl/v1/master.m3u8">
+            <source src="https://a6najnbpyljqeoyk.public.blob.vercel-storage.com/feral-vsl/v1/master.m3u8" type="application/vnd.apple.mpegurl" />
+          </video>
+          <button type="button" class="book-vsl-sound" id="book-vsl-sound" hidden>
+            <span class="book-vsl-sound-badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+              <span class="t-en">Turn on sound</span><span class="t-es">Activar sonido</span>
+            </span>
+          </button>
         </div>
       </div>
 
@@ -105,6 +123,16 @@
       <div class="book-section-head" data-reveal>
         <span class="book-eyebrow"><span class="t-en">Documented case-studies</span><span class="t-es">Casos documentados</span></span>
         <h2><span class="t-en">Three creators. <span class="g">Real numbers.</span></span><span class="t-es">Tres creadoras. <span class="g">Números reales.</span></span></h2>
+      </div>
+
+      <!-- Kiera's story: the original VSL, moved here from the hero on 2026-10-06. -->
+      <div class="book-case-video" data-reveal>
+        <h3 class="book-case-video-title"><span class="t-en"><span class="half">Taking a Creator from <span class="nw">$79 per month</span></span> <span class="half">to <span class="nw">$1 million in 6 months</span></span></span><span class="t-es"><span class="half">Cómo llevamos a una creadora de <span class="nw">$79 al mes</span></span> <span class="half">a <span class="nw">$1 millón en 6 meses</span></span></span></h3>
+        <div class="book-vsl">
+          <div class="book-vsl-ratio">
+            <iframe id="book-case-yt" src="https://www.youtube-nocookie.com/embed/P-RQi1fSxTY?rel=0&playsinline=1&enablejsapi=1" title="Taking a Creator from $79 per month to $1 million in 6 months" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+        </div>
       </div>
 
       <article class="book-dossier" data-reveal>
