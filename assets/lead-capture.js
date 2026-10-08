@@ -40,6 +40,27 @@
     return out;
   }
 
+  /* Meta match keys (2026-10-07). The pixel's own first-party cookies and the
+   * page the applicant is on. Aria sends them back to Meta with the
+   * qualified-call event so Meta can match it to the ad click. Organic /o/
+   * pages load no pixel, so these cookies never get set there. */
+  function cookie(name) {
+    try {
+      var m = document.cookie.match(new RegExp("(?:^|;\\s*)" + name + "=([^;]*)"));
+      return m ? m[1] : null;
+    } catch (e) { return null; }
+  }
+
+  function metaMatch() {
+    var out = {};
+    var fbp = cookie("_fbp");
+    if (fbp) out.fbp = fbp;
+    var fbc = cookie("_fbc");
+    if (fbc) out.fbc = fbc;
+    try { out.page_url = location.origin + location.pathname; } catch (e) { /* best-effort */ }
+    return out;
+  }
+
   // Low-level dispatch. useBeacon=true for partials (survives page unload),
   // fetch(keepalive) otherwise. Every failure is swallowed on purpose.
   //
@@ -48,7 +69,7 @@
   function post(payload, useBeacon) {
     try {
       var body = JSON.stringify(
-        Object.assign({ token: FERAL_LEAD_INGEST_TOKEN }, attribution(), payload)
+        Object.assign({ token: FERAL_LEAD_INGEST_TOKEN }, attribution(), metaMatch(), payload)
       );
       if (useBeacon && navigator.sendBeacon) {
         navigator.sendBeacon(ARIA_INGEST_URL, new Blob([body], { type: "text/plain" }));
