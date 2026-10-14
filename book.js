@@ -191,6 +191,90 @@
     });
   })();
 
+  // VSL marks to Aria -----------------------------------------
+  // Aria's Model Acquisition tab counts the VSL from these, never from Meta's ad
+  // video views (spec: ariya docs/superpowers/specs/2026-10-12-vsl-plays-from-page-design.md).
+  // One beacon per mark per page view: start (1 s), w3 (3 s) and w10 (10 s) of
+  // on-screen playback, then p25/p50/p75/p100 of the video's seconds seen on
+  // screen. On screen = the tab is visible and at least half the player is in
+  // the viewport; muted play counts (the captions are burned in). Skipping
+  // ahead adds nothing. Runs on /book and /o/book; the pixel block above is
+  // untouched.
+  (function () {
+    if (!vsl) return;
+    var ARIA_VSL_URL = "https://app.stayferal.net/api/webhooks/feral-vsl";
+    var TOKEN = "feral_lead_10dd5ca10fcdbc037b9c6bff"; // public gate, same as assets/lead-capture.js
+    var QUARTILES = [[0.25, "p25"], [0.5, "p50"], [0.75, "p75"], [0.99, "p100"]];
+    var video = (vsl.getAttribute("data-hls") || "").split("/").slice(-3, -1).join("/");
+    var pageViewId = makeId();
+    var sent = {};
+    var watched = 0;                // on-screen playback seconds, rewatches included
+    var seen = [];                  // video seconds seen on screen, each once
+    var seenCount = 0;
+    var last = null;                // position at the previous counted timeupdate
+    var inView = !("IntersectionObserver" in window);
+
+    function makeId() {
+      try { if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID(); } catch (e) {}
+      var s = "";
+      for (var i = 0; i < 32; i++) s += Math.floor(Math.random() * 16).toString(16);
+      return s;
+    }
+
+    function onScreen() {
+      var visible = document.visibilityState ? document.visibilityState === "visible" : true;
+      return visible && inView;
+    }
+
+    function send(mark) {
+      if (sent[mark]) return;
+      sent[mark] = 1;
+      try {
+        var attr = window.FERAL_ATTR || {};
+        var body = JSON.stringify({
+          token: TOKEN, page: "book", video: video, page_view_id: pageViewId,
+          mark: mark, landing_variant: attr.landing_variant || null
+        });
+        var queued = false;
+        if (navigator.sendBeacon) queued = navigator.sendBeacon(ARIA_VSL_URL, new Blob([body], { type: "text/plain" }));
+        if (!queued) {
+          fetch(ARIA_VSL_URL, { method: "POST", headers: { "Content-Type": "text/plain" }, body: body, keepalive: true, mode: "cors" })
+            .catch(function () {});
+        }
+      } catch (e) { /* fire-and-forget */ }
+    }
+
+    if (!inView) {
+      new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) inView = entries[i].intersectionRatio >= 0.5;
+        if (!inView) last = null;
+      }, { threshold: [0, 0.5, 1] }).observe(vsl);
+    }
+    document.addEventListener("visibilitychange", function () { if (!onScreen()) last = null; });
+    vsl.addEventListener("seeking", function () { last = null; });
+    vsl.addEventListener("timeupdate", function () {
+      if (!onScreen()) { last = null; return; }
+      var t = vsl.currentTime;
+      if (last !== null && t > last && t - last < 10) {
+        watched += t - last;
+        for (var s = Math.floor(last); s <= Math.floor(t); s++) {
+          if (!seen[s]) { seen[s] = 1; seenCount++; }
+        }
+      }
+      last = t;
+      if (watched >= 1) send("start");
+      if (watched >= 3) send("w3");
+      if (watched >= 10) send("w10");
+      var d = vsl.duration;
+      if (d > 0 && isFinite(d)) {
+        var total = Math.ceil(d);
+        for (var q = 0; q < QUARTILES.length; q++) {
+          if (seenCount >= QUARTILES[q][0] * total) send(QUARTILES[q][1]);
+        }
+      }
+    });
+  })();
+
   // Kiera's video (YouTube) pauses the VSL when it starts. The IFrame API
   // loads only when the video comes near the screen.
   (function () {
