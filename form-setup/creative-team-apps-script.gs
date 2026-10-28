@@ -15,7 +15,7 @@
 // ============================================================
 // CONFIG
 // ============================================================
-const NOTIFY_EMAIL = 'kiefer@feralagency.net';
+const NOTIFY_EMAIL = 'osoblancolabs@gmail.com';
 const WORKBOOK_NAME = 'FERAL Applications';
 
 // Form definitions. Add new forms by adding a new key here.

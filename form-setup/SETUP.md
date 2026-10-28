@@ -7,7 +7,7 @@ One Apps Script handles two application forms from a single deployment URL:
 | Creative Director application     | `creative-team.html`      | "Creative Director"    |
 | Ascension application (creators)  | `apply-ascension.html`    | "Ascension"            |
 
-Both forms POST to the same Web app URL. The script reads the hidden `form_type` field on each form and routes the submission to the correct tab in a single Google Sheet workbook ("FERAL Applications"). Email notifications go to `kiefer@feralagency.net` with a form-specific subject line and the applicant's email as reply-to.
+Both forms POST to the same Web app URL. The script reads the hidden `form_type` field on each form and routes the submission to the correct tab in a single Google Sheet workbook ("FERAL Applications"). Email notifications go to `osoblancolabs@gmail.com` with a form-specific subject line and the applicant's email as reply-to.
 
 This file walks you through deploying (or redeploying) the script.
 
@@ -59,7 +59,7 @@ The script keeps using the SAME Google Sheet that the Creative Director form cre
 1. Renames the original sheet tab from its old name to **"Creative Director"** (so the named-tab routing works).
 2. Creates a new tab called **"Ascension"** with headers matching the ascension form fields.
 3. Appends the submission as a row.
-4. Emails `kiefer@feralagency.net` with subject `New Ascension Application: <applicant name>`.
+4. Emails `osoblancolabs@gmail.com` with subject `New Ascension Application: <applicant name>`.
 
 If for some reason the script can't find the original sheet (e.g. it was trashed), it creates a fresh "FERAL Applications" workbook and emails you the URL.
 
@@ -72,7 +72,7 @@ If for some reason the script can't find the original sheet (e.g. it was trashed
    {"ok":true,"message":"FERAL form endpoint is live.","forms":["creative_director","ascension_application"]}
    ```
 2. Submit a test through `stayferal.com/apply-ascension`. Check that:
-   - The applicant email arrives at `kiefer@feralagency.net`.
+   - The applicant email arrives at `osoblancolabs@gmail.com`.
    - A new row appears on the "Ascension" tab of the Sheet.
 3. Submit a test through `stayferal.com/creative-team`. Check that:
    - The Creative Director applicant email arrives.
