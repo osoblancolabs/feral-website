@@ -344,14 +344,16 @@
       <div id="ax-form-body">
 
         <!--
-          Submissions go to the same Google Apps Script as the Creative Director form.
-          The script routes by the hidden `form_subject` field below.
-          When you deploy ascension, the same script URL handles both forms.
+          Submissions go to FormSubmit, which emails osoblancolabs@gmail.com.
+          The old Apps Script on the Feral Google account is retired; never
+          point this form back at it.
         -->
-        <form id="ax-form" action="https://script.google.com/macros/s/AKfycbybwEq0ZzOS1t7OwlQ3YQAtJgW_Bv6w7bmal5fGRi3jqB8NYQIu02n6T5TkocZ7O1UT/exec" method="POST" novalidate>
+        <form id="ax-form" action="https://formsubmit.co/ajax/osoblancolabs@gmail.com" method="POST" novalidate>
 
           <input type="hidden" name="form_type" value="ascension_application" />
-          <input type="hidden" name="form_subject" id="ax-subject" value="New Ascension Application" />
+          <input type="hidden" name="_subject" id="ax-subject" value="New Ascension Application" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
 
           <!-- CONTACT ====================================================== -->
           <h2 class="ax-section-h"><span class="t-en">Contact</span><span class="t-es">Contacto</span></h2>
@@ -620,7 +622,7 @@
       submitBtn.disabled = true;
       submitBtn.textContent = getCopy().sending;
 
-      // Apps Script accepts URL-encoded POST without CORS preflight
+      // FormSubmit's AJAX endpoint accepts URL-encoded POST without CORS preflight
       const data = new FormData(form);
       const params = new URLSearchParams();
       data.forEach((v, k) => params.append(k, v));
@@ -628,7 +630,7 @@
       try {
         await fetch(form.action, { method: 'POST', mode: 'no-cors', body: params });
         // Also stream the creator application into Aria's leads pipeline
-        // (fire-and-forget; never blocks the Apps Script submit above).
+        // (fire-and-forget; never blocks the FormSubmit submit above).
         if (window.FeralLead) {
           window.FeralLead.capture({
             source: 'ascension',

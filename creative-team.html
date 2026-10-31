@@ -506,15 +506,15 @@
             <p class="ct-form-sub"><span class="t-en">Fill this out fully. We read every application personally.</span><span class="t-es">Llena todo. Leemos cada aplicación personalmente.</span></p>
 
             <!--
-              FORM SUBMISSION → Google Sheet via Apps Script Web App.
-              Replace the action URL below with the deployment URL you get
-              after publishing the Apps Script (see creative-team-form-setup
-              instructions). The URL looks like:
-                https://script.google.com/macros/s/AKfycb.../exec
+              FORM SUBMISSION → FormSubmit, which emails osoblancolabs@gmail.com.
+              The old Apps Script on the Feral Google account is retired; never
+              point this form back at it.
             -->
-            <form id="ct-form" action="https://script.google.com/macros/s/AKfycbybwEq0ZzOS1t7OwlQ3YQAtJgW_Bv6w7bmal5fGRi3jqB8NYQIu02n6T5TkocZ7O1UT/exec" method="POST" novalidate>
+            <form id="ct-form" action="https://formsubmit.co/ajax/osoblancolabs@gmail.com" method="POST" novalidate>
               <input type="hidden" name="form_type" value="creative_director" />
-              <input type="hidden" name="form_subject" id="ct-subject" value="New Creative Director Application" />
+              <input type="hidden" name="_subject" id="ct-subject" value="New Creative Director Application" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
 
               <div class="form-row">
                 <div class="form-field form-field-required" data-field="full_name">
@@ -721,7 +721,7 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
-      // Google Apps Script Web App accepts simple POST with
+      // FormSubmit's AJAX endpoint accepts a simple POST with
       // application/x-www-form-urlencoded — no CORS preflight, response opaque.
       const data = new FormData(form);
       const params = new URLSearchParams();
@@ -734,7 +734,7 @@
           body: params
         });
         // Also stream the application into Aria's leads pipeline (fire-and-forget;
-        // never blocks the Apps Script submit above).
+        // never blocks the FormSubmit submit above).
         if (window.FeralLead) {
           window.FeralLead.capture({
             source: 'creative_director',
@@ -755,7 +755,7 @@
             }
           });
         }
-        // Opaque response — we trust the POST landed. Apps Script appends the row.
+        // Opaque response — we trust the POST landed. FormSubmit sends the email.
         // Redirect to the Application Received page, which carries the Creative
         // Director ads pixel's SubmitApplication conversion — so PageView (landing)
         // and SubmitApplication (post-submit) fire on SEPARATE pages, not both here.

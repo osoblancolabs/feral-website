@@ -1,6 +1,8 @@
 /**
  * FERAL Application Forms — Apps Script web app backend.
  *
+ * RETIRED 2026-10-31: no form posts here any more; both forms use FormSubmit.
+ *
  * Handles TWO form types from a single deployment URL:
  *   1. Creative Director applications (creative-team.html)
  *   2. Ascension applications (apply-ascension.html)

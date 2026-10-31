@@ -1,5 +1,7 @@
 # FERAL Form Backend Setup
 
+> **Retired 2026-10-31.** creative-team.html and apply-ascension.html post to FormSubmit (`https://formsubmit.co/ajax/osoblancolabs@gmail.com`), like apply.html and careers.html. No page calls the Apps Script any more. The old deployment (`AKfycbybwEq0...`) lives on the Feral Google account, emails kiefer@feralagency.net, and has answered "Access Denied" to outside requests since at least 2026-10-31. Never point a form back at it. The steps below are history.
+
 One Apps Script handles two application forms from a single deployment URL:
 
 | Form                              | Page                      | Sheet tab              |
